@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
-import 'package:stacked/stacked.dart';
+import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class StartupViewModel extends BaseViewModel {
+class StartupViewModel extends CustomBaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   Future handleStartup() async {
     // Do Some Logic Here

@@ -1,3 +1,3 @@
-import 'package:stacked/stacked.dart';
+import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 
-class HomeViewModel extends BaseViewModel {}
+class HomeViewModel extends CustomBaseViewModel {}

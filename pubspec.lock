@@ -245,11 +245,9 @@ packages:
   google_fonts:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "8996f905e13da7b7788e4d1fab50f565a888d732"
-      url: "git://github.com/YazeedAlKhalaf/google-fonts-flutter.git"
-    source: git
+      name: google_fonts
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.1.0"
   graphs:
     dependency: transitive
@@ -413,7 +411,7 @@ packages:
     source: hosted
     version: "1.6.11"
   path_provider_fde:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: "plugins/flutter_plugins/path_provider_fde"
       ref: "282bb7b172a42a1f4b573540cc19e7610a867a93"

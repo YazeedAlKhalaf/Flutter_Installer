@@ -40,7 +40,7 @@ class StepsBaseView extends StatelessWidget {
                           stepState: model.decideStepState(1),
                         ),
                         StepWidget(
-                          stepName: 'Pre-installation Summary',
+                          stepName: 'Summary',
                           stepState: model.decideStepState(2),
                         ),
                         StepWidget(

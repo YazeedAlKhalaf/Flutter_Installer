@@ -41,11 +41,7 @@ class TermsOfServiceView extends StatelessWidget {
 
                     // TODO(yazeed): Add Terms of Service/EULA of Flutter SDK here
                     Expanded(
-                      child: Container(
-                        child: Scrollbar(
-                          child: Text(''),
-                        ),
-                      ),
+                      child: Container(),
                     ),
 
                     Row(

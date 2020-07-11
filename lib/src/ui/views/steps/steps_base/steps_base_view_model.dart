@@ -47,7 +47,11 @@ class StepsBaseViewModel extends BaseViewModel {
         );
         break;
       case 1:
-        return CustomizeView();
+        return CustomizeView(
+          onNextPressed: () {
+            setCurrentIndex(2);
+          },
+        );
         break;
       case 2:
         return SummaryView();

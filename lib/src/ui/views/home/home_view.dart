@@ -57,7 +57,9 @@ class HomeView extends StatelessWidget {
                           ),
                           verticalSpaceSmall(context),
                           CustomButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await model.navigateToStepsBaseView();
+                            },
                             text: 'Get Started',
                             width: blockSize(context) * 30,
                             textStyle: GoogleFonts.roboto(

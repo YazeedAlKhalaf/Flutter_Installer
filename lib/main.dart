@@ -1,6 +1,3 @@
-import 'dart:io' show Platform;
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/services/window_size_service.dart';
 import 'package:logger/logger.dart';

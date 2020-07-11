@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_installer/src/app/generated/locator/locator.dart';
-import 'package:flutter_installer/src/app/services/window_size_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';

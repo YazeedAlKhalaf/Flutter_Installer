@@ -22,6 +22,11 @@ class CustomButton extends StatelessWidget {
     return Container(
       width: width,
       child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            500,
+          ),
+        ),
         color: buttonColor ?? primaryColor,
         onPressed: onPressed,
         child: Text(
@@ -29,7 +34,7 @@ class CustomButton extends StatelessWidget {
           style: textStyle ??
               TextStyle(
                 color: textColorWhite,
-                fontSize: 40,
+                fontSize: 20,
               ),
         ),
       ),

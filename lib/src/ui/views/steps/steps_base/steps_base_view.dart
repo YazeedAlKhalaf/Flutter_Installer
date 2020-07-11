@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import './steps_base_view_model.dart';
@@ -50,6 +51,47 @@ class StepsBaseView extends StatelessWidget {
                         StepWidget(
                           stepName: 'Done!',
                           stepState: model.decideStepState(4),
+                        ),
+                        Expanded(
+                          child: Container(),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            FlatButton.icon(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                  500,
+                                ),
+                              ),
+                              icon: Icon(
+                                Icons.help_outline,
+                                color: textColorWhite,
+                                size: blockSize(context) * 3.5,
+                              ),
+                              label: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: blockSize(context),
+                                  vertical: blockSize(context) * 0.5,
+                                ),
+                                child: Text(
+                                  'Get Help',
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.roboto(
+                                    color: textColorWhite,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: blockSize(context) * 2,
+                                  ),
+                                ),
+                              ),
+                              onPressed: () async {
+                                await model.navigateToFaqView();
+                              },
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: Container(),
                         ),
                       ],
                     ),

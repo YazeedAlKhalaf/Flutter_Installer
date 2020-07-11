@@ -4,6 +4,13 @@ import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 class CustomizeViewModel extends CustomBaseViewModel {
   final TextEditingController chooseFolderController = TextEditingController();
 
+  String _installationPath;
+  String get installationPath => _installationPath;
+  void setInstallationPath(String newValue) {
+    _installationPath = newValue;
+    notifyListeners();
+  }
+
   bool _installVisualStudioCode = false;
   bool get installVisualStudioCode => _installVisualStudioCode;
   void setInstallVisualStudioCode(bool newValue) {

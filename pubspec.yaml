@@ -25,6 +25,9 @@ dependencies:
   logger: ^0.9.1
 
   # MISC
+  google_fonts:
+    git:
+      url: git://github.com/YazeedAlKhalaf/google-fonts-flutter.git
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git

@@ -15,19 +15,26 @@ main() {
 
   window_size.getWindowInfo().then((PlatformWindow window) {
     if (window.screen != null) {
-      final screenFrame = window.screen.visibleFrame;
-      final width = math.max((screenFrame.width / 2).roundToDouble(), 800.0);
-      final height = math.max((screenFrame.height / 2).roundToDouble(), 600.0);
-      final left = ((screenFrame.width - width) / 2).roundToDouble();
-      final top = ((screenFrame.height - height) / 3).roundToDouble();
-      final frame = Rect.fromLTWH(left, top, width, height);
+      final double width = 800;
+      final double height = 500;
+      final Rect frame = Rect.fromCenter(
+        center: Offset(
+          window.frame.center.dx,
+          window.frame.center.dy,
+        ),
+        width: width,
+        height: height,
+      );
+
       window_size.setWindowFrame(frame);
-      window_size
-          .setWindowTitle('Flutter Installer for ${Platform.operatingSystem}');
+
+      window_size.setWindowTitle(
+        'Flutter Installer for ${Platform.operatingSystem}',
+      );
 
       if (Platform.isMacOS) {
-        window_size.setWindowMinSize(Size(800, 600));
-        window_size.setWindowMaxSize(Size(1600, 1200));
+        window_size.setWindowMinSize(Size(width, height));
+        window_size.setWindowMaxSize(Size(width * 2, height * 2));
       }
     }
   });

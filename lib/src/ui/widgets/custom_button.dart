@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
+import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -29,13 +30,19 @@ class CustomButton extends StatelessWidget {
         ),
         color: buttonColor ?? primaryColor,
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: textStyle ??
-              TextStyle(
-                color: textColorWhite,
-                fontSize: 20,
-              ),
+        child: Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: blockSize(context),
+            vertical: blockSize(context) * 0.5,
+          ),
+          child: Text(
+            text,
+            style: textStyle ??
+                TextStyle(
+                  color: textColorWhite,
+                  fontSize: 20,
+                ),
+          ),
         ),
       ),
     );

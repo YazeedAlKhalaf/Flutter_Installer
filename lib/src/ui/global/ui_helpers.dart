@@ -31,6 +31,14 @@ class _SizeConfig {
   }
 }
 
+double _blockSizeHorizontal(BuildContext context) {
+  return _SizeConfig.blockSizeHorizontal;
+}
+
+double _blockSizeVertical(BuildContext context) {
+  return _SizeConfig.blockSizeVertical;
+}
+
 double screenWidth(BuildContext context) {
   _SizeConfig().init(context);
   return _SizeConfig.screenWidth;
@@ -41,48 +49,45 @@ double screenHeight(BuildContext context) {
   return _SizeConfig.screenHeight;
 }
 
-double blockSizeHorizontal(BuildContext context) {
+double blockSize(BuildContext context) {
   _SizeConfig().init(context);
-  return _SizeConfig.blockSizeHorizontal;
-}
-
-double blockSizeVertical(BuildContext context) {
-  _SizeConfig().init(context);
-  return _SizeConfig.blockSizeVertical;
+  double blockSize =
+      _blockSizeVertical(context) + _blockSizeHorizontal(context);
+  return blockSize;
 }
 
 Widget verticalSpaceSmall(BuildContext context) {
   return SizedBox(
-    height: blockSizeVertical(context) * 5,
+    height: blockSize(context) * 5,
   );
 }
 
 Widget verticalSpaceMedium(BuildContext context) {
   return SizedBox(
-    height: blockSizeVertical(context) * 10,
+    height: blockSize(context) * 10,
   );
 }
 
 Widget verticalSpaceLarge(BuildContext context) {
   return SizedBox(
-    height: blockSizeVertical(context) * 15,
+    height: blockSize(context) * 15,
   );
 }
 
 Widget horizontalSpaceSmall(BuildContext context) {
   return SizedBox(
-    width: blockSizeVertical(context) * 5,
+    width: blockSize(context) * 5,
   );
 }
 
 Widget horizontalSpaceMedium(BuildContext context) {
   return SizedBox(
-    width: blockSizeVertical(context) * 10,
+    width: blockSize(context) * 10,
   );
 }
 
 Widget horizontalSpaceLarge(BuildContext context) {
   return SizedBox(
-    width: blockSizeVertical(context) * 15,
+    width: blockSize(context) * 15,
   );
 }

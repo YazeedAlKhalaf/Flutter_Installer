@@ -51,18 +51,17 @@ class BusyOverlay extends StatelessWidget {
                                 ),
                               );
                             },
-                            size: sizeOfIndicator ??
-                                blockSizeHorizontal(context) * 15,
+                            size: sizeOfIndicator ?? blockSize(context) * 5,
                           ),
                           SizedBox(
-                            height: blockSizeHorizontal(context) * 5,
+                            height: blockSize(context),
                           ),
                           Text(
                             title ?? 'Please Wait...',
                             textAlign: TextAlign.center,
                             style: titleTextStyle ??
                                 TextStyle(
-                                  fontSize: blockSizeHorizontal(context) * 5,
+                                  fontSize: blockSize(context) * 2,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),

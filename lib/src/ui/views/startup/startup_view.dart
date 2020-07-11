@@ -31,9 +31,9 @@ class _StartupViewState extends State<StartupView> {
                 //   'assets/icons/logo.png',
                 //   width: blockSizeHorizontal(context) * 25,
                 // ),
-            
+
                 SizedBox(
-                  height: blockSizeHorizontal(context) * 10,
+                  height: blockSize(context) * 5,
                 ),
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(primaryColor),

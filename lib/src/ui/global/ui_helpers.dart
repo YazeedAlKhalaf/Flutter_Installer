@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SizeConfig {
+class _SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
   static double screenHeight;
@@ -9,7 +9,9 @@ class SizeConfig {
 
   static double _safeAreaHorizontal;
   static double _safeAreaVertical;
+  // ignore: unused_field
   static double safeBlockHorizontal;
+  // ignore: unused_field
   static double safeBlockVertical;
 
   void init(BuildContext context) {
@@ -30,21 +32,57 @@ class SizeConfig {
 }
 
 double screenWidth(BuildContext context) {
-  SizeConfig().init(context);
-  return SizeConfig.screenWidth;
+  _SizeConfig().init(context);
+  return _SizeConfig.screenWidth;
 }
 
 double screenHeight(BuildContext context) {
-  SizeConfig().init(context);
-  return SizeConfig.screenHeight;
+  _SizeConfig().init(context);
+  return _SizeConfig.screenHeight;
 }
 
 double blockSizeHorizontal(BuildContext context) {
-  SizeConfig().init(context);
-  return SizeConfig.blockSizeHorizontal;
+  _SizeConfig().init(context);
+  return _SizeConfig.blockSizeHorizontal;
 }
 
 double blockSizeVertical(BuildContext context) {
-  SizeConfig().init(context);
-  return SizeConfig.blockSizeVertical;
+  _SizeConfig().init(context);
+  return _SizeConfig.blockSizeVertical;
+}
+
+Widget verticalSpaceSmall(BuildContext context) {
+  return SizedBox(
+    height: blockSizeVertical(context) * 5,
+  );
+}
+
+Widget verticalSpaceMedium(BuildContext context) {
+  return SizedBox(
+    height: blockSizeVertical(context) * 10,
+  );
+}
+
+Widget verticalSpaceLarge(BuildContext context) {
+  return SizedBox(
+    height: blockSizeVertical(context) * 15,
+  );
+}
+
+Widget horizontalSpaceSmall(BuildContext context) {
+  return SizedBox(
+    width: blockSizeVertical(context) * 5,
+  );
+}
+
+Widget horizontalSpaceMedium(BuildContext context) {
+  return SizedBox(
+    width: blockSizeVertical(context) * 10,
+  );
+}
+
+Widget horizontalSpaceLarge(BuildContext context) {
+  return SizedBox(
+    width: blockSizeVertical(context) * 15,
+  );
 }

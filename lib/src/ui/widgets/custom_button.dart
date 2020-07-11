@@ -6,14 +6,14 @@ class CustomButton extends StatelessWidget {
   final double width;
   final VoidCallback onPressed;
 
-  final Color textColor;
+  final TextStyle textStyle;
   final Color buttonColor;
 
   CustomButton({
     @required this.text,
     @required this.width,
     @required this.onPressed,
-    this.textColor,
+    this.textStyle,
     this.buttonColor,
   });
 
@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: textColor ??
+          style: textStyle ??
               TextStyle(
                 color: textColorWhite,
                 fontSize: 40,

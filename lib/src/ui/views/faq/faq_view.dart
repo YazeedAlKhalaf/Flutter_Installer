@@ -88,7 +88,9 @@ class FaqView extends StatelessWidget {
                   Expanded(
                     child: Container(
                       child: Column(
-                        children: <Widget>[],
+                        children: <Widget>[
+                          // TODO(yazeed): Finish the FAQ view
+                        ],
                       ),
                     ),
                   ),

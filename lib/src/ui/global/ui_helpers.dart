@@ -52,7 +52,7 @@ double screenHeight(BuildContext context) {
 double blockSize(BuildContext context) {
   _SizeConfig().init(context);
   double blockSize =
-      _blockSizeVertical(context) + _blockSizeHorizontal(context);
+      (_blockSizeVertical(context) + _blockSizeHorizontal(context) / 2);
   return blockSize;
 }
 

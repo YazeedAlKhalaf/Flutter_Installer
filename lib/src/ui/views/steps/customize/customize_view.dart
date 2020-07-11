@@ -157,7 +157,9 @@ class CustomizeView extends StatelessWidget {
                           ),
                           buttonColor: accentColor,
                           width: blockSize(context) * 10,
-                          onPressed: () {},
+                          onPressed: () {
+                            onNextPressed();
+                          },
                         ),
                       ],
                     ),

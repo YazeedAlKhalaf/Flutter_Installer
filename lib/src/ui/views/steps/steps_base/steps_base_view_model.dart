@@ -1,4 +1,6 @@
+import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/views/steps/customize/customize_view.dart';
+import 'package:flutter_installer/src/ui/views/steps/customize/customize_view_model.dart';
 import 'package:flutter_installer/src/ui/views/steps/done/done_view.dart';
 import 'package:flutter_installer/src/ui/views/steps/installing/installing_view.dart';
 import 'package:flutter_installer/src/ui/views/steps/summary/summary_view.dart';
@@ -38,6 +40,7 @@ class StepsBaseViewModel extends BaseViewModel {
   }
 
   decideStepView() {
+    final CustomizeViewModel customizeViewModel = CustomizeViewModel();
     switch (_currentIndex) {
       case 0:
         return TermsOfServiceView(
@@ -54,7 +57,18 @@ class StepsBaseViewModel extends BaseViewModel {
         );
         break;
       case 2:
-        return SummaryView();
+        return SummaryView(
+          onInstallPressed: () {
+            setCurrentIndex(3);
+          },
+          userChoice: UserChoice(
+            installationPath: customizeViewModel.installationPath,
+            installVisualStudioCode: customizeViewModel.installVisualStudioCode,
+            installAndroidStudio: customizeViewModel.installAndroidStudio,
+            installIntelliJIDEA: customizeViewModel.installIntelliJIDEA,
+            installGit: customizeViewModel.installGit,
+          ),
+        );
         break;
       case 3:
         return InstallingView();

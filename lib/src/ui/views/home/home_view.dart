@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_installer/src/app/generated/locator/locator.dart';
-import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 import './home_view_model.dart';
 
@@ -44,14 +41,6 @@ class HomeView extends StatelessWidget {
                         children: <Widget>[
                           Expanded(
                             child: Container(),
-                          ),
-                          CustomButton(
-                            text: 'FAQ',
-                            onPressed: () {
-                              locator<NavigationService>()
-                                  .navigateTo(Routes.faqView);
-                            },
-                            width: 150,
                           ),
                           FlutterLogo(
                             size: blockSize(context) * 15,

@@ -9,13 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_installer/src/ui/views/startup/startup_view.dart';
 import 'package:flutter_installer/src/ui/views/home/home_view.dart';
+import 'package:flutter_installer/src/ui/views/faq/faq_view.dart';
 
 class Routes {
   static const String startupView = '/';
   static const String homeView = '/home-view';
+  static const String faqView = '/faq-view';
   static const all = <String>{
     startupView,
     homeView,
+    faqView,
   };
 }
 
@@ -25,6 +28,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.startupView, page: StartupView),
     RouteDef(Routes.homeView, page: HomeView),
+    RouteDef(Routes.faqView, page: FaqView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -38,6 +42,12 @@ class Router extends RouterBase {
     HomeView: (RouteData data) {
       return MaterialPageRoute<dynamic>(
         builder: (context) => HomeView(),
+        settings: data,
+      );
+    },
+    FaqView: (RouteData data) {
+      return MaterialPageRoute<dynamic>(
+        builder: (context) => FaqView(),
         settings: data,
       );
     },

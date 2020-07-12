@@ -26,6 +26,7 @@ dependencies:
 
   # MISC
   google_fonts: ^1.1.0
+  path_provider: ^1.6.11
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
@@ -35,6 +36,11 @@ dependencies:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/flutter_plugins/path_provider_fde
+      ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
+  file_chooser:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/file_chooser
       ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
 
 dev_dependencies:

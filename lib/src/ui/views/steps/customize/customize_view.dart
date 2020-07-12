@@ -29,8 +29,7 @@ class CustomizeView extends StatelessWidget {
             child: Center(
               child: Container(
                 padding: EdgeInsets.all(blockSize(context)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: ListView(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -107,6 +106,10 @@ class CustomizeView extends StatelessWidget {
                           CheckboxListTile(
                             title: Text(
                               'Install Visual Studio Code',
+                              style: GoogleFonts.robotoMono(
+                                fontSize: blockSize(context) * 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             value: model.installVisualStudioCode,
                             onChanged: model.setInstallVisualStudioCode,
@@ -114,6 +117,10 @@ class CustomizeView extends StatelessWidget {
                           CheckboxListTile(
                             title: Text(
                               'Install Android Studio',
+                              style: GoogleFonts.robotoMono(
+                                fontSize: blockSize(context) * 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             value: model.installAndroidStudio,
                             onChanged: model.setInstallAndroidStudio,
@@ -121,6 +128,10 @@ class CustomizeView extends StatelessWidget {
                           CheckboxListTile(
                             title: Text(
                               'Install IntelliJ IDEA',
+                              style: GoogleFonts.robotoMono(
+                                fontSize: blockSize(context) * 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             value: model.installIntelliJIDEA,
                             onChanged: model.setInstallIntelliJIDEA,
@@ -128,6 +139,10 @@ class CustomizeView extends StatelessWidget {
                           CheckboxListTile(
                             title: Text(
                               'Install Git',
+                              style: GoogleFonts.robotoMono(
+                                fontSize: blockSize(context) * 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             value: model.installGit,
                             onChanged: model.setInstallGit,

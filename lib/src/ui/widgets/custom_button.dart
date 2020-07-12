@@ -10,12 +10,15 @@ class CustomButton extends StatelessWidget {
   final TextStyle textStyle;
   final Color buttonColor;
 
+  final bool isButtonDisabled;
+
   CustomButton({
     @required this.text,
     @required this.width,
     @required this.onPressed,
     this.textStyle,
     this.buttonColor,
+    this.isButtonDisabled = false,
   });
 
   @override
@@ -29,7 +32,7 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         color: buttonColor ?? primaryColor,
-        onPressed: onPressed,
+        onPressed: isButtonDisabled ? null : onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(
             horizontal: blockSize(context),

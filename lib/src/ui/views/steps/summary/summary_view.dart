@@ -162,7 +162,7 @@ class SummaryView extends StatelessWidget {
                             color: textColorWhite,
                           ),
                           buttonColor: primaryColor,
-                          width: blockSize(context) * 15,
+                          width: blockSize(context) * 20,
                           onPressed: () {
                             onInstallPressed();
                           },

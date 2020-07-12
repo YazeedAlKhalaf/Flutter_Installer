@@ -86,7 +86,9 @@ class StepsBaseViewModel extends CustomBaseViewModel {
         );
         break;
       case 4:
-        return DoneView();
+        return DoneView(
+          onFinishPressed: () {},
+        );
         break;
       default:
     }

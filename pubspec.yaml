@@ -41,12 +41,18 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
       ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
-
   file_chooser:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/file_chooser
       ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
+  url_launcher: ^5.5.0
+  url_launcher_fde:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/flutter_plugins/url_launcher_fde
+      ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
+  flutter_markdown: ^0.4.2
 
 dev_dependencies:
   flutter_test:
@@ -63,3 +69,4 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/misc/

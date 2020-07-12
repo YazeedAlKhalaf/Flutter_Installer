@@ -150,9 +150,9 @@ class CustomizeView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    // Expanded(
+                    //   child: Container(),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -189,9 +189,9 @@ class CustomizeView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    // Expanded(
+                    //   child: Container(),
+                    // ),
                   ],
                 ),
               ),

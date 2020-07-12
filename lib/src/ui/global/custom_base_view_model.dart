@@ -4,6 +4,13 @@ import 'package:stacked/stacked.dart';
 
 class CustomBaseViewModel extends BaseViewModel {
   final WindowSizeService _windowSizeService = locator<WindowSizeService>();
+  // final PreferencesService _preferencesService = locator<PreferencesService>();
+
+  // UserChoice get userChoice =>
+  //     _preferencesService.getUserChoice() ?? UserChoice.defaultChoice();
+  // Future<void> setUserChoicePersist(UserChoice newUserChoice) async {
+  //   await _preferencesService.saveUserChoice(userChoice);
+  // }
 
   Future<void> initializeWindowSize() async {
     await _windowSizeService.initialize();

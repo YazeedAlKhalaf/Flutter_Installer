@@ -24,6 +24,9 @@ dependencies:
   # Logger
   logger: ^0.9.1
 
+  # Data Persistence
+  shared_preferences: ^0.5.8
+
   # MISC
   google_fonts: ^1.1.0
   percent_indicator: ^2.1.5

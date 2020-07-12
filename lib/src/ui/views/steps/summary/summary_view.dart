@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
+import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
@@ -62,6 +64,7 @@ class SummaryView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Container(
+                            width: blockSize(context) * 50,
                             padding: EdgeInsets.all(
                               blockSize(context) * 3,
                             ),
@@ -90,9 +93,13 @@ class SummaryView extends StatelessWidget {
                                       Text(
                                         userChoice.installationPath != null
                                             ? '• Path: ' +
-                                                userChoice.installationPath
+                                                locator<Utils>()
+                                                    .clipTextFromMiddle(
+                                                  userChoice.installationPath,
+                                                )
                                             : '• Path: Not Specified',
                                         textAlign: TextAlign.start,
+                                        overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.robotoMono(
                                           color: lynchColor,
                                           fontSize: blockSize(context) * 1.2,

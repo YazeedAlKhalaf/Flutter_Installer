@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -56,6 +58,9 @@ class StepsBaseViewModel extends CustomBaseViewModel {
         return TermsOfServiceView(
           onAgreePressed: () {
             setCurrentIndex(1);
+          },
+          onDisagreePressed: () {
+            exit(0);
           },
         );
         break;

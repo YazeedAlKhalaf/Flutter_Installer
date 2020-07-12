@@ -10,9 +10,11 @@ import './terms_of_service_view_model.dart';
 
 class TermsOfServiceView extends StatelessWidget {
   final Function onAgreePressed;
+  final Function onDisagreePressed;
 
   const TermsOfServiceView({
     @required this.onAgreePressed,
+    @required this.onDisagreePressed,
   });
 
   @override
@@ -56,7 +58,7 @@ class TermsOfServiceView extends StatelessWidget {
                           buttonColor: dangerColor,
                           width: blockSize(context) * 20,
                           onPressed: () {
-                            // TODO(yazeed): close installer if this button is pressed and save in memory that the user disagreed
+                            onDisagreePressed();
                           },
                         ),
                         CustomButton(

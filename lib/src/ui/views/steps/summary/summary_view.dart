@@ -6,6 +6,7 @@ import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -51,9 +52,7 @@ class SummaryView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,9 +154,7 @@ class SummaryView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -33,7 +34,7 @@ class InstallingView extends StatelessWidget {
             child: Center(
               child: Container(
                 padding: EdgeInsets.all(blockSize(context)),
-                child: ListView(
+                child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,6 +80,7 @@ class InstallingView extends StatelessWidget {
                         ),
                       ),
                     ),
+                    ExpandedContainer(),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -112,8 +114,10 @@ class InstallingView extends StatelessWidget {
                             onPressed: () {
                               onNextPressed();
                             },
-                            isButtonDisabled:
-                                model.percentage >= 1.0 ? false : true,
+
+                            /// TODO(yazeed): Add this in the real implementation :)
+                            /// isButtonDisabled:
+                            ///     model.percentage >= 1.0 ? false : true,
                           ),
                         ],
                       ),

@@ -14,8 +14,15 @@ import 'package:stacked_services/stacked_services.dart';
 class StepsBaseViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
+  UserChoice _userChoice;
+  UserChoice get userChoice => _userChoice;
+
   int _currentIndex;
   int get currentIndex => _currentIndex;
+  void setUserChoice(UserChoice newValue) {
+    _userChoice = newValue;
+    notifyListeners();
+  }
 
   void setCurrentIndex(
     /// `newIndex` can't be more than `4`
@@ -45,7 +52,6 @@ class StepsBaseViewModel extends BaseViewModel {
   }
 
   decideStepView() {
-    final CustomizeViewModel customizeViewModel = CustomizeViewModel();
     switch (_currentIndex) {
       case 0:
         return TermsOfServiceView(
@@ -56,8 +62,9 @@ class StepsBaseViewModel extends BaseViewModel {
         break;
       case 1:
         return CustomizeView(
-          onNextPressed: () {
+          onNextPressed: (UserChoice userChoice) {
             setCurrentIndex(2);
+            setUserChoice(userChoice);
           },
         );
         break;
@@ -66,13 +73,7 @@ class StepsBaseViewModel extends BaseViewModel {
           onInstallPressed: () {
             setCurrentIndex(3);
           },
-          userChoice: UserChoice(
-            installationPath: customizeViewModel.installationPath,
-            installVisualStudioCode: customizeViewModel.installVisualStudioCode,
-            installAndroidStudio: customizeViewModel.installAndroidStudio,
-            installIntelliJIDEA: customizeViewModel.installIntelliJIDEA,
-            installGit: customizeViewModel.installGit,
-          ),
+          userChoice: _userChoice,
         );
         break;
       case 3:

@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:file_chooser/file_chooser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
+import 'package:path_provider/path_provider.dart';
 
 class CustomizeViewModel extends CustomBaseViewModel {
   final TextEditingController chooseFolderController = TextEditingController();
@@ -37,5 +41,20 @@ class CustomizeViewModel extends CustomBaseViewModel {
   void setInstallGit(bool newValue) {
     _installGit = newValue;
     notifyListeners();
+  }
+
+  Future<void> onBrowsePressed() async {
+    String initialDirectory;
+    if (Platform.isMacOS || Platform.isWindows) {
+      initialDirectory = (await getApplicationDocumentsDirectory()).path;
+    }
+    final result = await showOpenPanel(
+      allowsMultipleSelection: false,
+      canSelectDirectories: true,
+      initialDirectory: initialDirectory,
+    );
+
+    setInstallationPath(result.paths.join('\n'));
+    chooseFolderController.text = installationPath;
   }
 }

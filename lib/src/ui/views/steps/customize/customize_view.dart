@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
@@ -8,7 +9,7 @@ import 'package:stacked/stacked.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
-  final Function() onNextPressed;
+  final Function(UserChoice userChoice) onNextPressed;
 
   const CustomizeView({
     @required this.onNextPressed,
@@ -71,8 +72,8 @@ class CustomizeView extends StatelessWidget {
                         CustomButton(
                           text: 'Browse',
                           width: blockSize(context) * 15,
-                          onPressed: () {
-                            // TODO: Implement choosing directory :)
+                          onPressed: () async {
+                            await model.onBrowsePressed();
                           },
                         ),
                       ],
@@ -158,7 +159,17 @@ class CustomizeView extends StatelessWidget {
                           buttonColor: accentColor,
                           width: blockSize(context) * 10,
                           onPressed: () {
-                            onNextPressed();
+                            onNextPressed(
+                              UserChoice(
+                                installationPath: model.installationPath,
+                                installVisualStudioCode:
+                                    model.installVisualStudioCode,
+                                installAndroidStudio:
+                                    model.installAndroidStudio,
+                                installIntelliJIDEA: model.installIntelliJIDEA,
+                                installGit: model.installGit,
+                              ),
+                            );
                           },
                         ),
                       ],

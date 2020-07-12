@@ -76,7 +76,14 @@ class StepsBaseViewModel extends CustomBaseViewModel {
         );
         break;
       case 3:
-        return InstallingView();
+        return InstallingView(
+          onNextPressed: () {
+            setCurrentIndex(4);
+          },
+          onCancelPressed: () {
+            setCurrentIndex(2);
+          },
+        );
         break;
       case 4:
         return DoneView();

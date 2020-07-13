@@ -8,7 +8,7 @@ import 'package:window_size/window_size.dart';
 @injectable
 class WindowSizeService {
   static const double width = 1200;
-  static const double height = 700;
+  static const double height = 720;
 
   Future<PlatformWindow> _getPlatformWindow() async {
     return await window_size.getWindowInfo();
@@ -40,8 +40,8 @@ class WindowSizeService {
     PlatformWindow platformWindow = await _getPlatformWindow();
 
     if (platformWindow.screen != null) {
-      if (platformWindow.screen.visibleFrame.width != 800 ||
-          platformWindow.screen.visibleFrame.height != 500) {
+      if (platformWindow.screen.visibleFrame.width != width ||
+          platformWindow.screen.visibleFrame.height != height) {
         _setWindowSize(platformWindow);
       }
     }

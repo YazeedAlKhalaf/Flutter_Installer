@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/third_party_services_module.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
@@ -14,6 +15,7 @@ import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
+  g.registerLazySingleton<ApiService>(() => ApiService());
   g.registerLazySingleton<DialogService>(
       () => thirdPartyServicesModule.dialogService);
   g.registerLazySingleton<LocalStorageService>(() => LocalStorageService());

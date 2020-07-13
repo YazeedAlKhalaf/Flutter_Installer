@@ -117,51 +117,51 @@ class CustomizeView extends StatelessWidget {
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install Visual Studio Code',
-                                          style: GoogleFonts.robotoMono(
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installVisualStudioCode,
-                                        onChanged:
-                                            model.setInstallVisualStudioCode,
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install Android Studio',
-                                          style: GoogleFonts.robotoMono(
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installAndroidStudio,
-                                        onChanged:
-                                            model.setInstallAndroidStudio,
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   child: CheckboxListTile(
+                                    //     title: Text(
+                                    //       'Install Visual Studio Code',
+                                    //       style: GoogleFonts.robotoMono(
+                                    //         fontSize: blockSize(context) * 1.5,
+                                    //         fontWeight: FontWeight.bold,
+                                    //       ),
+                                    //     ),
+                                    //     value: model.installVisualStudioCode,
+                                    //     onChanged:
+                                    //         model.setInstallVisualStudioCode,
+                                    //   ),
+                                    // ),
+                                    // Expanded(
+                                    //   child: CheckboxListTile(
+                                    //     title: Text(
+                                    //       'Install Android Studio',
+                                    //       style: GoogleFonts.robotoMono(
+                                    //         fontSize: blockSize(context) * 1.5,
+                                    //         fontWeight: FontWeight.bold,
+                                    //       ),
+                                    //     ),
+                                    //     value: model.installAndroidStudio,
+                                    //     onChanged:
+                                    //         model.setInstallAndroidStudio,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install IntelliJ IDEA',
-                                          style: GoogleFonts.robotoMono(
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installIntelliJIDEA,
-                                        onChanged: model.setInstallIntelliJIDEA,
-                                      ),
-                                    ),
+                                    // Expanded(
+                                    //   child: CheckboxListTile(
+                                    //     title: Text(
+                                    //       'Install IntelliJ IDEA',
+                                    //       style: GoogleFonts.robotoMono(
+                                    //         fontSize: blockSize(context) * 1.5,
+                                    //         fontWeight: FontWeight.bold,
+                                    //       ),
+                                    //     ),
+                                    //     value: model.installIntelliJIDEA,
+                                    //     onChanged: model.setInstallIntelliJIDEA,
+                                    //   ),
+                                    // ),
                                     Expanded(
                                       child: CheckboxListTile(
                                         title: Text(

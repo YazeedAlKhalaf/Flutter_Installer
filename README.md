@@ -1,5 +1,19 @@
 # Flutter Installer
 
+## Progress
+
+> • UI is 100% done!
+>
+> • Windows is 80% done!
+>
+> • macOS is 0% done!
+>
+> • linux is 0% done!
+
+## Requirements to build project:
+
+`Flutter` obviously 🚀
+
 **You need to be on Flutter dev channel** for Linux and macOS
 
 ```bash

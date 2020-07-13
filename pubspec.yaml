@@ -54,6 +54,7 @@ dependencies:
       ref: 282bb7b172a42a1f4b573540cc19e7610a867a93
   flutter_markdown: ^0.4.2
   process_run: ^0.10.10+2
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:

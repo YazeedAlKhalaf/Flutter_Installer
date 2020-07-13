@@ -95,6 +95,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
           onCancelPressed: () {
             setCurrentIndex(2);
           },
+          userChoice: _userChoice,
         );
         break;
       case 4:

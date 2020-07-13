@@ -35,7 +35,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  bool _installAndroidStudio = true;
+  bool _installAndroidStudio = false;
   bool get installAndroidStudio => _installAndroidStudio;
   void setInstallAndroidStudio(bool newValue) {
     _installAndroidStudio = newValue;

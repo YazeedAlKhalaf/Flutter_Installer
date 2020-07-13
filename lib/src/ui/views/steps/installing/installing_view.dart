@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
@@ -13,17 +14,21 @@ import './installing_view_model.dart';
 class InstallingView extends StatelessWidget {
   final Function() onNextPressed;
   final Function() onCancelPressed;
+  final UserChoice userChoice;
 
   const InstallingView({
     @required this.onNextPressed,
     @required this.onCancelPressed,
+    @required this.userChoice,
   });
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<InstallingViewModel>.reactive(
       viewModelBuilder: () => InstallingViewModel(),
-      onModelReady: (InstallingViewModel model) => model.initialize(),
+      onModelReady: (InstallingViewModel model) => model.initialize(
+        userChoice: userChoice,
+      ),
       builder: (
         BuildContext context,
         InstallingViewModel model,
@@ -71,7 +76,7 @@ class InstallingView extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        'Downloading Flutter',
+                        model.currentTaskText,
                         textAlign: TextAlign.center,
                         style: GoogleFonts.robotoMono(
                           fontSize: blockSize(context) * 1.5,
@@ -101,6 +106,8 @@ class InstallingView extends StatelessWidget {
                                 onCancelPressed();
                               }
                             },
+                            isButtonDisabled:
+                                model.percentage >= 1.0 ? true : false,
                           ),
                           CustomButton(
                             text: 'Next',
@@ -114,10 +121,8 @@ class InstallingView extends StatelessWidget {
                             onPressed: () {
                               onNextPressed();
                             },
-
-                            /// TODO(yazeed): Add this in the real implementation :)
-                            /// isButtonDisabled:
-                            ///     model.percentage >= 1.0 ? false : true,
+                            isButtonDisabled:
+                                model.percentage >= 1.0 ? false : true,
                           ),
                         ],
                       ),

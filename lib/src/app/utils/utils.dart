@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
@@ -36,5 +37,23 @@ class Utils {
     } else {
       await launch(url);
     }
+  }
+
+  String getAnythingAfterLastSlash(String text) {
+    final RegExp getAnythingAfterLastSlash = RegExp('[^/]+\$');
+    RegExpMatch matches = getAnythingAfterLastSlash.firstMatch(text);
+
+    return matches[0];
+  }
+
+  String randomString(int length) {
+    final String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+    Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
+    String result = "";
+    for (var i = 0; i < length; i++) {
+      result += chars[rnd.nextInt(chars.length)];
+    }
+    return result;
   }
 }

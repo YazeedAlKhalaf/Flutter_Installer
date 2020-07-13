@@ -6,6 +6,7 @@
 
 import 'package:flutter_installer/src/app/services/third_party_services_module.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/app/services/preferences_service.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:flutter_installer/src/app/services/window_size_service.dart';
@@ -15,6 +16,7 @@ void $initGetIt(GetIt g, {String environment}) {
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
   g.registerLazySingleton<DialogService>(
       () => thirdPartyServicesModule.dialogService);
+  g.registerLazySingleton<LocalStorageService>(() => LocalStorageService());
   g.registerLazySingleton<NavigationService>(
       () => thirdPartyServicesModule.navigationService);
   g.registerLazySingleton<PreferencesService>(() => PreferencesService());

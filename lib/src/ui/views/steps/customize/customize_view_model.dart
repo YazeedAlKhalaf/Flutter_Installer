@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_chooser/file_chooser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
+import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -52,6 +53,13 @@ class CustomizeViewModel extends CustomBaseViewModel {
   bool get installGit => _installGit;
   void setInstallGit(bool newValue) {
     _installGit = newValue;
+    notifyListeners();
+  }
+
+  FlutterChannel _flutterChannel = FlutterChannel.stable;
+  FlutterChannel get flutterChannel => _flutterChannel;
+  void setFlutterChannel(FlutterChannel newValue) {
+    _flutterChannel = newValue;
     notifyListeners();
   }
 

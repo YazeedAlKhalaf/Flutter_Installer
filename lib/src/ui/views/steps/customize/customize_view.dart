@@ -102,20 +102,19 @@ class CustomizeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            'Choose apps you need:',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.robotoMono(
-                              fontSize: blockSize(context) * 2,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          verticalSpaceSmall(context),
                           // Choices
                           Container(
-                            height: blockSize(context) * 20,
+                            height: blockSize(context) * 25,
                             child: ListView(
                               children: <Widget>[
+                                Text(
+                                  'Choose apps you need:',
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.robotoMono(
+                                    fontSize: blockSize(context) * 2,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                                 Row(
                                   children: <Widget>[
                                     Expanded(
@@ -178,6 +177,70 @@ class CustomizeView extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                                verticalSpaceSmall(context),
+                                Text(
+                                  'Choose the Flutter channel you want to use:',
+                                  textAlign: TextAlign.start,
+                                  style: GoogleFonts.robotoMono(
+                                    fontSize: blockSize(context) * 2,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: RadioListTile<FlutterChannel>(
+                                        title: Text(
+                                          'Stable Channel',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: FlutterChannel.stable,
+                                        groupValue: model.flutterChannel,
+                                        onChanged: (FlutterChannel newValue) {
+                                          model.setFlutterChannel(newValue);
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: RadioListTile<FlutterChannel>(
+                                        title: Text(
+                                          'Beta Channel',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: FlutterChannel.beta,
+                                        groupValue: model.flutterChannel,
+                                        onChanged: (FlutterChannel newValue) {
+                                          model.setFlutterChannel(newValue);
+                                        },
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: RadioListTile<FlutterChannel>(
+                                        title: Text(
+                                          'Dev Channel',
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: FlutterChannel.dev,
+                                        groupValue: model.flutterChannel,
+                                        onChanged: (FlutterChannel newValue) {
+                                          model.setFlutterChannel(newValue);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ],
                             ),
                           ),
@@ -223,6 +286,7 @@ class CustomizeView extends StatelessWidget {
                                     model.installAndroidStudio,
                                 installIntelliJIDEA: model.installIntelliJIDEA,
                                 installGit: model.installGit,
+                                flutterChannel: model.flutterChannel,
                               ),
                             );
                           },

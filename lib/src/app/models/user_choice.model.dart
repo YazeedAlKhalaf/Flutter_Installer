@@ -2,12 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
+enum FlutterChannel {
+  dev,
+  beta,
+  stable,
+}
+
 class UserChoice {
   final String installationPath;
   final bool installVisualStudioCode;
   final bool installAndroidStudio;
   final bool installIntelliJIDEA;
   final bool installGit;
+  final FlutterChannel flutterChannel;
 
   UserChoice({
     @required this.installationPath,
@@ -15,6 +22,7 @@ class UserChoice {
     @required this.installAndroidStudio,
     @required this.installIntelliJIDEA,
     @required this.installGit,
+    @required this.flutterChannel,
   });
 
   UserChoice.defaultChoice({
@@ -23,6 +31,7 @@ class UserChoice {
     this.installVisualStudioCode = false,
     this.installIntelliJIDEA = false,
     this.installGit = true,
+    this.flutterChannel = FlutterChannel.stable,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +41,7 @@ class UserChoice {
       'installAndroidStudio': installAndroidStudio,
       'installIntelliJIDEA': installIntelliJIDEA,
       'installGit': installGit,
+      'flutterChannel': flutterChannel,
     };
   }
 
@@ -44,6 +54,7 @@ class UserChoice {
       installAndroidStudio: map['installAndroidStudio'],
       installIntelliJIDEA: map['installIntelliJIDEA'],
       installGit: map['installGit'],
+      flutterChannel: map['flutterChannel'],
     );
   }
 

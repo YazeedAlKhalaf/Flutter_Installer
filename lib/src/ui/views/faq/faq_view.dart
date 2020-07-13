@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -40,9 +41,7 @@ class FaqView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        Expanded(
-                          child: Container(),
-                        ),
+                        ExpandedContainer(),
                         Wrap(
                           direction: Axis.vertical,
                           children: <Widget>[
@@ -62,9 +61,7 @@ class FaqView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: Container(),
-                        ),
+                        ExpandedContainer(),
                         CustomButton(
                           text: 'Home',
                           buttonColor: accentColor,
@@ -77,9 +74,7 @@ class FaqView extends StatelessWidget {
                             await model.navigateToHomeView();
                           },
                         ),
-                        Expanded(
-                          child: Container(),
-                        ),
+                        ExpandedContainer(),
                       ],
                     ),
                   ),

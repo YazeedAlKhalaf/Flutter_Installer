@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -39,9 +40,7 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Expanded(
-                            child: Container(),
-                          ),
+                          ExpandedContainer(),
                           FlutterLogo(
                             size: blockSize(context) * 15,
                           ),
@@ -68,9 +67,7 @@ class HomeView extends StatelessWidget {
                               fontSize: blockSize(context) * 3,
                             ),
                           ),
-                          Expanded(
-                            child: Container(),
-                          ),
+                          ExpandedContainer(),
                           Text(
                             'Made With Flutter 💙',
                             textAlign: TextAlign.center,

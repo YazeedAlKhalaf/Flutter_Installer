@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
@@ -52,9 +53,7 @@ class StepsBaseView extends StatelessWidget {
                           stepName: 'Done!',
                           stepState: model.decideStepState(4),
                         ),
-                        Expanded(
-                          child: Container(),
-                        ),
+                        ExpandedContainer(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -90,9 +89,7 @@ class StepsBaseView extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Expanded(
-                          child: Container(),
-                        ),
+                        ExpandedContainer(),
                       ],
                     ),
                   ),

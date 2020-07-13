@@ -2,11 +2,12 @@ import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/logger.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class PreferencesService {
-  final log = getLogger('PreferencesService');
+  final Logger log = getLogger('PreferencesService');
 
   UserChoice _userChoice;
   UserChoice get userChoice => _userChoice;

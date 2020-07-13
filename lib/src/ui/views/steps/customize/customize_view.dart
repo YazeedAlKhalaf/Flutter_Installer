@@ -3,6 +3,7 @@ import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
+import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
@@ -28,8 +29,8 @@ class CustomizeView extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(blockSize(context)),
-                child: ListView(
+                padding: EdgeInsets.all(blockSize(context) * 2),
+                child: Column(
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -39,7 +40,7 @@ class CustomizeView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                             color: textColorBlack,
-                            fontSize: blockSize(context) * 5,
+                            fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -63,6 +64,9 @@ class CustomizeView extends StatelessWidget {
                               hintStyle: GoogleFonts.robotoMono(
                                 fontSize: blockSize(context) * 1.5,
                                 fontWeight: FontWeight.bold,
+                                color: model.textFieldHasError
+                                    ? dangerColor
+                                    : lynchColor,
                               ),
                             ),
                             enabled: false,
@@ -70,6 +74,11 @@ class CustomizeView extends StatelessWidget {
                         ),
                         CustomButton(
                           text: 'Browse',
+                          textStyle: GoogleFonts.roboto(
+                            fontSize: blockSize(context) * 2,
+                            fontWeight: FontWeight.bold,
+                            color: textColorWhite,
+                          ),
                           width: blockSize(context) * 15,
                           onPressed: () async {
                             await model.onBrowsePressed();
@@ -77,14 +86,14 @@ class CustomizeView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: blockSize(context) * 1.5),
+                    verticalSpaceSmall(context),
                     Divider(
                       thickness: 2,
                       color: lynchColor,
                       indent: 30,
                       endIndent: 30,
                     ),
-                    SizedBox(height: blockSize(context) * 1.5),
+                    verticalSpaceSmall(context),
                     Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: blockSize(context) * 2.5,
@@ -101,67 +110,84 @@ class CustomizeView extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-
+                          verticalSpaceSmall(context),
                           // Choices
-                          CheckboxListTile(
-                            title: Text(
-                              'Install Visual Studio Code',
-                              style: GoogleFonts.robotoMono(
-                                fontSize: blockSize(context) * 1.5,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Container(
+                            height: blockSize(context) * 20,
+                            child: ListView(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Visual Studio Code',
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installVisualStudioCode,
+                                        onChanged:
+                                            model.setInstallVisualStudioCode,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Android Studio',
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installAndroidStudio,
+                                        onChanged:
+                                            model.setInstallAndroidStudio,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install IntelliJ IDEA',
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installIntelliJIDEA,
+                                        onChanged: model.setInstallIntelliJIDEA,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Git',
+                                          style: GoogleFonts.robotoMono(
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installGit,
+                                        onChanged: model.setInstallGit,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
-                            value: model.installVisualStudioCode,
-                            onChanged: model.setInstallVisualStudioCode,
-                          ),
-                          CheckboxListTile(
-                            title: Text(
-                              'Install Android Studio',
-                              style: GoogleFonts.robotoMono(
-                                fontSize: blockSize(context) * 1.5,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            value: model.installAndroidStudio,
-                            onChanged: model.setInstallAndroidStudio,
-                          ),
-                          CheckboxListTile(
-                            title: Text(
-                              'Install IntelliJ IDEA',
-                              style: GoogleFonts.robotoMono(
-                                fontSize: blockSize(context) * 1.5,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            value: model.installIntelliJIDEA,
-                            onChanged: model.setInstallIntelliJIDEA,
-                          ),
-                          CheckboxListTile(
-                            title: Text(
-                              'Install Git',
-                              style: GoogleFonts.robotoMono(
-                                fontSize: blockSize(context) * 1.5,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            value: model.installGit,
-                            onChanged: model.setInstallGit,
                           ),
                         ],
                       ),
                     ),
-                    // ExpandedContainer(),
+                    ExpandedContainer(),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(
-                          'Pro Tip: If you have any of them downloaded, uncheck it! 😎',
-                          softWrap: true,
-                          style: GoogleFonts.robotoMono(
-                            fontSize: blockSize(context) * 1.25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                         CustomButton(
                           text: 'Next',
                           textStyle: GoogleFonts.roboto(
@@ -169,9 +195,25 @@ class CustomizeView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: textColorWhite,
                           ),
-                          buttonColor: accentColor,
-                          width: blockSize(context) * 10,
+                          buttonColor: primaryColor,
+                          width: blockSize(context) * 15,
                           onPressed: () {
+                            if (model.chooseFolderController.text == null ||
+                                model.installationPath == null ||
+                                model.chooseFolderController.text.trim() ==
+                                    '' ||
+                                model.installationPath.trim() == '') {
+                              model.setTextFieldHasError(true);
+                              model.showSnackBar(
+                                title: 'Error Occured',
+                                message:
+                                    'You have to choose an installation path!',
+                                iconData: Icons.close,
+                              );
+
+                              return;
+                            }
+                            model.setTextFieldHasError(false);
                             onNextPressed(
                               UserChoice(
                                 installationPath: model.installationPath,

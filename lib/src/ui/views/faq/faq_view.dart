@@ -9,6 +9,12 @@ import 'package:stacked/stacked.dart';
 import './faq_view_model.dart';
 
 class FaqView extends StatelessWidget {
+  final Function() onBackPressed;
+
+  const FaqView({
+    @required this.onBackPressed,
+  });
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<FaqViewModel>.reactive(
@@ -63,15 +69,16 @@ class FaqView extends StatelessWidget {
                         ),
                         ExpandedContainer(),
                         CustomButton(
-                          text: 'Home',
-                          buttonColor: accentColor,
-                          width: blockSize(context) * 12,
-                          textStyle: TextStyle(
-                            color: textColorWhite,
+                          text: 'Back',
+                          textStyle: GoogleFonts.roboto(
                             fontSize: blockSize(context) * 2,
+                            color: textColorWhite,
+                            fontWeight: FontWeight.bold,
                           ),
+                          buttonColor: accentColor,
+                          width: blockSize(context) * 15,
                           onPressed: () async {
-                            await model.navigateToHomeView();
+                            onBackPressed();
                           },
                         ),
                         ExpandedContainer(),

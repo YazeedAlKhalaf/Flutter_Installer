@@ -34,7 +34,7 @@ class SummaryView extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(blockSize(context)),
+                padding: EdgeInsets.all(blockSize(context) * 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -46,7 +46,7 @@ class SummaryView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                             color: textColorBlack,
-                            fontSize: blockSize(context) * 5,
+                            fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -156,17 +156,17 @@ class SummaryView extends StatelessWidget {
                     ),
                     ExpandedContainer(),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         CustomButton(
                           text: 'INSTALL',
                           textStyle: GoogleFonts.roboto(
-                            fontSize: blockSize(context) * 2.5,
-                            fontWeight: FontWeight.bold,
+                            fontSize: blockSize(context) * 2,
                             color: textColorWhite,
+                            fontWeight: FontWeight.bold,
                           ),
                           buttonColor: primaryColor,
-                          width: blockSize(context) * 20,
+                          width: blockSize(context) * 15,
                           onPressed: () {
                             onInstallPressed();
                           },

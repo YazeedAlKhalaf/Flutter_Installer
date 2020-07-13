@@ -30,14 +30,14 @@ class TermsOfServiceView extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(blockSize(context)),
+                padding: EdgeInsets.all(blockSize(context) * 2),
                 child: Column(
                   children: [
                     Text(
                       'Terms of Service',
                       style: GoogleFonts.roboto(
                         color: textColorBlack,
-                        fontSize: blockSize(context) * 5,
+                        fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -51,12 +51,12 @@ class TermsOfServiceView extends StatelessWidget {
                         CustomButton(
                           text: 'Disagree',
                           textStyle: GoogleFonts.roboto(
-                            fontSize: blockSize(context) * 3,
-                            fontWeight: FontWeight.bold,
+                            fontSize: blockSize(context) * 2,
                             color: textColorWhite,
+                            fontWeight: FontWeight.bold,
                           ),
                           buttonColor: dangerColor,
-                          width: blockSize(context) * 20,
+                          width: blockSize(context) * 15,
                           onPressed: () {
                             onDisagreePressed();
                           },
@@ -64,12 +64,12 @@ class TermsOfServiceView extends StatelessWidget {
                         CustomButton(
                           text: 'Agree',
                           textStyle: GoogleFonts.roboto(
-                            fontSize: blockSize(context) * 3,
-                            fontWeight: FontWeight.bold,
+                            fontSize: blockSize(context) * 2,
                             color: textColorWhite,
+                            fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: accentColor,
-                          width: blockSize(context) * 20,
+                          buttonColor: primaryColor,
+                          width: blockSize(context) * 15,
                           onPressed: () {
                             // TODO(yazeed): Save the user's acceptance of the Terms of Service/EULA to the memory
                             onAgreePressed();

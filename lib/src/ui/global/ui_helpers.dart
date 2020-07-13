@@ -58,36 +58,36 @@ double blockSize(BuildContext context) {
 
 Widget verticalSpaceSmall(BuildContext context) {
   return SizedBox(
-    height: blockSize(context) * 5,
+    height: blockSize(context) * 2,
   );
 }
 
 Widget verticalSpaceMedium(BuildContext context) {
   return SizedBox(
-    height: blockSize(context) * 10,
+    height: blockSize(context) * 5,
   );
 }
 
 Widget verticalSpaceLarge(BuildContext context) {
   return SizedBox(
-    height: blockSize(context) * 15,
+    height: blockSize(context) * 10,
   );
 }
 
 Widget horizontalSpaceSmall(BuildContext context) {
   return SizedBox(
-    width: blockSize(context) * 5,
+    width: blockSize(context) * 2,
   );
 }
 
 Widget horizontalSpaceMedium(BuildContext context) {
   return SizedBox(
-    width: blockSize(context) * 10,
+    width: blockSize(context) * 5,
   );
 }
 
 Widget horizontalSpaceLarge(BuildContext context) {
   return SizedBox(
-    width: blockSize(context) * 15,
+    width: blockSize(context) * 10,
   );
 }

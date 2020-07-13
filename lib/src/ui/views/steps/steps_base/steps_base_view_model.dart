@@ -15,6 +15,13 @@ import 'package:stacked_services/stacked_services.dart';
 class StepsBaseViewModel extends CustomBaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
+  bool _showFAQView = false;
+  bool get showFAQView => _showFAQView;
+  void setShowFAQView(bool newValue) {
+    _showFAQView = newValue;
+    notifyListeners();
+  }
+
   UserChoice _userChoice;
   UserChoice get userChoice => _userChoice;
 

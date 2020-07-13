@@ -33,7 +33,7 @@ class InstallingView extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(blockSize(context)),
+                padding: EdgeInsets.all(blockSize(context) * 2),
                 child: Column(
                   children: <Widget>[
                     Row(
@@ -44,7 +44,7 @@ class InstallingView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: GoogleFonts.roboto(
                             color: textColorBlack,
-                            fontSize: blockSize(context) * 5,
+                            fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

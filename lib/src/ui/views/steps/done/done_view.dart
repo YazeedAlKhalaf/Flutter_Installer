@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
@@ -29,7 +31,7 @@ class DoneView extends StatelessWidget {
           body: SafeArea(
             child: Center(
               child: Container(
-                padding: EdgeInsets.all(blockSize(context)),
+                padding: EdgeInsets.all(blockSize(context) * 2),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -38,7 +40,7 @@ class DoneView extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
                         color: textColorBlack,
-                        fontSize: blockSize(context) * 5,
+                        fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -78,18 +80,24 @@ class DoneView extends StatelessWidget {
                       ),
                     ),
                     ExpandedContainer(),
-                    CustomButton(
-                      text: 'Finish!',
-                      buttonColor: accentColor,
-                      textStyle: GoogleFonts.roboto(
-                        fontSize: blockSize(context) * 4.5,
-                        fontWeight: FontWeight.bold,
-                        color: textColorWhite,
-                      ),
-                      width: blockSize(context) * 40,
-                      onPressed: () {
-                        onFinishPressed();
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        CustomButton(
+                          text: 'Finish!',
+                          buttonColor: primaryColor,
+                          textStyle: GoogleFonts.roboto(
+                            fontSize: blockSize(context) * 4.5,
+                            fontWeight: FontWeight.bold,
+                            color: textColorWhite,
+                          ),
+                          width: blockSize(context) * 40,
+                          onPressed: () {
+                            onFinishPressed();
+                            exit(0);
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -73,7 +73,8 @@ class HomeView extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: GoogleFonts.robotoMono(
                               color: textColorBlack,
-                              fontSize: blockSize(context),
+                              fontSize: blockSize(context) * 1.5,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],

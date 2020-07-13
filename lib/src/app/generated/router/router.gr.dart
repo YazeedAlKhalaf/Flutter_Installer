@@ -50,8 +50,9 @@ class Router extends RouterBase {
       );
     },
     FaqView: (RouteData data) {
+      var args = data.getArgs<FaqViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => FaqView(),
+        builder: (context) => FaqView(onBackPressed: args.onBackPressed),
         settings: data,
       );
     },
@@ -62,4 +63,14 @@ class Router extends RouterBase {
       );
     },
   };
+}
+
+// *************************************************************************
+// Arguments holder classes
+// **************************************************************************
+
+//FaqView arguments holder class
+class FaqViewArguments {
+  final dynamic Function() onBackPressed;
+  FaqViewArguments({@required this.onBackPressed});
 }

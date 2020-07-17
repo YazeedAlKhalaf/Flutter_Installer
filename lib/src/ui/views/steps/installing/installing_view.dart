@@ -89,6 +89,67 @@ class InstallingView extends StatelessWidget {
                       ),
                     ),
                     ExpandedContainer(),
+                    model.showLog
+                        ? StreamBuilder<List<Line>>(
+                            stream: model.linesCtlr.stream,
+                            builder: (context, snapshot) {
+                              if (snapshot.data == null) {
+                                return Container();
+                              }
+
+                              List<Widget> getLines() {
+                                return snapshot.data.map(
+                                  (Line line) {
+                                    return Text(
+                                      line.text ?? '',
+                                      style: line is ErrLine
+                                          ? TextStyle(
+                                              color: dangerColor,
+                                              fontSize:
+                                                  blockSize(context) * 1.3,
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                          : TextStyle(
+                                              color: textColorWhite,
+                                              fontSize:
+                                                  blockSize(context) * 1.3,
+                                            ),
+                                    );
+                                  },
+                                ).toList();
+                              }
+
+                              return Card(
+                                color: textColorBlack,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    20,
+                                  ),
+                                ),
+                                elevation: 15,
+                                child: Container(
+                                  height: blockSize(context) * 20,
+                                  width: blockSize(context) * 50,
+                                  margin: EdgeInsets.all(blockSize(context)),
+                                  decoration: BoxDecoration(
+                                    color: textColorBlack,
+                                  ),
+                                  child: SingleChildScrollView(
+                                    reverse: true,
+                                    controller: model.scrollController,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: getLines(),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        : ExpandedContainer(),
+                    ExpandedContainer(),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -113,6 +174,26 @@ class InstallingView extends StatelessWidget {
                             isButtonDisabled:
                                 model.percentage >= 1.0 ? true : false,
                           ),
+                          !model.showLog
+                              ? CustomButton(
+                                  text: 'Show Log',
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: blockSize(context) * 2,
+                                    color: textColorWhite,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  buttonColor: accentColor,
+                                  width: blockSize(context) * 15,
+                                  onPressed: () {
+                                    if (!model.showLog) {
+                                      model.setShowLog(true);
+                                    }
+                                  },
+                                  isButtonDisabled:
+                                      model.percentage >= 1.0 ? true : false,
+                                )
+                              : Container(),
                           CustomButton(
                             text: 'Next',
                             textStyle: TextStyle(

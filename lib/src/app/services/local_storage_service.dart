@@ -1,13 +1,11 @@
 import 'dart:io';
 
-import 'package:flutter_installer/src/app/utils/logger.dart';
 import 'package:injectable/injectable.dart';
-import 'package:logger/logger.dart';
 import 'package:path_provider/path_provider.dart';
 
 @lazySingleton
 class LocalStorageService {
-  final Logger log = getLogger('PreferencesService');
+  // final Logger log = getLogger('PreferencesService');
 
   String _tempPath;
   String get tempPath => _tempPath;

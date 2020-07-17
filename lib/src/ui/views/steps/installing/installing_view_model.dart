@@ -249,7 +249,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     // TODO(yazeed): Add Flutter to PATH
 
     if (_userChoice.installGit) {
-      /// install `git` for windows using
+      /// install `git` for windows
       setCurrentTaskText(
         'Downloading Git for Windows\n(This may take some time)',
       );
@@ -287,7 +287,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     }
 
     if (userChoice.installAndroidStudio) {
-      /// install `Android Studio` for windows using
+      /// install `Android Studio` for windows
       setCurrentTaskText(
         'Downloading Android Studio Latest Version\n(This might take some time)',
       );
@@ -324,6 +324,44 @@ class InstallingViewModel extends CustomBaseViewModel {
       );
     }
 
+    if (userChoice.installVisualStudioCode) {
+      /// install `Visual Studio Code` for windows
+      setCurrentTaskText(
+        'Downloading Visual Studio Code Latest Version\n(This might take some time)',
+      );
+      setPercentage(0.95);
+      await fakeDelay();
+      AppRelease visualStudioCodeRelease =
+          await _apiService.getLatestVisualStudioCodeRelease();
+      String visualStudioCodeName = _utils.getAnythingAfterLastSlash(
+          visualStudioCodeRelease.downloadLinks.windows);
+      logger.i(
+        'Started Downloading Visual Studio Code For Windows from \"${visualStudioCodeRelease.downloadLinks.windows}\"',
+      );
+      await _shell.run('''
+      curl -o $visualStudioCodeName -L "${visualStudioCodeRelease.downloadLinks.windows}"
+      ''');
+      logger.i(
+        'Finished Downloading Visual Studio Code For Windows from \"${visualStudioCodeRelease.downloadLinks.windows}\"',
+      );
+
+      /// run the `.exe` installer
+      setCurrentTaskText(
+        'Running $visualStudioCodeName, Follow the steps there',
+      );
+      setPercentage(0.9);
+      await fakeDelay();
+      logger.i(
+        'Started $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+      await _shell.run('''
+      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$visualStudioCodeName\"
+      ''');
+      logger.i(
+        'Finished $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+    }
+
     /// Done 🚀😎
     setCurrentTaskText(
       'You\'re Done! 🚀😎',
@@ -333,12 +371,6 @@ class InstallingViewModel extends CustomBaseViewModel {
     logger.i(
       'Finished installing Flutter for Windows!',
     );
-
-    // if (userChoice.installVisualStudioCode) {
-    //   setCurrentTaskText(
-    //     'Downloading Visual Studio Code Latest Version\n(This might take some time)',
-    //   );
-    // }
 
     // if (userChoice.installIntelliJIDEA) {
     //   setCurrentTaskText(

@@ -121,21 +121,21 @@ class CustomizeView extends StatelessWidget {
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    // Expanded(
-                                    //   child: CheckboxListTile(
-                                    //     title: Text(
-                                    //       'Install Visual Studio Code',
-                                    //       style:  TextStyle(
-                                    //         fontFamily: 'RobotoMono',
-                                    //         fontSize: blockSize(context) * 1.5,
-                                    //         fontWeight: FontWeight.bold,
-                                    //       ),
-                                    //     ),
-                                    //     value: model.installVisualStudioCode,
-                                    //     onChanged:
-                                    //         model.setInstallVisualStudioCode,
-                                    //   ),
-                                    // ),
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Visual Studio Code',
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installVisualStudioCode,
+                                        onChanged:
+                                            model.setInstallVisualStudioCode,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: CheckboxListTile(
                                         title: Text(

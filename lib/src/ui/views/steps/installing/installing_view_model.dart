@@ -94,21 +94,7 @@ class InstallingViewModel extends CustomBaseViewModel {
   Future<void> initialize({
     @required UserChoice userChoice,
   }) async {
-    utf8.decoder
-        .bind(_stdoutCtlr.stream)
-        .transform(const LineSplitter())
-        .listen((text) {
-      _addLine(OutLine(text));
-    });
-    utf8.decoder
-        .bind(_stderrCtlr.stream)
-        .transform(const LineSplitter())
-        .listen((text) {
-      _addLine(ErrLine(text));
-    });
-    _shell = Shell(stdout: _stdoutCtlr.sink, stderr: _stderrCtlr.sink);
-    _addLine(OutLine('Here is the log of the Flutter installer'));
-    _addLine(ErrLine('Error text will be displayed in red'));
+    intializeStreamOfShellLines();
 
     setPercentage(0.0);
     setCurrentTaskText('Preparing...');
@@ -144,15 +130,6 @@ class InstallingViewModel extends CustomBaseViewModel {
   }
 
   Future<void> install() async {
-    // if (!Platform.isWindows || !Platform.isMacOS || !Platform.isLinux) {
-    //   _snackbarService.showSnackbar(
-    //     title: 'Unsupported Operating System',
-    //     message: '${Platform.operatingSystem} is not supported!',
-    //     iconData: Icons.close,
-    //   );
-    //   return;
-    // }
-
     if (Platform.isWindows) {
       await installOnWindows();
     }
@@ -182,20 +159,20 @@ class InstallingViewModel extends CustomBaseViewModel {
 
     /// create a `shell`
     setCurrentTaskText('Creating shell');
-    setPercentage(0.1);
+    setPercentage(0.05);
     await fakeDelay();
     logger.i('Created Shell: ${_shell.toString()}');
 
     /// `cd` into Temp directory
     setCurrentTaskText('Changing directory to "temp"');
-    setPercentage(0.2);
+    setPercentage(0.1);
     await fakeDelay();
     _shell = _shell.pushd(await _localStorageService.getTempDiretoryPath());
     logger.i('Change Directory to Temp');
 
     /// create `flutter_installer` directory
     setCurrentTaskText('Creating "$tempDirName" directory');
-    setPercentage(0.3);
+    setPercentage(0.15);
     await fakeDelay();
     await _shell.run('''
     mkdir $tempDirName
@@ -204,7 +181,7 @@ class InstallingViewModel extends CustomBaseViewModel {
 
     /// `cd` into `flutter_installer` directory
     setCurrentTaskText('Changing directory to "$tempDirName"');
-    setPercentage(0.4);
+    setPercentage(0.2);
     await fakeDelay();
     _shell = _shell.pushd('$tempDirName');
     logger.i('Change directory to $tempDirName');
@@ -213,7 +190,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     setCurrentTaskText(
       'Downloading Flutter SDK for Windows\n(This may take some time)',
     );
-    setPercentage(0.5);
+    setPercentage(0.25);
     await fakeDelay();
     logger.i(
       'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
@@ -228,7 +205,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     /// use `tar` to unzip the downloaded file
     setCurrentTaskText(
         'Unzipping Flutter SDK to installation path\n(This might take some time)');
-    setPercentage(0.6);
+    setPercentage(0.3);
     await fakeDelay();
     logger.i(
       'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
@@ -244,7 +221,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     setCurrentTaskText(
       'Adding Flutter SDK to the PATH',
     );
-    setPercentage(0.7);
+    setPercentage(0.35);
     await fakeDelay();
     // TODO(yazeed): Add Flutter to PATH
 
@@ -253,7 +230,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Downloading Git for Windows\n(This may take some time)',
       );
-      setPercentage(0.8);
+      setPercentage(0.4);
       await fakeDelay();
       GithubReleaseAsset githubReleaseAsset =
           await _apiService.getLatestGitForWindowsRelease();
@@ -273,7 +250,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Running $gitDownloadName, Follow the steps there',
       );
-      setPercentage(0.9);
+      setPercentage(0.45);
       await fakeDelay();
       logger.i(
         'Started $gitDownloadName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
@@ -291,7 +268,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Downloading Android Studio Latest Version\n(This might take some time)',
       );
-      setPercentage(0.95);
+      setPercentage(0.475);
       await fakeDelay();
       AppRelease androidStudioRelease =
           await _apiService.getLatestAndroidStudioRelease();
@@ -311,7 +288,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Running $androidStudioName, Follow the steps there',
       );
-      setPercentage(0.9);
+      setPercentage(0.5);
       await fakeDelay();
       logger.i(
         'Started $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
@@ -329,7 +306,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Downloading Visual Studio Code Latest Version\n(This might take some time)',
       );
-      setPercentage(0.95);
+      setPercentage(0.525);
       await fakeDelay();
       AppRelease visualStudioCodeRelease =
           await _apiService.getLatestVisualStudioCodeRelease();
@@ -349,7 +326,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       setCurrentTaskText(
         'Running $visualStudioCodeName, Follow the steps there',
       );
-      setPercentage(0.9);
+      setPercentage(0.55);
       await fakeDelay();
       logger.i(
         'Started $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
@@ -362,6 +339,44 @@ class InstallingViewModel extends CustomBaseViewModel {
       );
     }
 
+    if (userChoice.installIntelliJIDEA) {
+      /// install `IntelliJ IDEA` for windows
+      setCurrentTaskText(
+        'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
+      );
+      setPercentage(0.575);
+      await fakeDelay();
+      AppRelease intelliJIDEARelease =
+          await _apiService.getLatestIntelliJIDEARelease();
+      String intelliJIDEAName = _utils
+          .getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.windows);
+      logger.i(
+        'Started Downloading IntelliJ IDEA For Windows from \"${intelliJIDEARelease.downloadLinks.windows}\"',
+      );
+      await _shell.run('''
+      curl -o $intelliJIDEAName -L "${intelliJIDEARelease.downloadLinks.windows}"
+      ''');
+      logger.i(
+        'Finished Downloading IntelliJ IDEA For Windows from \"${intelliJIDEARelease.downloadLinks.windows}\"',
+      );
+
+      /// run the `.exe` installer
+      setCurrentTaskText(
+        'Running $intelliJIDEAName, Follow the steps there',
+      );
+      setPercentage(0.6);
+      await fakeDelay();
+      logger.i(
+        'Started $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+      await _shell.run('''
+      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$intelliJIDEAName\"
+      ''');
+      logger.i(
+        'Finished $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+    }
+
     /// Done 🚀😎
     setCurrentTaskText(
       'You\'re Done! 🚀😎',
@@ -371,12 +386,6 @@ class InstallingViewModel extends CustomBaseViewModel {
     logger.i(
       'Finished installing Flutter for Windows!',
     );
-
-    // if (userChoice.installIntelliJIDEA) {
-    //   setCurrentTaskText(
-    //     'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
-    //   );
-    // }
   }
 
   Future<void> installOnMacOS() async {
@@ -385,5 +394,23 @@ class InstallingViewModel extends CustomBaseViewModel {
 
   Future<void> installOnLinux() async {
     print('Install On Linux');
+  }
+
+  intializeStreamOfShellLines() {
+    utf8.decoder
+        .bind(_stdoutCtlr.stream)
+        .transform(const LineSplitter())
+        .listen((text) {
+      _addLine(OutLine(text));
+    });
+    utf8.decoder
+        .bind(_stderrCtlr.stream)
+        .transform(const LineSplitter())
+        .listen((text) {
+      _addLine(ErrLine(text));
+    });
+    _shell = Shell(stdout: _stdoutCtlr.sink, stderr: _stderrCtlr.sink);
+    _addLine(OutLine('Here is the log of the Flutter installer'));
+    _addLine(ErrLine('Error text will be displayed in red'));
   }
 }

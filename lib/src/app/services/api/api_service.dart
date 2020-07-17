@@ -129,4 +129,19 @@ class ApiService {
 
     return appRelease;
   }
+
+  Future<AppRelease> getLatestIntelliJIDEARelease() async {
+    Response response;
+    response = await http.get(
+      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+    );
+
+    Map<String, dynamic> data = json.decode(response.body);
+
+    LatestRelease latestRelease = LatestRelease.fromJson(data);
+
+    AppRelease appRelease = latestRelease.latest.intellijIdea;
+
+    return appRelease;
+  }
 }

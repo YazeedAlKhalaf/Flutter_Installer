@@ -155,20 +155,20 @@ class CustomizeView extends StatelessWidget {
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    // Expanded(
-                                    //   child: CheckboxListTile(
-                                    //     title: Text(
-                                    //       'Install IntelliJ IDEA',
-                                    //       style:  TextStyle(
-                                    //         fontFamily: 'RobotoMono',
-                                    //         fontSize: blockSize(context) * 1.5,
-                                    //         fontWeight: FontWeight.bold,
-                                    //       ),
-                                    //     ),
-                                    //     value: model.installIntelliJIDEA,
-                                    //     onChanged: model.setInstallIntelliJIDEA,
-                                    //   ),
-                                    // ),
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install IntelliJ IDEA',
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installIntelliJIDEA,
+                                        onChanged: model.setInstallIntelliJIDEA,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: CheckboxListTile(
                                         title: Text(

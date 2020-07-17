@@ -3,7 +3,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './terms_of_service_view_model.dart';
@@ -35,7 +35,8 @@ class TermsOfServiceView extends StatelessWidget {
                   children: [
                     Text(
                       'Terms of Service',
-                      style: GoogleFonts.roboto(
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
                         color: textColorBlack,
                         fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
@@ -50,7 +51,8 @@ class TermsOfServiceView extends StatelessWidget {
                       children: [
                         CustomButton(
                           text: 'Disagree',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,
@@ -63,7 +65,8 @@ class TermsOfServiceView extends StatelessWidget {
                         ),
                         CustomButton(
                           text: 'Agree',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,

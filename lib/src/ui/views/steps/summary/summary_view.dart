@@ -7,7 +7,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './summary_view_model.dart';
@@ -44,7 +44,8 @@ class SummaryView extends StatelessWidget {
                         Text(
                           'Summary',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
                             color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
@@ -73,7 +74,8 @@ class SummaryView extends StatelessWidget {
                               children: <Widget>[
                                 Text(
                                   '* This is a summary of what will be downloaded:',
-                                  style: GoogleFonts.robotoMono(
+                                  style: TextStyle(
+                                    fontFamily: 'RobotoMono',
                                     color: lynchColor,
                                     fontSize: blockSize(context) * 1.5,
                                     fontWeight: FontWeight.bold,
@@ -99,7 +101,8 @@ class SummaryView extends StatelessWidget {
                                             : '• Path: Not Specified',
                                         textAlign: TextAlign.start,
                                         overflow: TextOverflow.ellipsis,
-                                        style: GoogleFonts.robotoMono(
+                                        style: TextStyle(
+                                          fontFamily: 'RobotoMono',
                                           color: lynchColor,
                                           fontSize: blockSize(context) * 1.2,
                                           fontWeight: FontWeight.bold,
@@ -109,7 +112,8 @@ class SummaryView extends StatelessWidget {
                                         Text(
                                           '• Visual Studio Code Latest Version',
                                           textAlign: TextAlign.start,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
@@ -119,7 +123,8 @@ class SummaryView extends StatelessWidget {
                                         Text(
                                           '• Android Studio Latest Version',
                                           textAlign: TextAlign.start,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
@@ -129,7 +134,8 @@ class SummaryView extends StatelessWidget {
                                         Text(
                                           '• IntelliJ IDEA Latest Version',
                                           textAlign: TextAlign.start,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
@@ -139,7 +145,8 @@ class SummaryView extends StatelessWidget {
                                         Text(
                                           '• Git',
                                           textAlign: TextAlign.start,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
@@ -160,7 +167,8 @@ class SummaryView extends StatelessWidget {
                       children: <Widget>[
                         CustomButton(
                           text: 'INSTALL',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,

@@ -6,7 +6,7 @@ import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './done_view_model.dart';
@@ -38,7 +38,8 @@ class DoneView extends StatelessWidget {
                     Text(
                       'HOOORAY🚀💙😎',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.roboto(
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
                         color: textColorBlack,
                         fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
@@ -58,17 +59,20 @@ class DoneView extends StatelessWidget {
                         child: Markdown(
                           data: model.markdownData,
                           styleSheet: MarkdownStyleSheet(
-                            code: GoogleFonts.robotoMono(
+                            code: TextStyle(
+                              fontFamily: 'RobotoMono',
                               backgroundColor: Colors.grey[350],
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 1.5,
                             ),
-                            h1: GoogleFonts.roboto(
+                            h1: TextStyle(
+                              fontFamily: 'Roboto',
                               color: textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
                             ),
-                            p: GoogleFonts.roboto(
+                            p: TextStyle(
+                              fontFamily: 'Roboto',
                               color: textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                             ),
@@ -86,7 +90,8 @@ class DoneView extends StatelessWidget {
                         CustomButton(
                           text: 'Finish!',
                           buttonColor: primaryColor,
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 4.5,
                             fontWeight: FontWeight.bold,
                             color: textColorWhite,

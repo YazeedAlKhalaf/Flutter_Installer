@@ -4,7 +4,7 @@ import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/views/faq/faq_view.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './steps_base_view_model.dart';
@@ -79,7 +79,8 @@ class StepsBaseView extends StatelessWidget {
                                     child: Text(
                                       'Get Help',
                                       textAlign: TextAlign.center,
-                                      style: GoogleFonts.roboto(
+                                      style: TextStyle(
+                                        fontFamily: 'Roboto',
                                         color: textColorWhite,
                                         fontWeight: FontWeight.bold,
                                         fontSize: blockSize(context) * 2,

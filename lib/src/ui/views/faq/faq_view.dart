@@ -3,7 +3,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './faq_view_model.dart';
@@ -25,7 +25,8 @@ class FaqView extends StatelessWidget {
         Widget child,
       ) {
         model.initializeWindowSize();
-        final TextStyle verticalTextStyle = GoogleFonts.roboto(
+        final TextStyle verticalTextStyle = TextStyle(
+          fontFamily: 'Roboto',
           fontSize: blockSize(context) * 7,
           fontWeight: FontWeight.bold,
           color: textColorWhite,
@@ -70,7 +71,8 @@ class FaqView extends StatelessWidget {
                         ExpandedContainer(),
                         CustomButton(
                           text: 'Back',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,

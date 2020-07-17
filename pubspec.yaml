@@ -28,7 +28,7 @@ dependencies:
   shared_preferences: ^0.5.8
 
   # MISC
-  google_fonts: ^1.1.0
+  # google_fonts: ^1.1.0
   percent_indicator: ^2.1.5
   path_provider: ^1.6.11
   path_provider_fde:
@@ -72,3 +72,17 @@ flutter:
     - assets/
     - assets/images/
     - assets/misc/
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
+    - family: RobotoMono
+      fonts:
+        - asset: assets/fonts/RobotoMono/RobotoMono-Regular.ttf
+        - asset: assets/fonts/RobotoMono/RobotoMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/RobotoMono/RobotoMono-Bold.ttf
+          weight: 700

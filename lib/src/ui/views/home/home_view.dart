@@ -3,7 +3,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './home_view_model.dart';
@@ -48,7 +48,8 @@ class HomeView extends StatelessWidget {
                           Text(
                             'Flutter Installer',
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.robotoMono(
+                            style: TextStyle(
+                              fontFamily: 'RobotoMono',
                               color: textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
@@ -61,7 +62,8 @@ class HomeView extends StatelessWidget {
                             },
                             text: 'Get Started',
                             width: blockSize(context) * 30,
-                            textStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontFamily: 'Roboto',
                               color: textColorWhite,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
@@ -71,7 +73,8 @@ class HomeView extends StatelessWidget {
                           Text(
                             'Made With Flutter 💙',
                             textAlign: TextAlign.center,
-                            style: GoogleFonts.robotoMono(
+                            style: TextStyle(
+                              fontFamily: 'RobotoMono',
                               color: textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.w500,

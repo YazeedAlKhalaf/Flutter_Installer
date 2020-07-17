@@ -4,7 +4,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:stacked/stacked.dart';
@@ -47,7 +47,8 @@ class InstallingView extends StatelessWidget {
                         Text(
                           'Installing',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
                             color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
@@ -63,7 +64,8 @@ class InstallingView extends StatelessWidget {
                         percent: model.percentage,
                         center: Text(
                           "${(model.percentage * 100).toInt()}%",
-                          style: GoogleFonts.roboto(
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold,
                             fontSize: blockSize(context) * 2,
                             color: model.percentage >= 0.5
@@ -78,7 +80,8 @@ class InstallingView extends StatelessWidget {
                       child: Text(
                         model.currentTaskText,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.robotoMono(
+                        style: TextStyle(
+                          fontFamily: 'RobotoMono',
                           fontSize: blockSize(context) * 1.5,
                           color: lynchColor,
                           fontWeight: FontWeight.bold,
@@ -92,7 +95,8 @@ class InstallingView extends StatelessWidget {
                         children: <Widget>[
                           CustomButton(
                             text: 'Cancel',
-                            textStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontFamily: 'Roboto',
                               fontSize: blockSize(context) * 2,
                               color: textColorWhite,
                               fontWeight: FontWeight.bold,
@@ -111,7 +115,8 @@ class InstallingView extends StatelessWidget {
                           ),
                           CustomButton(
                             text: 'Next',
-                            textStyle: GoogleFonts.roboto(
+                            textStyle: TextStyle(
+                              fontFamily: 'Roboto',
                               fontSize: blockSize(context) * 2,
                               color: textColorWhite,
                               fontWeight: FontWeight.bold,

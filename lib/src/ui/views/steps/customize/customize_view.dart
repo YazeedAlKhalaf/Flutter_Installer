@@ -4,7 +4,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:stacked/stacked.dart';
 
 import './customize_view_model.dart';
@@ -38,7 +38,8 @@ class CustomizeView extends StatelessWidget {
                         Text(
                           'Customize',
                           textAlign: TextAlign.center,
-                          style: GoogleFonts.roboto(
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
                             color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
@@ -61,7 +62,8 @@ class CustomizeView extends StatelessWidget {
                                 ),
                               ),
                               hintText: 'Please Choose Installation Location',
-                              hintStyle: GoogleFonts.robotoMono(
+                              hintStyle: TextStyle(
+                                fontFamily: 'RobotoMono',
                                 fontSize: blockSize(context) * 1.5,
                                 fontWeight: FontWeight.bold,
                                 color: model.textFieldHasError
@@ -74,7 +76,8 @@ class CustomizeView extends StatelessWidget {
                         ),
                         CustomButton(
                           text: 'Browse',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             fontWeight: FontWeight.bold,
                             color: textColorWhite,
@@ -110,7 +113,8 @@ class CustomizeView extends StatelessWidget {
                                 Text(
                                   'Choose apps you need:',
                                   textAlign: TextAlign.start,
-                                  style: GoogleFonts.robotoMono(
+                                  style: TextStyle(
+                                    fontFamily: 'RobotoMono',
                                     fontSize: blockSize(context) * 2,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -121,7 +125,8 @@ class CustomizeView extends StatelessWidget {
                                     //   child: CheckboxListTile(
                                     //     title: Text(
                                     //       'Install Visual Studio Code',
-                                    //       style: GoogleFonts.robotoMono(
+                                    //       style:  TextStyle(
+                                    //         fontFamily: 'RobotoMono',
                                     //         fontSize: blockSize(context) * 1.5,
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
@@ -135,7 +140,8 @@ class CustomizeView extends StatelessWidget {
                                     //   child: CheckboxListTile(
                                     //     title: Text(
                                     //       'Install Android Studio',
-                                    //       style: GoogleFonts.robotoMono(
+                                    //       style:  TextStyle(
+                                    //         fontFamily: 'RobotoMono',
                                     //         fontSize: blockSize(context) * 1.5,
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
@@ -153,7 +159,8 @@ class CustomizeView extends StatelessWidget {
                                     //   child: CheckboxListTile(
                                     //     title: Text(
                                     //       'Install IntelliJ IDEA',
-                                    //       style: GoogleFonts.robotoMono(
+                                    //       style:  TextStyle(
+                                    //         fontFamily: 'RobotoMono',
                                     //         fontSize: blockSize(context) * 1.5,
                                     //         fontWeight: FontWeight.bold,
                                     //       ),
@@ -166,7 +173,8 @@ class CustomizeView extends StatelessWidget {
                                       child: CheckboxListTile(
                                         title: Text(
                                           'Install Git',
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             fontSize: blockSize(context) * 1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -181,7 +189,8 @@ class CustomizeView extends StatelessWidget {
                                 Text(
                                   'Choose the Flutter channel you want to use:',
                                   textAlign: TextAlign.start,
-                                  style: GoogleFonts.robotoMono(
+                                  style: TextStyle(
+                                    fontFamily: 'RobotoMono',
                                     fontSize: blockSize(context) * 2,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -193,7 +202,8 @@ class CustomizeView extends StatelessWidget {
                                         title: Text(
                                           'Stable Channel',
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             fontSize: blockSize(context) * 1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -210,7 +220,8 @@ class CustomizeView extends StatelessWidget {
                                         title: Text(
                                           'Beta Channel',
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             fontSize: blockSize(context) * 1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -227,7 +238,8 @@ class CustomizeView extends StatelessWidget {
                                         title: Text(
                                           'Dev Channel',
                                           textAlign: TextAlign.center,
-                                          style: GoogleFonts.robotoMono(
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
                                             fontSize: blockSize(context) * 1.5,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -253,7 +265,8 @@ class CustomizeView extends StatelessWidget {
                       children: <Widget>[
                         CustomButton(
                           text: 'Next',
-                          textStyle: GoogleFonts.roboto(
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
                             fontWeight: FontWeight.bold,
                             color: textColorWhite,

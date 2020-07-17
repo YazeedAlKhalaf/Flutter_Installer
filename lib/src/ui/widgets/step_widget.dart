@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 enum StepWidgetState {
   Done,
@@ -66,7 +65,8 @@ class StepWidget extends StatelessWidget {
           Text(
             stepName,
             textAlign: TextAlign.start,
-            style: GoogleFonts.roboto(
+            style: TextStyle(
+              fontFamily: 'Roboto',
               fontSize: blockSize(context) * 2,
               fontWeight: FontWeight.bold,
               color: textColorWhite,

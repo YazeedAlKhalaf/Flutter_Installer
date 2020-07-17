@@ -4,7 +4,7 @@
 
 > • UI is 100% done!
 >
-> • Windows is 80% done!
+> • Windows is 95% done!
 >
 > • macOS is 0% done!
 >
@@ -27,9 +27,10 @@ Tools • Dart 2.9.0 (build 2.9.0-21.2.beta)
 **You need to be on Flutter master channel** for Windows
 
 ```bash
-Flutter 1.20.0-8.0.pre.46 • channel master •
+$ flutter --version
+Flutter 1.21.0-2.0.pre.55 • channel master •
 https://github.com/flutter/flutter.git
-Framework • revision 66556faef7 (15 hours ago) • 2020-07-10 13:29:49 -0700
-Engine • revision 9b3e3410f0
-Tools • Dart 2.9.0 (build 2.9.0-21.0.dev 06cb010247)
+Framework • revision 1840b7121a (16 hours ago) • 2020-07-16 23:15:23 -0700
+Engine • revision d3b81f19fc
+Tools • Dart 2.9.0 (build 2.9.0-21.0.dev 06183779d7)
 ```

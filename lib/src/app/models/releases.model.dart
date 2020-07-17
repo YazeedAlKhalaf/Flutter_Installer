@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter_installer/src/app/models/current_release.mode.dart';
+import 'package:flutter_installer/src/app/models/current_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 
 class Releases {

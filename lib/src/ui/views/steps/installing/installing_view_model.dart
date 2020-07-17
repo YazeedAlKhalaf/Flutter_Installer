@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
+import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -285,6 +286,44 @@ class InstallingViewModel extends CustomBaseViewModel {
       );
     }
 
+    if (userChoice.installAndroidStudio) {
+      /// install `Android Studio` for windows using
+      setCurrentTaskText(
+        'Downloading Android Studio Latest Version\n(This might take some time)',
+      );
+      setPercentage(0.95);
+      await fakeDelay();
+      AppRelease androidStudioRelease =
+          await _apiService.getLatestAndroidStudioRelease();
+      String androidStudioName = _utils.getAnythingAfterLastSlash(
+          androidStudioRelease.downloadLinks.windows);
+      logger.i(
+        'Started Downloading Android Studio For Windows from \"${androidStudioRelease.downloadLinks.windows}\"',
+      );
+      await _shell.run('''
+      curl -o $androidStudioName -L "${androidStudioRelease.downloadLinks.windows}"
+      ''');
+      logger.i(
+        'Finished Downloading Android Studio For Windows from \"${androidStudioRelease.downloadLinks.windows}\"',
+      );
+
+      /// run the `.exe` installer
+      setCurrentTaskText(
+        'Running $androidStudioName, Follow the steps there',
+      );
+      setPercentage(0.9);
+      await fakeDelay();
+      logger.i(
+        'Started $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+      await _shell.run('''
+      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$androidStudioName\"
+      ''');
+      logger.i(
+        'Finished $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      );
+    }
+
     /// Done 🚀😎
     setCurrentTaskText(
       'You\'re Done! 🚀😎',
@@ -294,12 +333,6 @@ class InstallingViewModel extends CustomBaseViewModel {
     logger.i(
       'Finished installing Flutter for Windows!',
     );
-
-    // if (userChoice.installAndroidStudio) {
-    //   setCurrentTaskText(
-    //     'Downloading Android Studio Latest Version\n(This might take some time)',
-    //   );
-    // }
 
     // if (userChoice.installVisualStudioCode) {
     //   setCurrentTaskText(

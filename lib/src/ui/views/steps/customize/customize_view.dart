@@ -136,21 +136,21 @@ class CustomizeView extends StatelessWidget {
                                     //         model.setInstallVisualStudioCode,
                                     //   ),
                                     // ),
-                                    // Expanded(
-                                    //   child: CheckboxListTile(
-                                    //     title: Text(
-                                    //       'Install Android Studio',
-                                    //       style:  TextStyle(
-                                    //         fontFamily: 'RobotoMono',
-                                    //         fontSize: blockSize(context) * 1.5,
-                                    //         fontWeight: FontWeight.bold,
-                                    //       ),
-                                    //     ),
-                                    //     value: model.installAndroidStudio,
-                                    //     onChanged:
-                                    //         model.setInstallAndroidStudio,
-                                    //   ),
-                                    // ),
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Android Studio',
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        value: model.installAndroidStudio,
+                                        onChanged:
+                                            model.setInstallAndroidStudio,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Row(

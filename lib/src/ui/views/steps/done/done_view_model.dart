@@ -9,10 +9,6 @@ class DoneViewModel extends CustomBaseViewModel {
     return await _utils.getStringFromFile(path);
   }
 
-  Future<void> launchUrl(String url) async {
-    await _utils.launchUrl(url);
-  }
-
   String get markdownData => _markdownData;
   String _markdownData = """
 # Congrats 🎉

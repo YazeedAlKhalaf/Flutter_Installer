@@ -3,6 +3,7 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:stacked/stacked.dart';
 
@@ -42,10 +43,45 @@ class TermsOfServiceView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-
-                    // TODO(yazeed): Add Terms of Service/EULA of Flutter SDK here
                     ExpandedContainer(),
-
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        20,
+                      ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                        ),
+                        height: blockSize(context) * 30,
+                        width: blockSize(context) * 50,
+                        child: Markdown(
+                          data: model.markdownData,
+                          styleSheet: MarkdownStyleSheet(
+                            code: TextStyle(
+                              fontFamily: 'RobotoMono',
+                              backgroundColor: Colors.grey[350],
+                              fontWeight: FontWeight.bold,
+                              fontSize: blockSize(context) * 1.5,
+                            ),
+                            h1: TextStyle(
+                              fontFamily: 'Roboto',
+                              color: textColorBlack,
+                              fontWeight: FontWeight.bold,
+                              fontSize: blockSize(context) * 3,
+                            ),
+                            p: TextStyle(
+                              fontFamily: 'Roboto',
+                              color: textColorBlack,
+                              fontSize: blockSize(context) * 1.5,
+                            ),
+                          ),
+                          onTapLink: (String link) {
+                            model.launchUrl(link);
+                          },
+                        ),
+                      ),
+                    ),
+                    ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [

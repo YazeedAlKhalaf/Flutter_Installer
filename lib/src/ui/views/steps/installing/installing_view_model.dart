@@ -243,7 +243,6 @@ class InstallingViewModel extends CustomBaseViewModel {
     );
     setPercentage(0.35);
     await fakeDelay();
-    // TODO(yazeed): Add Flutter to PATH
     String flutterPath = "${userChoice.installationPath}\\flutter\\bin";
     await _shell.run("""
     $appendToPathScriptName \"$flutterPath\"

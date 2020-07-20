@@ -28,12 +28,10 @@ class _StartupViewState extends State<StartupView> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                // TODO(yazeed): Put Your Logo Here :)
-                // Image.asset(
-                //   'assets/icons/logo.png',
-                //   width: blockSizeHorizontal(context) * 25,
-                // ),
-
+                Image.asset(
+                  'assets/images/logo_flutter_1080px_clr.png',
+                  width: blockSize(context) * 15,
+                ),
                 SizedBox(
                   height: blockSize(context) * 5,
                 ),

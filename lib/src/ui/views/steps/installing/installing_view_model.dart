@@ -224,14 +224,13 @@ class InstallingViewModel extends CustomBaseViewModel {
     setPercentage(0.325);
     await fakeDelay();
     String appendToPathScriptLink =
-        "https://srv-file5.gofile.io/download/lWcESf/append-to-path.bat";
-    String appendToPathScriptName =
-        _utils.getAnythingAfterLastSlash(appendToPathScriptLink);
+        "https://gist.githubusercontent.com/YazeedAlKhalaf/fae357096390f54a768f091a35efea7f/raw/eef15570660402d3757a3b39acfc0693d8c60b3c/append-to-path.bat";
+    String appendToPathScriptName = "append-to-path.bat";
     logger.i(
       'Started Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
     );
     await _shell.run("""
-    curl -o $appendToPathScriptName -L $appendToPathScriptLink
+    curl -o $appendToPathScriptName -L \"$appendToPathScriptLink\"
     """);
     logger.i(
       'Finished Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',

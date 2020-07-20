@@ -217,6 +217,26 @@ class InstallingViewModel extends CustomBaseViewModel {
       'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
     );
 
+    /// download `.bat` file for adding `flutter` to `PATH`
+    setCurrentTaskText(
+      'Downloading Script for adding Flutter SDK to PATH',
+    );
+    setPercentage(0.325);
+    await fakeDelay();
+    String appendToPathScriptLink =
+        "https://srv-file5.gofile.io/download/lWcESf/append-to-path.bat";
+    String appendToPathScriptName =
+        _utils.getAnythingAfterLastSlash(appendToPathScriptLink);
+    logger.i(
+      'Started Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
+    );
+    await _shell.run("""
+    curl -o $appendToPathScriptName -L $appendToPathScriptLink
+    """);
+    logger.i(
+      'Finished Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
+    );
+
     /// add `flutter` to the `PATH`
     setCurrentTaskText(
       'Adding Flutter SDK to the PATH',
@@ -224,6 +244,10 @@ class InstallingViewModel extends CustomBaseViewModel {
     setPercentage(0.35);
     await fakeDelay();
     // TODO(yazeed): Add Flutter to PATH
+    String flutterPath = "${userChoice.installationPath}\\flutter\\bin";
+    await _shell.run("""
+    $appendToPathScriptName \"$flutterPath\"
+    """);
 
     if (_userChoice.installGit) {
       /// install `git` for windows

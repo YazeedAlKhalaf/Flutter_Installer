@@ -4,7 +4,7 @@
 
 > • UI is 100% done!
 >
-> • Windows is 95% done!
+> • Windows is 100% done!
 >
 > • macOS is 0% done!
 >

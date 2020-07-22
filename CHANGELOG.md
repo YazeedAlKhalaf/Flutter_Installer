@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `scripts` folder in `installing` step folder for having cleaner code.
 - Default installation path in customize screen.
 - `TextLink` widget
+- Linux Script:
+    - Install Flutter SDK
+    - Unzip Flutter SDK
+    - Install Git (with `apt`)
+    - Install Android Studio
 
 ### Fixed
 

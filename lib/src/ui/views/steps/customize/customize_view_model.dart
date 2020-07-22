@@ -14,6 +14,13 @@ class CustomizeViewModel extends CustomBaseViewModel {
       locator<LocalStorageService>();
   final TextEditingController chooseFolderController = TextEditingController();
 
+  bool _showAdvanced = false;
+  bool get showAdvanced => _showAdvanced;
+  void setShowAdvanced(bool newValue) {
+    _showAdvanced = newValue;
+    notifyListeners();
+  }
+
   bool _textFieldHasError = false;
   bool get textFieldHasError => _textFieldHasError;
   void setTextFieldHasError(bool newValue) {
@@ -99,5 +106,10 @@ class CustomizeViewModel extends CustomBaseViewModel {
       title: title,
       message: message,
     );
+  }
+
+  intialize() async {
+    setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
+    chooseFolderController.text = _installationPath;
   }
 }

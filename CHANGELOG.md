@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Customize Screen: Show Advanced` Button
+- Back button on `Summary` Screen
+- `scripts` folder in `installing` step folder for having cleaner code.
+- Default installation path in customize screen.
+- `TextLink` widget
+
+### Fixed
+
+- VS Code installer for Windows was being saved with no extenstion, Now it is being saved with `.exe` extension
+
 ## [0.0.1] - 2020-07-20
 
 ### Added

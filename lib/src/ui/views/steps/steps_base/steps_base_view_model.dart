@@ -81,6 +81,9 @@ class StepsBaseViewModel extends CustomBaseViewModel {
         break;
       case 2:
         return SummaryView(
+          onBackPressed: () {
+            setCurrentIndex(1);
+          },
           onInstallPressed: () {
             setCurrentIndex(3);
           },

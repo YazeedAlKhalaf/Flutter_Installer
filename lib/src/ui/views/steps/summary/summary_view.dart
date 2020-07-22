@@ -13,11 +13,13 @@ import 'package:stacked/stacked.dart';
 import './summary_view_model.dart';
 
 class SummaryView extends StatelessWidget {
+  final Function() onBackPressed;
   final Function() onInstallPressed;
   final UserChoice userChoice;
 
   const SummaryView({
     @required this.onInstallPressed,
+    @required this.onBackPressed,
     @required this.userChoice,
   });
 
@@ -165,6 +167,20 @@ class SummaryView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
+                        CustomButton(
+                          text: 'Back',
+                          textStyle: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: blockSize(context) * 2,
+                            color: textColorWhite,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          buttonColor: accentColor,
+                          width: blockSize(context) * 15,
+                          onPressed: () {
+                            onBackPressed();
+                          },
+                        ),
                         CustomButton(
                           text: 'INSTALL',
                           textStyle: TextStyle(

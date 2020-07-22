@@ -139,7 +139,14 @@ class InstallingViewModel extends CustomBaseViewModel {
     }
 
     if (Platform.isLinux) {
-      await installOnLinux();
+      await installOnLinux(
+        logger: logger,
+        userChoice: userChoice,
+        shell: _shell,
+        setCurrentTaskText: setCurrentTaskText,
+        setPercentage: setPercentage,
+        fakeDelay: fakeDelay,
+      );
     }
   }
 

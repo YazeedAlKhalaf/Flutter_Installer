@@ -17,12 +17,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Linux Script:
     - Install Flutter SDK
     - Unzip Flutter SDK
-    - Install Git (with all common package managers)
+    - Install Git (with `apt`)
     - Install Android Studio
+    - Install IntelliJ IDEA
 
 ### Fixed
 
 - VS Code installer for Windows was being saved with no extenstion, Now it is being saved with `.exe` extension
+- Spelling Errors
 
 ## [0.0.1] - 2020-07-20
 

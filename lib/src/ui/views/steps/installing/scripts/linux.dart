@@ -114,7 +114,20 @@ Future<void> installOnLinux({
       'Started Downloading Git For Linux',
     );
     await shell.run('''
-      sudo apt install git-all -y
+      sudo apt install git -y
+      sudo yum install git -y
+      sudo dnf install git -y
+      sudo emerge --ask --verbose dev-vcs/git -y
+      sudo pacman -S git -y
+      sudo zypper install git -y
+      sudo urpmi git -y
+      sudo nix-env -i git -y
+      sudo pkg install git -y
+      sudo pkgutil -i git -y
+      sudo pkg install developer/versioning/git -y
+      sudo pkg_add git -y
+      sudo apk add git -y
+      sudo tazpkg get-install git -y
     ''');
     logger.i(
       'Finished Downloading Git For Linux',

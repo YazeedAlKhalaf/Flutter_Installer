@@ -64,9 +64,9 @@ Future<void> installOnLinux({
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
 
-  /// download Flutter SDK for Windows using `curl`
+  /// download Flutter SDK for Linux using `curl`
   setCurrentTaskText(
-    'Downloading Flutter SDK for Windows\n(This may take some time)',
+    'Downloading Flutter SDK for Linux\n(This may take some time)',
   );
   setPercentage(0.25);
   await fakeDelay();
@@ -113,21 +113,22 @@ Future<void> installOnLinux({
     logger.i(
       'Started Downloading Git For Linux',
     );
+    // different ways to install `git`
+    // sudo yum install git -y
+    // sudo dnf install git -y
+    // sudo emerge --ask --verbose dev-vcs/git -y
+    // sudo pacman -S git -y
+    // sudo zypper install git -y
+    // sudo urpmi git -y
+    // sudo nix-env -i git -y
+    // sudo pkg install git -y
+    // sudo pkgutil -i git -y
+    // sudo pkg install developer/versioning/git -y
+    // sudo pkg_add git -y
+    // sudo apk add git -y
+    // sudo tazpkg get-install git -y
     await shell.run('''
       sudo apt install git -y
-      sudo yum install git -y
-      sudo dnf install git -y
-      sudo emerge --ask --verbose dev-vcs/git -y
-      sudo pacman -S git -y
-      sudo zypper install git -y
-      sudo urpmi git -y
-      sudo nix-env -i git -y
-      sudo pkg install git -y
-      sudo pkgutil -i git -y
-      sudo pkg install developer/versioning/git -y
-      sudo pkg_add git -y
-      sudo apk add git -y
-      sudo tazpkg get-install git -y
     ''');
     logger.i(
       'Finished Downloading Git For Linux',
@@ -176,14 +177,70 @@ Future<void> installOnLinux({
     );
     setPercentage(0.6);
     await fakeDelay();
+    String extractedFolderName = "android-studio";
     logger.i(
-      'Started Android Studio Latest Version from ${userChoice.installationPath}/android-studio',
+      'Started Android Studio Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
     await shell.run('''
-      bash \"${userChoice.installationPath}/android-studio/bin/studio.sh\"
+      bash \"${userChoice.installationPath}/$extractedFolderName/bin/studio.sh\"
       ''');
     logger.i(
-      'Finished Android Studio Latest Version from ${userChoice.installationPath}/android-studio',
+      'Finished Android Studio Latest Version from ${userChoice.installationPath}/$extractedFolderName',
+    );
+  }
+
+  if (userChoice.installIntelliJIDEA) {
+    /// install `IntelliJ IDEA` for linux
+    setCurrentTaskText(
+      'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
+    );
+    setPercentage(0.575);
+    await fakeDelay();
+    AppRelease intelliJIDEARelease =
+        await _apiService.getLatestIntelliJIDEARelease();
+    String intelliJIDEAName = _utils
+        .getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.linux);
+    logger.i(
+      'Started Downloading IntelliJ IDEA For Linux from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+    );
+    await shell.run('''
+      curl -o $intelliJIDEAName -L "${intelliJIDEARelease.downloadLinks.linux}"
+      ''');
+    logger.i(
+      'Finished Downloading IntelliJ IDEA For Linux from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+    );
+
+    /// use `tar` to unzip the downloaded file
+    setCurrentTaskText(
+        'Unzipping IntelliJIDEA Latest Version to installation path\n(This might take some time)');
+    setPercentage(0.5);
+    await fakeDelay();
+    String extractedFolderName = "idea-IC";
+    logger.i(
+      'Started Extracting of \"$intelliJIDEAName\" from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+    );
+    await shell.run('''
+    mkdir ${userChoice.installationPath}/$extractedFolderName
+    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    ''');
+    logger.i(
+      'Finished Extracting of \"$intelliJIDEAName\" from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+    );
+
+    /// start `IntelliJIDEA` using `idea.sh`
+    setCurrentTaskText(
+      'Running $intelliJIDEAName, Follow the steps there',
+    );
+    setPercentage(0.6);
+    await fakeDelay();
+    logger.i(
+      'Started IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
+    );
+    await shell.run('''
+      bash \"${userChoice.installationPath}/$extractedFolderName/bin/idea.sh\"
+      ''');
+    logger.i(
+      'Finished IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
   }
 }

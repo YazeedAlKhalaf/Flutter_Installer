@@ -92,7 +92,10 @@ class InstallingView extends StatelessWidget {
                     model.showLog
                         ? StreamBuilder<List<Line>>(
                             stream: model.linesCtlr.stream,
-                            builder: (context, snapshot) {
+                            builder: (
+                              BuildContext context,
+                              AsyncSnapshot<List<Line>> snapshot,
+                            ) {
                               if (snapshot.data == null) {
                                 return Container();
                               }
@@ -134,15 +137,25 @@ class InstallingView extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     color: textColorBlack,
                                   ),
-                                  child: SingleChildScrollView(
-                                    reverse: true,
+                                  child: ListView.builder(
                                     controller: model.scrollController,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: getLines(),
-                                    ),
+                                    itemCount: getLines().length,
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      int index,
+                                    ) {
+                                      if (index != 0) {
+                                        model.scrollController.animateTo(
+                                          model.scrollController.position
+                                              .maxScrollExtent,
+                                          duration: Duration(
+                                            milliseconds: 200,
+                                          ),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      }
+                                      return getLines()[index];
+                                    },
                                   ),
                                 ),
                               );

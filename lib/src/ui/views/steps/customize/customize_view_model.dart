@@ -13,6 +13,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
   final LocalStorageService _localStorageService =
       locator<LocalStorageService>();
   final TextEditingController chooseFolderController = TextEditingController();
+  final TextEditingController sudoPasswordController = TextEditingController();
 
   bool _showAdvanced = false;
   bool get showAdvanced => _showAdvanced;
@@ -21,10 +22,10 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  bool _textFieldHasError = false;
-  bool get textFieldHasError => _textFieldHasError;
-  void setTextFieldHasError(bool newValue) {
-    _textFieldHasError = newValue;
+  bool _chooseFolderTextFieldHasError = false;
+  bool get chooseFolderTextFieldHasError => _chooseFolderTextFieldHasError;
+  void setChooseFolderTextFieldHasError(bool newValue) {
+    _chooseFolderTextFieldHasError = newValue;
     notifyListeners();
   }
 
@@ -82,7 +83,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
     );
 
     if (result.canceled) {
-      setTextFieldHasError(true);
+      setChooseFolderTextFieldHasError(true);
       showSnackBar(
         title: 'Error Occured',
         message: 'You have to choose an installation path!',
@@ -91,7 +92,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
       return;
     }
 
-    setTextFieldHasError(false);
+    setChooseFolderTextFieldHasError(false);
     setInstallationPath(result.paths.join('\n'));
     chooseFolderController.text = installationPath;
   }

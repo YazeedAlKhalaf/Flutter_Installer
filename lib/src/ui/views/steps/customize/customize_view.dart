@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
@@ -68,7 +70,7 @@ class CustomizeView extends StatelessWidget {
                                 fontFamily: 'RobotoMono',
                                 fontSize: blockSize(context) * 1.5,
                                 fontWeight: FontWeight.bold,
-                                color: model.textFieldHasError
+                                color: model.chooseFolderTextFieldHasError
                                     ? dangerColor
                                     : lynchColor,
                               ),
@@ -77,7 +79,7 @@ class CustomizeView extends StatelessWidget {
                               fontFamily: 'RobotoMono',
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.bold,
-                              color: model.textFieldHasError
+                              color: model.chooseFolderTextFieldHasError
                                   ? dangerColor
                                   : lynchColor,
                             ),
@@ -329,7 +331,8 @@ class CustomizeView extends StatelessWidget {
                                 model.chooseFolderController.text.trim() ==
                                     '' ||
                                 model.installationPath.trim() == '') {
-                              model.setTextFieldHasError(true);
+                              model.setChooseFolderTextFieldHasError(true);
+
                               model.showSnackBar(
                                 title: 'Error Occured',
                                 message:
@@ -339,7 +342,7 @@ class CustomizeView extends StatelessWidget {
 
                               return;
                             }
-                            model.setTextFieldHasError(false);
+                            model.setChooseFolderTextFieldHasError(false);
                             onNextPressed(
                               UserChoice(
                                 installationPath: model.installationPath,

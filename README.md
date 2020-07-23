@@ -47,4 +47,4 @@ Tools • Dart 2.9.0 (build 2.9.0-21.0.dev 06183779d7)
 >
 > #### For Linux, just double click `bundle/flutter_installer`
 >
-> #### For macOS, coming soon!
+> #### For macOS, coming soon! => requires `brew`

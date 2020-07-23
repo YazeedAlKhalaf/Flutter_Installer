@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
-import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
@@ -64,6 +65,30 @@ Future<void> installOnLinux({
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
 
+  /// download `dist.sh` for knowing distro name using `curl`
+  setCurrentTaskText(
+    'Downloading "dist.sh" for knowing your Linux distro',
+  );
+  setPercentage(0.15);
+  await fakeDelay();
+  final String getDistroURL =
+      "https://gist.githubusercontent.com/YazeedAlKhalaf/d03c9bda0d2e3815b819d0ebccdac2e6/raw/bf357bcf5f367e9794458aa86687c48c6a596957/dist.sh";
+  await shell.run('''
+  curl -o dist.sh -L $getDistroURL
+  ''');
+
+  /// run `dist.sh` for knowing distor name
+  setCurrentTaskText('Getting Linux distro name using "dist.sh"');
+  setPercentage(0.20);
+  await fakeDelay();
+  List<ProcessResult> distroNameList = await shell.run('''
+  bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/dist.sh\"
+  ''');
+  final String distroName = distroNameList[0].stdout;
+  // final String distroVersion = distroNameList[1].stdout;
+  logger.i('Distro Name: $distroName');
+  // logger.i('Distro Version: $distroVersion');
+
   /// download Flutter SDK for Linux using `curl`
   setCurrentTaskText(
     'Downloading Flutter SDK for Linux\n(This may take some time)',
@@ -113,26 +138,52 @@ Future<void> installOnLinux({
     logger.i(
       'Started Downloading Git For Linux',
     );
-    // different ways to install `git`
-    // sudo yum install git -y
-    // sudo dnf install git -y
-    // sudo emerge --ask --verbose dev-vcs/git -y
-    // sudo pacman -S git -y
-    // sudo zypper install git -y
-    // sudo urpmi git -y
-    // sudo nix-env -i git -y
-    // sudo pkg install git -y
-    // sudo pkgutil -i git -y
-    // sudo pkg install developer/versioning/git -y
-    // sudo pkg_add git -y
-    // sudo apk add git -y
-    // sudo tazpkg get-install git -y
-    await shell.run('''
-      sudo apt install git -y
-    ''');
+    switch (distroName) {
+      case "ubuntu":
+      case "debian":
+        await shell.run('''
+        sudo apt install git -y
+        ''');
+        break;
+      case "archlinux":
+        await shell.run('''
+        sudo pacman -S git -y
+        ''');
+        break;
+      case "opensuse":
+        await shell.run('''
+        sudo zypper install git -y
+        ''');
+        break;
+      case "OpenBSD":
+        await shell.run('''
+        sudo pkg_add git -y
+        ''');
+        break;
+      case "NetBSD":
+      case "FreeBSD":
+        await shell.run('''
+        sudo pkg install git -y
+        ''');
+        break;
+      case "solaris":
+        await shell.run('''
+        sudo pkgutil -i git -y
+        ''');
+        break;
+      // default:
+    }
     logger.i(
       'Finished Downloading Git For Linux',
     );
+  }
+
+  if (!userChoice.installGit) {
+    setCurrentTaskText(
+      'Skipping Downloading Git for Linux',
+    );
+    setPercentage(0.4);
+    await fakeDelay();
   }
 
   if (userChoice.installAndroidStudio) {
@@ -140,7 +191,7 @@ Future<void> installOnLinux({
     setCurrentTaskText(
       'Downloading Android Studio Latest Version\n(This might take some time)',
     );
-    setPercentage(0.475);
+    setPercentage(0.45);
     await fakeDelay();
     AppRelease androidStudioRelease =
         await _apiService.getLatestAndroidStudioRelease();
@@ -159,7 +210,7 @@ Future<void> installOnLinux({
     /// use `tar` to unzip the downloaded file
     setCurrentTaskText(
         'Unzipping Android Studio Latest Version to installation path\n(This might take some time)');
-    setPercentage(0.5);
+    setPercentage(0.50);
     await fakeDelay();
     logger.i(
       'Started Extracting of \"$androidStudioName\" from \"${androidStudioRelease.downloadLinks.linux}\"',
@@ -175,7 +226,7 @@ Future<void> installOnLinux({
     setCurrentTaskText(
       'Running $androidStudioName, Follow the steps there',
     );
-    setPercentage(0.6);
+    setPercentage(0.55);
     await fakeDelay();
     String extractedFolderName = "android-studio";
     logger.i(
@@ -189,12 +240,20 @@ Future<void> installOnLinux({
     );
   }
 
+  if (!userChoice.installAndroidStudio) {
+    setCurrentTaskText(
+      'Skipping Downloading Android Studio Latest Version for Linux',
+    );
+    setPercentage(0.55);
+    await fakeDelay();
+  }
+
   if (userChoice.installIntelliJIDEA) {
     /// install `IntelliJ IDEA` for linux
     setCurrentTaskText(
       'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
     );
-    setPercentage(0.575);
+    setPercentage(0.60);
     await fakeDelay();
     AppRelease intelliJIDEARelease =
         await _apiService.getLatestIntelliJIDEARelease();
@@ -213,7 +272,7 @@ Future<void> installOnLinux({
     /// use `tar` to unzip the downloaded file
     setCurrentTaskText(
         'Unzipping IntelliJIDEA Latest Version to installation path\n(This might take some time)');
-    setPercentage(0.5);
+    setPercentage(0.65);
     await fakeDelay();
     String extractedFolderName = "idea-IC";
     logger.i(
@@ -231,7 +290,7 @@ Future<void> installOnLinux({
     setCurrentTaskText(
       'Running $intelliJIDEAName, Follow the steps there',
     );
-    setPercentage(0.6);
+    setPercentage(0.70);
     await fakeDelay();
     logger.i(
       'Started IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
@@ -243,4 +302,96 @@ Future<void> installOnLinux({
       'Finished IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
   }
+
+  if (!userChoice.installIntelliJIDEA) {
+    setCurrentTaskText(
+      'Skipping Downloading IntelliJ IDEA Latest Version for Linux',
+    );
+    setPercentage(0.70);
+    await fakeDelay();
+  }
+
+  if (userChoice.installVisualStudioCode) {
+    /// install `Visual Studio Code` for Linux
+    setCurrentTaskText(
+      'Downloading Visual Studio Code Latest Version\n(This might take some time)',
+    );
+    setPercentage(0.75);
+    await fakeDelay();
+    AppRelease visualStudioCodeRelease =
+        await _apiService.getLatestVisualStudioCodeRelease();
+    String visualStudioCodeDownloadLink =
+        visualStudioCodeRelease.downloadLinks.linux;
+    String visualStudioCodeName = "code-stable.tar.gz";
+    logger.i(
+      'Started Downloading Visual Studio Code For Linux from \"$visualStudioCodeDownloadLink\"',
+    );
+    await shell.run('''
+      curl -o $visualStudioCodeName -L "$visualStudioCodeDownloadLink"
+      ''');
+    logger.i(
+      'Finished Downloading Visual Studio Code For Linux from \"$visualStudioCodeDownloadLink\"',
+    );
+
+    /// use `tar` to unzip the downloaded file
+    setCurrentTaskText(
+        'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
+    setPercentage(0.80);
+    await fakeDelay();
+    String extractedFolderName = "vs-code-x64-linux";
+    logger.i(
+      'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+    );
+    await shell.run('''
+    mkdir ${userChoice.installationPath}/$extractedFolderName
+    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    ''');
+    logger.i(
+      'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+    );
+
+    /// start `Visual Studio Code` using `code`
+    setCurrentTaskText(
+      'Running $visualStudioCodeName, Follow the steps there',
+    );
+    setPercentage(0.85);
+    await fakeDelay();
+    logger.i(
+      'Started Visual Studio Code Latest Version from ${userChoice.installationPath}/$extractedFolderName',
+    );
+    await shell.run('''
+      bash \"${userChoice.installationPath}/$extractedFolderName/bin/code\"
+      ''');
+    logger.i(
+      'Finished Visual Studio Code Latest Version from ${userChoice.installationPath}/$extractedFolderName',
+    );
+  }
+
+  if (!userChoice.installVisualStudioCode) {
+    setCurrentTaskText(
+      'Skipping Downloading Visual Studio Code Latest Version for Linux',
+    );
+    setPercentage(0.85);
+    await fakeDelay();
+  }
+
+  /// Clean Up
+  setCurrentTaskText(
+    'Cleaning Up!',
+  );
+  setPercentage(0.9);
+  await fakeDelay();
+  logger.i(
+    'Finished Cleaning Up!',
+  );
+
+  /// Done 🚀😎
+  setCurrentTaskText(
+    'You\'re Done! 🚀😎',
+  );
+  setPercentage(1.0);
+  await fakeDelay();
+  logger.i(
+    'Finished installing Flutter for Linux!',
+  );
 }

@@ -8,7 +8,7 @@
 >
 > • macOS is 0% done!
 >
-> • linux is 50% done!
+> • linux is 90% done!
 
 ## Requirements to build project:
 

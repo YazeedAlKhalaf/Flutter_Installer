@@ -17,7 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Install Git (requires `brew`)
   - Install Android Studio
   - Install IntelliJ IDEA
-  - Install Visual Studio Code
+  <!-- - Install Visual Studio Code -->
+
+### Fixed
+
+- Naming mistake in `CustomizeView`
 
 ## [0.0.2] - 2020-07-23
 

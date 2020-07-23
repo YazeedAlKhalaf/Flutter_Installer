@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Linux Script:
     - Install Flutter SDK
     - Unzip Flutter SDK
+    - Add FLutter SDK to PATH
     - Install Git (with common package managers)
     - Install Android Studio
     - Install IntelliJ IDEA

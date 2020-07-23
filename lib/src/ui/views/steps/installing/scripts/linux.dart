@@ -38,20 +38,20 @@ Future<void> installOnLinux({
 
   /// create a `shell`
   setCurrentTaskText('Creating shell');
-  setPercentage(0.05);
+  setPercentage(0.01);
   await fakeDelay();
   logger.i('Created Shell: ${shell.toString()}');
 
   /// `cd` into Temp directory
   setCurrentTaskText('Changing directory to "temp"');
-  setPercentage(0.1);
+  setPercentage(0.05);
   await fakeDelay();
   shell = shell.pushd(await _localStorageService.getTempDiretoryPath());
   logger.i('Change Directory to Temp');
 
   /// create `flutter_installer` directory
   setCurrentTaskText('Creating "$tempDirName" directory');
-  setPercentage(0.15);
+  setPercentage(0.10);
   await fakeDelay();
   await shell.run('''
     mkdir $tempDirName
@@ -60,7 +60,7 @@ Future<void> installOnLinux({
 
   /// `cd` into `flutter_installer` directory
   setCurrentTaskText('Changing directory to "$tempDirName"');
-  setPercentage(0.2);
+  setPercentage(0.15);
   await fakeDelay();
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
@@ -69,7 +69,7 @@ Future<void> installOnLinux({
   setCurrentTaskText(
     'Downloading "dist.sh" for knowing your Linux distro',
   );
-  setPercentage(0.15);
+  setPercentage(0.17);
   await fakeDelay();
   final String getDistroURL =
       "https://gist.githubusercontent.com/YazeedAlKhalaf/d03c9bda0d2e3815b819d0ebccdac2e6/raw/bf357bcf5f367e9794458aa86687c48c6a596957/dist.sh";
@@ -120,13 +120,28 @@ Future<void> installOnLinux({
     'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
 
+  /// download `append-to-path.sh`
+  setCurrentTaskText(
+    'Downloading Script for adding to PATH',
+  );
+  setPercentage(0.35);
+  final String appendToPathLink =
+      "https://gist.githubusercontent.com/YazeedAlKhalaf/2e063e344b3f3f4bb99a79c601e17a13/raw/809b6b119dca8900c306788f0864e7bbcd26c9a2/append-to-path.sh";
+  final String appendToPathName = "append-to-path.sh";
+  await shell.run('''
+  curl -o $appendToPathName -L $appendToPathLink
+  ''');
+
   /// add `flutter` to the `PATH`
-  // TODO(yazeed): Add Flutter To PATH command
   setCurrentTaskText(
     'Adding Flutter SDK to the PATH',
   );
   setPercentage(0.35);
   await fakeDelay();
+  String flutterPath = "${userChoice.installationPath}/flutter/bin";
+  await shell.run('''
+  bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathName\" $flutterPath
+  ''');
 
   if (userChoice.installGit) {
     /// install `git` for linux

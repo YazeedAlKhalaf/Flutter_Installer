@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2020-07-23
+
 ### Added
 
 - `Customize Screen: Show Advanced` Button
@@ -15,13 +17,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Default installation path in customize screen.
 - `TextLink` widget
 - Linux Script:
-    - Install Flutter SDK
-    - Unzip Flutter SDK
-    - Add FLutter SDK to PATH
-    - Install Git (with common package managers)
-    - Install Android Studio
-    - Install IntelliJ IDEA
-    - Install Visual Studio
+  - Install Flutter SDK
+  - Unzip Flutter SDK
+  - Add FLutter SDK to PATH
+  - Install Git (with common package managers)
+  - Install Android Studio
+  - Install IntelliJ IDEA
+  - Install Visual Studio
 
 ### Fixed
 
@@ -36,5 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Windows Support (Script Part Fully Done)
 - Fonts: (Roboto, Roboto Mono)
 
-[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.2
 [0.0.1]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.1

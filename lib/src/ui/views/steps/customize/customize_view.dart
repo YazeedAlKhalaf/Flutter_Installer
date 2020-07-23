@@ -134,26 +134,18 @@ class CustomizeView extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     Expanded(
-                                      child: AbsorbPointer(
-                                        absorbing: Platform.isLinux,
-                                        child: Opacity(
-                                          opacity: Platform.isLinux ? 0.5 : 1.0,
-                                          child: CheckboxListTile(
-                                            title: Text(
-                                              'Install Visual Studio Code',
-                                              style: TextStyle(
-                                                fontFamily: 'RobotoMono',
-                                                fontSize:
-                                                    blockSize(context) * 1.5,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            value:
-                                                model.installVisualStudioCode,
-                                            onChanged: model
-                                                .setInstallVisualStudioCode,
+                                      child: CheckboxListTile(
+                                        title: Text(
+                                          'Install Visual Studio Code',
+                                          style: TextStyle(
+                                            fontFamily: 'RobotoMono',
+                                            fontSize: blockSize(context) * 1.5,
+                                            fontWeight: FontWeight.bold,
                                           ),
                                         ),
+                                        value: model.installVisualStudioCode,
+                                        onChanged:
+                                            model.setInstallVisualStudioCode,
                                       ),
                                     ),
                                     Expanded(

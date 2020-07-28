@@ -1,6 +1,6 @@
 name: flutter_installer
 description: A new Flutter project.
-version: 0.0.2+2
+version: 0.0.3+3
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

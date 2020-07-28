@@ -135,7 +135,14 @@ class InstallingViewModel extends CustomBaseViewModel {
     }
 
     if (Platform.isMacOS) {
-      await installOnMacOS();
+      await installOnMacOS(
+        logger: logger,
+        userChoice: userChoice,
+        shell: _shell,
+        setCurrentTaskText: setCurrentTaskText,
+        setPercentage: setPercentage,
+        fakeDelay: fakeDelay,
+      );
     }
 
     if (Platform.isLinux) {
@@ -163,6 +170,9 @@ class InstallingViewModel extends CustomBaseViewModel {
         .listen((text) {
       _addLine(ErrLine(text));
     });
-    _shell = Shell(stdout: _stdoutCtlr.sink, stderr: _stderrCtlr.sink);
+    _shell = Shell(
+      stdout: _stdoutCtlr.sink,
+      stderr: _stderrCtlr.sink,
+    );
   }
 }

@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added `sudoPassword` to `UserChoice` model
+- Added asking for Sudo Password on macOS only in `CustomizeStepView`
+- macOS Script:
+  - Install Flutter SDK
+  - Unzip Flutter SDK
+  - Add Flutter SDK to PATH
+  - Install Git (requires `brew`)
+  - Install Android Studio
+  - Install IntelliJ IDEA
+  - Install Visual Studio Code
+
+### Fixed
+
+- Naming mistake in `CustomizeView`
+- Borders of text fields in `CustomizeView`
+
+### Removed
+
+- Removed sandbox mode from macOS
+
 ## [0.0.2] - 2020-07-23
 
 ### Added

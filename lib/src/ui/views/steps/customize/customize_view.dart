@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
@@ -60,7 +62,7 @@ class CustomizeView extends StatelessWidget {
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(
-                                  500,
+                                  20,
                                 ),
                               ),
                               hintText: 'Please Choose Installation Location',
@@ -68,7 +70,7 @@ class CustomizeView extends StatelessWidget {
                                 fontFamily: 'RobotoMono',
                                 fontSize: blockSize(context) * 1.5,
                                 fontWeight: FontWeight.bold,
-                                color: model.textFieldHasError
+                                color: model.chooseFolderTextFieldHasError
                                     ? dangerColor
                                     : lynchColor,
                               ),
@@ -77,7 +79,7 @@ class CustomizeView extends StatelessWidget {
                               fontFamily: 'RobotoMono',
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.bold,
-                              color: model.textFieldHasError
+                              color: model.chooseFolderTextFieldHasError
                                   ? dangerColor
                                   : lynchColor,
                             ),
@@ -313,6 +315,58 @@ class CustomizeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
+                        Platform.isMacOS
+                            ? Container(
+                                width: blockSize(context) * 30,
+                                child: TextField(
+                                  controller: model.sudoPasswordController,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(
+                                        20,
+                                      ),
+                                    ),
+                                    labelText: 'Sudo Password',
+                                    labelStyle: TextStyle(
+                                      fontFamily: 'RobotoMono',
+                                      fontSize: blockSize(context) * 1.5,
+                                      color: model.sudoPasswordTextFieldHasError
+                                          ? dangerColor
+                                          : primaryColor,
+                                    ),
+                                    hintText: 'Please Enter Your Sudo Password',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'RobotoMono',
+                                      fontSize: blockSize(context) * 1.1,
+                                      color: model.sudoPasswordTextFieldHasError
+                                          ? dangerColor
+                                          : lynchColor,
+                                    ),
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        model.obscureSudoPassword
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                      ),
+                                      onPressed: () {
+                                        model.setobscureSudoPassword(
+                                            !model.obscureSudoPassword);
+                                      },
+                                    ),
+                                  ),
+                                  style: TextStyle(
+                                    fontFamily: 'RobotoMono',
+                                    fontSize: blockSize(context) * 1.1,
+                                    // fontWeight: FontWeight.bold,
+                                    color: model.sudoPasswordTextFieldHasError
+                                        ? dangerColor
+                                        : lynchColor,
+                                  ),
+                                  onChanged: model.setSudoPassword,
+                                  obscureText: model.obscureSudoPassword,
+                                ),
+                              )
+                            : Container(),
                         CustomButton(
                           text: 'Next',
                           textStyle: TextStyle(
@@ -329,7 +383,8 @@ class CustomizeView extends StatelessWidget {
                                 model.chooseFolderController.text.trim() ==
                                     '' ||
                                 model.installationPath.trim() == '') {
-                              model.setTextFieldHasError(true);
+                              model.setChooseFolderTextFieldHasError(true);
+
                               model.showSnackBar(
                                 title: 'Error Occured',
                                 message:
@@ -339,7 +394,27 @@ class CustomizeView extends StatelessWidget {
 
                               return;
                             }
-                            model.setTextFieldHasError(false);
+                            model.setChooseFolderTextFieldHasError(false);
+
+                            if (Platform.isMacOS) {
+                              if (model.sudoPasswordController.text == null ||
+                                  model.sudoPassword == null ||
+                                  model.sudoPasswordController.text.trim() ==
+                                      '' ||
+                                  model.installationPath.trim() == '') {
+                                model.setSudoPasswordTextFieldHasError(true);
+
+                                model.showSnackBar(
+                                  title: 'Error Occured',
+                                  message: 'You must put your Sudo password!',
+                                  iconData: Icons.close,
+                                );
+
+                                return;
+                              }
+                            }
+                            model.setSudoPasswordTextFieldHasError(false);
+
                             onNextPressed(
                               UserChoice(
                                 installationPath: model.installationPath,
@@ -350,6 +425,8 @@ class CustomizeView extends StatelessWidget {
                                 installIntelliJIDEA: model.installIntelliJIDEA,
                                 installGit: model.installGit,
                                 flutterChannel: model.flutterChannel,
+                                sudoPassword:
+                                    Platform.isMacOS ? model.sudoPassword : '',
                               ),
                             );
                           },

@@ -13,6 +13,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
   final LocalStorageService _localStorageService =
       locator<LocalStorageService>();
   final TextEditingController chooseFolderController = TextEditingController();
+  final TextEditingController sudoPasswordController = TextEditingController();
 
   bool _showAdvanced = false;
   bool get showAdvanced => _showAdvanced;
@@ -21,10 +22,24 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  bool _textFieldHasError = false;
-  bool get textFieldHasError => _textFieldHasError;
-  void setTextFieldHasError(bool newValue) {
-    _textFieldHasError = newValue;
+  bool _obscureSudoPassword = true;
+  bool get obscureSudoPassword => _obscureSudoPassword;
+  void setobscureSudoPassword(bool newValue) {
+    _obscureSudoPassword = newValue;
+    notifyListeners();
+  }
+
+  bool _chooseFolderTextFieldHasError = false;
+  bool get chooseFolderTextFieldHasError => _chooseFolderTextFieldHasError;
+  void setChooseFolderTextFieldHasError(bool newValue) {
+    _chooseFolderTextFieldHasError = newValue;
+    notifyListeners();
+  }
+
+  bool _sudoPasswordTextFieldHasError = false;
+  bool get sudoPasswordTextFieldHasError => _sudoPasswordTextFieldHasError;
+  void setSudoPasswordTextFieldHasError(bool newValue) {
+    _sudoPasswordTextFieldHasError = newValue;
     notifyListeners();
   }
 
@@ -70,6 +85,13 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
+  String _sudoPassword;
+  String get sudoPassword => _sudoPassword;
+  void setSudoPassword(String newValue) {
+    _sudoPassword = newValue;
+    notifyListeners();
+  }
+
   Future<void> onBrowsePressed() async {
     String initialDirectory;
     if (Platform.isMacOS || Platform.isWindows) {
@@ -82,7 +104,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
     );
 
     if (result.canceled) {
-      setTextFieldHasError(true);
+      setChooseFolderTextFieldHasError(true);
       showSnackBar(
         title: 'Error Occured',
         message: 'You have to choose an installation path!',
@@ -91,7 +113,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
       return;
     }
 
-    setTextFieldHasError(false);
+    setChooseFolderTextFieldHasError(false);
     setInstallationPath(result.paths.join('\n'));
     chooseFolderController.text = installationPath;
   }

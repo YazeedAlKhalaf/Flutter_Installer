@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 enum FlutterChannel {
@@ -15,6 +13,7 @@ class UserChoice {
   final bool installIntelliJIDEA;
   final bool installGit;
   final FlutterChannel flutterChannel;
+  final String sudoPassword;
 
   UserChoice({
     @required this.installationPath,
@@ -23,6 +22,7 @@ class UserChoice {
     @required this.installIntelliJIDEA,
     @required this.installGit,
     @required this.flutterChannel,
+    this.sudoPassword = '',
   });
 
   UserChoice.defaultChoice({
@@ -32,6 +32,7 @@ class UserChoice {
     this.installIntelliJIDEA = false,
     this.installGit = true,
     this.flutterChannel = FlutterChannel.stable,
+    this.sudoPassword = '',
   });
 
   Map<String, dynamic> toMap() {
@@ -44,21 +45,4 @@ class UserChoice {
       'flutterChannel': flutterChannel,
     };
   }
-
-  static UserChoice fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return UserChoice(
-      installationPath: map['installationPath'],
-      installVisualStudioCode: map['installVisualStudioCode'],
-      installAndroidStudio: map['installAndroidStudio'],
-      installIntelliJIDEA: map['installIntelliJIDEA'],
-      installGit: map['installGit'],
-      flutterChannel: map['flutterChannel'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  static UserChoice fromJson(String source) => fromMap(json.decode(source));
 }

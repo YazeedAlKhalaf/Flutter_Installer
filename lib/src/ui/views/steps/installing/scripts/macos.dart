@@ -63,36 +63,36 @@ Future<void> installOnMacOS({
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
 
-  // /// download Flutter SDK for macOS using `curl`
-  // setCurrentTaskText(
-  //   'Downloading Flutter SDK for macOS\n(This may take some time)',
-  // );
-  // setPercentage(0.25);
-  // await fakeDelay();
-  // logger.i(
-  //   'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  // );
-  // await shell.run('''
-  //   curl -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
-  //   ''');
-  // logger.i(
-  //   'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  // );
+  /// download Flutter SDK for macOS using `curl`
+  setCurrentTaskText(
+    'Downloading Flutter SDK for macOS\n(This may take some time)',
+  );
+  setPercentage(0.25);
+  await fakeDelay();
+  logger.i(
+    'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  );
+  await shell.run('''
+    curl -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
+    ''');
+  logger.i(
+    'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  );
 
-  // /// use `tar` to unzip the downloaded file
-  // setCurrentTaskText(
-  //     'Unzipping Flutter SDK to installation path\n(This might take some time)');
-  // setPercentage(0.3);
-  // await fakeDelay();
-  // logger.i(
-  //   'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  // );
-  // await shell.run('''
-  //   tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
-  //   ''');
-  // logger.i(
-  //   'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  // );
+  /// use `tar` to unzip the downloaded file
+  setCurrentTaskText(
+      'Unzipping Flutter SDK to installation path\n(This might take some time)');
+  setPercentage(0.3);
+  await fakeDelay();
+  logger.i(
+    'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  );
+  await shell.run('''
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
+    ''');
+  logger.i(
+    'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  );
 
   /// download `append-to-path-zsh.sh`
   setCurrentTaskText(

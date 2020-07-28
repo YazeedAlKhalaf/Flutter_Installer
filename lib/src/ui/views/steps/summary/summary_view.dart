@@ -61,18 +61,19 @@ class SummaryView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Card(
-                          elevation: 50,
+                          elevation: 15,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Container(
                             width: blockSize(context) * 50,
+                            height: blockSize(context) * 20,
                             padding: EdgeInsets.all(
                               blockSize(context) * 3,
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
                                   '* This is a summary of what will be downloaded:',

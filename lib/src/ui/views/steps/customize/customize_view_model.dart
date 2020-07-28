@@ -22,10 +22,24 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
+  bool _obscureSudoPassword = true;
+  bool get obscureSudoPassword => _obscureSudoPassword;
+  void setobscureSudoPassword(bool newValue) {
+    _obscureSudoPassword = newValue;
+    notifyListeners();
+  }
+
   bool _chooseFolderTextFieldHasError = false;
   bool get chooseFolderTextFieldHasError => _chooseFolderTextFieldHasError;
   void setChooseFolderTextFieldHasError(bool newValue) {
     _chooseFolderTextFieldHasError = newValue;
+    notifyListeners();
+  }
+
+  bool _sudoPasswordTextFieldHasError = false;
+  bool get sudoPasswordTextFieldHasError => _sudoPasswordTextFieldHasError;
+  void setSudoPasswordTextFieldHasError(bool newValue) {
+    _sudoPasswordTextFieldHasError = newValue;
     notifyListeners();
   }
 
@@ -68,6 +82,13 @@ class CustomizeViewModel extends CustomBaseViewModel {
   FlutterChannel get flutterChannel => _flutterChannel;
   void setFlutterChannel(FlutterChannel newValue) {
     _flutterChannel = newValue;
+    notifyListeners();
+  }
+
+  String _sudoPassword;
+  String get sudoPassword => _sudoPassword;
+  void setSudoPassword(String newValue) {
+    _sudoPassword = newValue;
     notifyListeners();
   }
 

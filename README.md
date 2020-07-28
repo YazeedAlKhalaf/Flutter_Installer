@@ -6,7 +6,7 @@
 >
 > • Windows is 100% done!
 >
-> • macOS is 0% done!
+> • macOS is 100% done!
 >
 > • linux is 100% done!
 

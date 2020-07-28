@@ -114,7 +114,7 @@ Future<void> installOnMacOS({
   await fakeDelay();
   String flutterPath = "${userChoice.installationPath}/flutter/bin";
   await shell.run('''
-  sudo /bin/bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathName\" $flutterPath
+  echo ${userChoice.sudoPassword} | sudo -S /bin/bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathName\" $flutterPath
   ''');
 
   if (userChoice.installGit) {
@@ -237,60 +237,60 @@ Future<void> installOnMacOS({
     await fakeDelay();
   }
 
-  // if (userChoice.installVisualStudioCode) {
-  //   /// install `Visual Studio Code` for macOS
-  //   setCurrentTaskText(
-  //     'Downloading Visual Studio Code Latest Version\n(This might take some time)',
-  //   );
-  //   setPercentage(0.75);
-  //   await fakeDelay();
-  //   AppRelease visualStudioCodeRelease =
-  //       await _apiService.getLatestVisualStudioCodeRelease();
-  //   String visualStudioCodeDownloadLink =
-  //       visualStudioCodeRelease.downloadLinks.macos;
-  //   String visualStudioCodeName = "code-stable-darwin.zip";
-  //   logger.i(
-  //     'Started Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
-  //   );
-  //   await shell.run('''
-  //     curl -o $visualStudioCodeName -L "$visualStudioCodeDownloadLink"
-  //     ''');
-  //   logger.i(
-  //     'Finished Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
-  //   );
+  if (userChoice.installVisualStudioCode) {
+    /// install `Visual Studio Code` for macOS
+    setCurrentTaskText(
+      'Downloading Visual Studio Code Latest Version\n(This might take some time)',
+    );
+    setPercentage(0.75);
+    await fakeDelay();
+    AppRelease visualStudioCodeRelease =
+        await _apiService.getLatestVisualStudioCodeRelease();
+    String visualStudioCodeDownloadLink =
+        visualStudioCodeRelease.downloadLinks.macos;
+    String visualStudioCodeName = "code-stable-darwin.zip";
+    logger.i(
+      'Started Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
+    );
+    await shell.run('''
+      curl -o $visualStudioCodeName -L "$visualStudioCodeDownloadLink"
+      ''');
+    logger.i(
+      'Finished Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
+    );
 
-  //   /// use `tar` to unzip the downloaded file
-  //   setCurrentTaskText(
-  //       'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
-  //   setPercentage(0.80);
-  //   await fakeDelay();
-  //   logger.i(
-  //     'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
-  //   );
-  //   await shell.run('''
-  //   tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\"
-  //   ''');
-  //   logger.i(
-  //     'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
-  //   );
+    /// use `tar` to unzip the downloaded file
+    setCurrentTaskText(
+        'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
+    setPercentage(0.80);
+    await fakeDelay();
+    logger.i(
+      'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+    );
+    await shell.run('''
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\"
+    ''');
+    logger.i(
+      'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+    );
 
-  //   /// move `Visual Studio Code.app` to applications
-  //   setCurrentTaskText(
-  //     'Moving Visual Studio Code.app to Applications',
-  //   );
-  //   setPercentage(0.85);
-  //   await fakeDelay();
-  //   final String vscodeappName = "Visual Studio Code.app";
-  //   logger.i(
-  //     'Started Moving Visual Studio Code Latest Version',
-  //   );
-  //   await shell.run('''
-  //   sudo cp -R \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$vscodeappName\" \"/Applications\"
-  //   ''');
-  //   logger.i(
-  //     'Finished Moving Visual Studio Code Latest Version',
-  //   );
-  // }
+    /// move `Visual Studio Code.app` to applications
+    setCurrentTaskText(
+      'Moving Visual Studio Code.app to Applications',
+    );
+    setPercentage(0.85);
+    await fakeDelay();
+    final String vscodeappName = "Visual Studio Code.app";
+    logger.i(
+      'Started Moving Visual Studio Code Latest Version',
+    );
+    await shell.run('''
+    echo ${userChoice.sudoPassword} | sudo -S cp -R \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$vscodeappName\" \"/Applications\"
+    ''');
+    logger.i(
+      'Finished Moving Visual Studio Code Latest Version',
+    );
+  }
 
   if (!userChoice.installVisualStudioCode) {
     setCurrentTaskText(

@@ -43,8 +43,8 @@ Tools • Dart 2.9.0 (build 2.9.0-21.0.dev 06183779d7)
 >
 > ### Step 3: Run It!
 >
-> #### For Windows, just double click the `.exe`
+> #### For Windows, just double click the `Flutter Installer.exe`
 >
-> #### For Linux, just double click `bundle/flutter_installer`
+> #### For Linux, just double click `Flutter Installer`
 >
 > #### For macOS, just copy the `Flutter Installer.app` package to applications and start using it. requires `brew`

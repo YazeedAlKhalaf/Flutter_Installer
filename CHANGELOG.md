@@ -19,11 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Install Android Studio
   - Install IntelliJ IDEA
   - Install Visual Studio Code
+- Implemented notes by [Tao Dong](https://github.com/InMatrix) and [Will Larche](https://github.com/willlarche)
 
 ### Fixed
 
 - Naming mistake in `CustomizeView`
 - Borders of text fields in `CustomizeView`
+- Small bugs here and there
 
 ### Removed
 

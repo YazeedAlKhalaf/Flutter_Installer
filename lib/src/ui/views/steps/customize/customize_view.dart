@@ -216,7 +216,7 @@ class CustomizeView extends StatelessWidget {
                                                 child: RadioListTile<
                                                     FlutterChannel>(
                                                   title: Text(
-                                                    'Stable Channel',
+                                                    'Stable',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',
@@ -241,7 +241,7 @@ class CustomizeView extends StatelessWidget {
                                                 child: RadioListTile<
                                                     FlutterChannel>(
                                                   title: Text(
-                                                    'Beta Channel',
+                                                    'Beta',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',
@@ -266,7 +266,7 @@ class CustomizeView extends StatelessWidget {
                                                 child: RadioListTile<
                                                     FlutterChannel>(
                                                   title: Text(
-                                                    'Dev Channel',
+                                                    'Dev',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',

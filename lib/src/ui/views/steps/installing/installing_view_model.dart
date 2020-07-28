@@ -88,6 +88,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     @required UserChoice userChoice,
   }) async {
     intializeStreamOfShellLines();
+    _addLine(OutLine('This is the virtual console :)'));
 
     setPercentage(0.0);
     setCurrentTaskText('Preparing...');

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       navigatorKey: locator<NavigationService>().navigatorKey,
       theme: ThemeData(
         primaryColor: primaryColor,
-        accentColor: accentColor,
+        // accentColor: accentColor,
       ),
     );
   }

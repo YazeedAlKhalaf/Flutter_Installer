@@ -330,9 +330,9 @@ class CustomizeView extends StatelessWidget {
                                     labelStyle: TextStyle(
                                       fontFamily: 'RobotoMono',
                                       fontSize: blockSize(context) * 1.5,
-                                      color: model.sudoPasswordTextFieldHasError
-                                          ? dangerColor
-                                          : primaryColor,
+                                      // color: model.sudoPasswordTextFieldHasError
+                                      //     ? dangerColor
+                                      //     : primaryColor,
                                     ),
                                     hintText: 'Please Enter Your Sudo Password',
                                     hintStyle: TextStyle(

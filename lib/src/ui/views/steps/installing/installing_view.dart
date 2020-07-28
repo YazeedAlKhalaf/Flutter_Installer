@@ -73,7 +73,7 @@ class InstallingView extends StatelessWidget {
                                 : textColorBlack,
                           ),
                         ),
-                        progressColor: accentColor,
+                        progressColor: primaryColor,
                       ),
                     ),
                     Container(
@@ -196,7 +196,7 @@ class InstallingView extends StatelessWidget {
                                     color: textColorWhite,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  buttonColor: accentColor,
+                                  buttonColor: primaryColor,
                                   width: blockSize(context) * 15,
                                   onPressed: () {
                                     if (!model.showLog) {

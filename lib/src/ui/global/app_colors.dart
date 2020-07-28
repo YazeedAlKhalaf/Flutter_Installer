@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 /// AKA `Dodger Blue`
-const Color primaryColor = Color(0xff3DCFFB);
+const Color primaryColor = Color(0xff085A9C);
 
 /// AKA `Teal`
-const Color accentColor = Color(0xff085A9C);
+// const Color accentColor = Color(0xff3DCFFB);
 const Color lynchColor = Color(0xff78849E);
 const Color backgroundColor = Color(0xffFFFFFF);
 

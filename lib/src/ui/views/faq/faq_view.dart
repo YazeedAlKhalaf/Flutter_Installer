@@ -77,7 +77,7 @@ class FaqView extends StatelessWidget {
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: accentColor,
+                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () async {
                             onBackPressed();

@@ -389,7 +389,6 @@ class CustomizeView extends StatelessWidget {
                                 title: 'Error Occured',
                                 message:
                                     'You have to choose an installation path!',
-                                iconData: Icons.close,
                               );
 
                               return;
@@ -407,7 +406,6 @@ class CustomizeView extends StatelessWidget {
                                 model.showSnackBar(
                                   title: 'Error Occured',
                                   message: 'You must put your Sudo password!',
-                                  iconData: Icons.close,
                                 );
 
                                 return;

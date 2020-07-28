@@ -108,7 +108,6 @@ class CustomizeViewModel extends CustomBaseViewModel {
       showSnackBar(
         title: 'Error Occured',
         message: 'You have to choose an installation path!',
-        iconData: Icons.close,
       );
       return;
     }
@@ -121,10 +120,8 @@ class CustomizeViewModel extends CustomBaseViewModel {
   showSnackBar({
     String title,
     @required String message,
-    IconData iconData,
   }) {
     _snackbarService.showSnackbar(
-      iconData: iconData,
       title: title,
       message: message,
     );

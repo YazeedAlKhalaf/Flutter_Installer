@@ -5,6 +5,12 @@ import 'package:injectable/injectable.dart';
 import 'package:window_size/window_size.dart' as window_size;
 import 'package:window_size/window_size.dart';
 
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
+  }
+}
+
 @injectable
 class WindowSizeService {
   static const double width = 1200;
@@ -27,7 +33,7 @@ class WindowSizeService {
     window_size.setWindowFrame(frame);
 
     setWindowTitle(
-      'Flutter Installer for ${Platform.operatingSystem}',
+      'Flutter Installer for ${Platform.operatingSystem.capitalize()}',
     );
 
     if (Platform.isMacOS) {

@@ -89,7 +89,7 @@ Future<void> installOnWindows({
     'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
   await shell.run('''
-    C:\\Windows\\System32\\tar.exe -xf \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$archiveName\" -C \"${userChoice.installationPath}\"
+    C:\\Windows\\System32\\tar.exe -xvf \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$archiveName\" -C \"${userChoice.installationPath}\"
     ''');
   logger.i(
     'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',

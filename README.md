@@ -2,15 +2,7 @@
 
 # Flutter Installer
 
-## Progress
-
-> • UI is 100% done!
->
-> • Windows is 100% done!
->
-> • macOS is 100% done!
->
-> • linux is 100% done!
+Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
 
 ## Wanna go fast way? We have binaries built!
 

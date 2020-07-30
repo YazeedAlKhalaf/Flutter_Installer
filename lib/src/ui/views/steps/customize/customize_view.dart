@@ -9,10 +9,6 @@ import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/text_link.dart';
 
 import 'package:stacked/stacked.dart';
-
-import '../../../global/ui_helpers.dart';
-import '../../../global/ui_helpers.dart';
-import '../../../global/ui_helpers.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {

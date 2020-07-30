@@ -10,6 +10,9 @@ import 'package:flutter_installer/src/ui/widgets/text_link.dart';
 
 import 'package:stacked/stacked.dart';
 
+import '../../../global/ui_helpers.dart';
+import '../../../global/ui_helpers.dart';
+import '../../../global/ui_helpers.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
@@ -29,6 +32,40 @@ class CustomizeView extends StatelessWidget {
         CustomizeViewModel model,
         Widget child,
       ) {
+        _buildCheckBoxTile({
+          @required String logoPath,
+          @required String appName,
+          @required bool value,
+          @required void Function(bool) onChanged,
+        }) {
+          return Expanded(
+            child: CheckboxListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    logoPath,
+                    width: blockSize(context) * 3,
+                  ),
+                  horizontalSpaceSmall(context),
+                  Container(
+                    child: Text(
+                      appName,
+                      style: TextStyle(
+                        fontFamily: 'RobotoMono',
+                        fontSize: blockSize(context) * 1.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              value: value,
+              onChanged: onChanged,
+            ),
+          );
+        }
+
         return Scaffold(
           body: SafeArea(
             child: Center(
@@ -133,67 +170,38 @@ class CustomizeView extends StatelessWidget {
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install Visual Studio Code',
-                                          style: TextStyle(
-                                            fontFamily: 'RobotoMono',
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installVisualStudioCode,
-                                        onChanged:
-                                            model.setInstallVisualStudioCode,
-                                      ),
+                                    _buildCheckBoxTile(
+                                      logoPath:
+                                          'assets/images/app_logos/visual_studio_code_logo.png',
+                                      appName: 'VS Code',
+                                      value: model.installVisualStudioCode,
+                                      onChanged:
+                                          model.setInstallVisualStudioCode,
                                     ),
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install Android Studio',
-                                          style: TextStyle(
-                                            fontFamily: 'RobotoMono',
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installAndroidStudio,
-                                        onChanged:
-                                            model.setInstallAndroidStudio,
-                                      ),
+                                    _buildCheckBoxTile(
+                                      logoPath:
+                                          'assets/images/app_logos/android_studio_logo.png',
+                                      appName: 'Android Studio',
+                                      value: model.installAndroidStudio,
+                                      onChanged: model.setInstallAndroidStudio,
                                     ),
                                   ],
                                 ),
                                 Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install IntelliJ IDEA',
-                                          style: TextStyle(
-                                            fontFamily: 'RobotoMono',
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installIntelliJIDEA,
-                                        onChanged: model.setInstallIntelliJIDEA,
-                                      ),
+                                    _buildCheckBoxTile(
+                                      logoPath:
+                                          'assets/images/app_logos/intellij_idea_logo.png',
+                                      appName: 'IntelliJ IDEA',
+                                      value: model.installIntelliJIDEA,
+                                      onChanged: model.setInstallIntelliJIDEA,
                                     ),
-                                    Expanded(
-                                      child: CheckboxListTile(
-                                        title: Text(
-                                          'Install Git',
-                                          style: TextStyle(
-                                            fontFamily: 'RobotoMono',
-                                            fontSize: blockSize(context) * 1.5,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        value: model.installGit,
-                                        onChanged: model.setInstallGit,
-                                      ),
+                                    _buildCheckBoxTile(
+                                      logoPath:
+                                          'assets/images/app_logos/git_logo.png',
+                                      appName: 'Git',
+                                      value: model.installGit,
+                                      onChanged: model.setInstallGit,
                                     ),
                                   ],
                                 ),

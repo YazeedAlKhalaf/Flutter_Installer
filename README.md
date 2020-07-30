@@ -1,3 +1,5 @@
+![github_social_preview]
+
 # Flutter Installer
 
 ## Progress
@@ -9,6 +11,20 @@
 > • macOS is 100% done!
 >
 > • linux is 100% done!
+
+## Wanna go fast way? We have binaries built!
+
+> ### Step 1: Go to [Latest Release](https://github.com/YazeedAlKhalaf/Flutter_Installer/releases/latest)
+>
+> ### Step: 2 Download the binary that corresponds to your OS.
+>
+> ### Step 3: Run It!
+>
+> #### For Windows, just double click the `Flutter Installer.exe`
+>
+> #### For Linux, just double click `Flutter Installer`
+>
+> #### For macOS, just copy the `Flutter Installer.app` package to applications and start using it. requires `brew`
 
 ## Requirements to build project:
 
@@ -35,20 +51,6 @@ Engine • revision d3b81f19fc
 Tools • Dart 2.9.0 (build 2.9.0-21.0.dev 06183779d7)
 ```
 
-## Wanna go fast way? We have binaries built!
-
-> ### Step 1: Go to [Latest Release](https://github.com/YazeedAlKhalaf/Flutter_Installer/releases/latest)
->
-> ### Step: 2 Download the binary that corresponds to your OS.
->
-> ### Step 3: Run It!
->
-> #### For Windows, just double click the `Flutter Installer.exe`
->
-> #### For Linux, just double click `Flutter Installer`
->
-> #### For macOS, just copy the `Flutter Installer.app` package to applications and start using it. requires `brew`
-
 ## Wanna Contribute? 🚀
 
 You can contribute by doing one of the following:
@@ -61,3 +63,5 @@ You can contribute by doing one of the following:
 ## License
 
 Coming SOON!
+
+[github_social_preview]: assets\misc\github_social_preview_FULL.png

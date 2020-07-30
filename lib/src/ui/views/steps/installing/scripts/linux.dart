@@ -114,7 +114,7 @@ Future<void> installOnLinux({
     'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
   await shell.run('''
-    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
     ''');
   logger.i(
     'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
@@ -231,7 +231,7 @@ Future<void> installOnLinux({
       'Started Extracting of \"$androidStudioName\" from \"${androidStudioRelease.downloadLinks.linux}\"',
     );
     await shell.run('''
-    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$androidStudioName\" -C \"${userChoice.installationPath}\"
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$androidStudioName\" -C \"${userChoice.installationPath}\"
     ''');
     logger.i(
       'Finished Extracting of \"$androidStudioName\" from \"${androidStudioRelease.downloadLinks.linux}\"',
@@ -295,7 +295,7 @@ Future<void> installOnLinux({
     );
     await shell.run('''
     mkdir ${userChoice.installationPath}/$extractedFolderName
-    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
     ''');
     logger.i(
       'Finished Extracting of \"$intelliJIDEAName\" from \"${intelliJIDEARelease.downloadLinks.linux}\"',
@@ -359,7 +359,7 @@ Future<void> installOnLinux({
     );
     await shell.run('''
     mkdir ${userChoice.installationPath}/$extractedFolderName
-    tar -xf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
     ''');
     logger.i(
       'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',

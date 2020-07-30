@@ -54,6 +54,6 @@ You can contribute by doing one of the following:
 
 ## License
 
-Coming SOON!
+This project is licensed under an MIT license 🚀
 
 [github_social_preview]: assets\misc\github_social_preview_FULL.png

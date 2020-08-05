@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
+import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
@@ -99,11 +100,12 @@ Future<void> installOnMacOS({
     'Downloading Script for adding to PATH',
   );
   setPercentage(0.35);
-  final String appendToPathLink =
-      "https://gist.githubusercontent.com/YazeedAlKhalaf/2e063e344b3f3f4bb99a79c601e17a13/raw/208936d814d2e755962f6a57f0dd1b02a8ef891e/append-to-path-zsh.sh";
-  final String appendToPathName = "append-to-path-zsh.sh";
+  ScriptRelease appendToPathScriptRelease =
+      await _apiService.getLatestAppendToPathScript();
+  String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
+  final String appendToPathName = "append-to-path.sh";
   await shell.run('''
-  curl -o $appendToPathName -L $appendToPathLink
+  curl -o $appendToPathName -L $appendToPathScriptLink
   ''');
 
   /// add `flutter` to the `PATH`

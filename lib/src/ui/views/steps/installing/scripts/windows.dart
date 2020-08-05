@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
+import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -101,8 +102,10 @@ Future<void> installOnWindows({
   );
   setPercentage(0.325);
   await fakeDelay();
+  ScriptRelease appendToPathScriptRelease =
+      await _apiService.getLatestAppendToPathScript();
   String appendToPathScriptLink =
-      "https://gist.githubusercontent.com/YazeedAlKhalaf/fae357096390f54a768f091a35efea7f/raw/eef15570660402d3757a3b39acfc0693d8c60b3c/append-to-path.bat";
+      appendToPathScriptRelease.downloadLinks.windows;
   String appendToPathScriptName = "append-to-path.bat";
   logger.i(
     'Started Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
@@ -122,7 +125,7 @@ Future<void> installOnWindows({
   await fakeDelay();
   String flutterPath = "${userChoice.installationPath}\\flutter\\bin";
   await shell.run("""
-    $appendToPathScriptName \"$flutterPath\"
+    $appendToPathScriptName $flutterPath
     """);
 
   if (userChoice.installGit) {

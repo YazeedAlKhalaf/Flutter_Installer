@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - App logos beside them in `CustomizeView`
+- Get download links of scripts dynamically so that an update won't be neccessay for getting script link
+
+### Fixed
+
+- Bug where some times the `append-to-path.bat` file won't add to `PATH`
 
 ## [0.0.3] - 2020-07-28
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/latest_release.model.dart';
+import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/github_release.model.dart';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
@@ -143,5 +144,35 @@ class ApiService {
     AppRelease appRelease = latestRelease.latest.intellijIdea;
 
     return appRelease;
+  }
+
+  Future<ScriptRelease> getLatestAppendToPathScript() async {
+    Response response;
+    response = await http.get(
+      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+    );
+
+    Map<String, dynamic> data = json.decode(response.body);
+
+    LatestRelease latestRelease = LatestRelease.fromJson(data);
+
+    ScriptRelease scriptRelease = latestRelease.latest.scripts.appendToPath;
+
+    return scriptRelease;
+  }
+
+  Future<ScriptRelease> getLatestDistScript() async {
+    Response response;
+    response = await http.get(
+      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+    );
+
+    Map<String, dynamic> data = json.decode(response.body);
+
+    LatestRelease latestRelease = LatestRelease.fromJson(data);
+
+    ScriptRelease scriptRelease = latestRelease.latest.scripts.dist;
+
+    return scriptRelease;
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
+import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
@@ -71,10 +72,10 @@ Future<void> installOnLinux({
   );
   setPercentage(0.17);
   await fakeDelay();
-  final String getDistroURL =
-      "https://gist.githubusercontent.com/YazeedAlKhalaf/d03c9bda0d2e3815b819d0ebccdac2e6/raw/bf357bcf5f367e9794458aa86687c48c6a596957/dist.sh";
+  ScriptRelease distScriptRelease = await _apiService.getLatestDistScript();
+  String distScriptLink = distScriptRelease.downloadLinks.linux;
   await shell.run('''
-  curl -o dist.sh -L $getDistroURL
+  curl -o dist.sh -L $distScriptLink
   ''');
 
   /// run `dist.sh` for knowing distor name
@@ -125,11 +126,12 @@ Future<void> installOnLinux({
     'Downloading Script for adding to PATH',
   );
   setPercentage(0.35);
-  final String appendToPathLink =
-      "https://gist.githubusercontent.com/YazeedAlKhalaf/2e063e344b3f3f4bb99a79c601e17a13/raw/809b6b119dca8900c306788f0864e7bbcd26c9a2/append-to-path.sh";
+  ScriptRelease appendToPathScriptRelease =
+      await _apiService.getLatestAppendToPathScript();
+  String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.linux;
   final String appendToPathName = "append-to-path.sh";
   await shell.run('''
-  curl -o $appendToPathName -L $appendToPathLink
+  curl -o $appendToPathName -L $appendToPathScriptLink
   ''');
 
   /// add `flutter` to the `PATH`

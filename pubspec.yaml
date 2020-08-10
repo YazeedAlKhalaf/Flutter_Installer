@@ -1,5 +1,5 @@
 name: flutter_installer
-description: A new Flutter project.
+description: Flutter Installer is an installer for Flutter built with Flutter.
 version: 0.0.4+4
 
 environment:

@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Use `osascript` to get sudo password on macOS
+
+### Fixed
+
+- Bug where some times the `append-to-path.bat` file won't add to `PATH`
+
+### Removed
+
+- Removed `sudoPassword` to `UserChoice` model
+- Removed asking for Sudo Password on macOS only in `CustomizeStepView`
+
 ## [0.0.4] - 2020-08-05
 
 ### Added

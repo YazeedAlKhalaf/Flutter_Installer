@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
-import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
@@ -64,60 +66,60 @@ Future<void> installOnMacOS({
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
 
-  /// download Flutter SDK for macOS using `curl`
-  setCurrentTaskText(
-    'Downloading Flutter SDK for macOS\n(This may take some time)',
-  );
-  setPercentage(0.25);
-  await fakeDelay();
-  logger.i(
-    'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  );
-  await shell.run('''
-    curl -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
-    ''');
-  logger.i(
-    'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  );
+  // /// download Flutter SDK for macOS using `curl`
+  // setCurrentTaskText(
+  //   'Downloading Flutter SDK for macOS\n(This may take some time)',
+  // );
+  // setPercentage(0.25);
+  // await fakeDelay();
+  // logger.i(
+  //   'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  // );
+  // await shell.run('''
+  //   curl -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
+  //   ''');
+  // logger.i(
+  //   'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  // );
 
-  /// use `tar` to unzip the downloaded file
-  setCurrentTaskText(
-      'Unzipping Flutter SDK to installation path\n(This might take some time)');
-  setPercentage(0.3);
-  await fakeDelay();
-  logger.i(
-    'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  );
-  await shell.run('''
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
-    ''');
-  logger.i(
-    'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
-  );
+  // /// use `tar` to unzip the downloaded file
+  // setCurrentTaskText(
+  //     'Unzipping Flutter SDK to installation path\n(This might take some time)');
+  // setPercentage(0.3);
+  // await fakeDelay();
+  // logger.i(
+  //   'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  // );
+  // await shell.run('''
+  //   tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
+  //   ''');
+  // logger.i(
+  //   'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+  // );
 
-  /// download `append-to-path-zsh.sh`
-  setCurrentTaskText(
-    'Downloading Script for adding to PATH',
-  );
-  setPercentage(0.35);
-  ScriptRelease appendToPathScriptRelease =
-      await _apiService.getLatestAppendToPathScript();
-  String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
-  final String appendToPathName = "append-to-path.sh";
-  await shell.run('''
-  curl -o $appendToPathName -L $appendToPathScriptLink
-  ''');
+  // /// download `append-to-path-zsh.sh`
+  // setCurrentTaskText(
+  //   'Downloading Script for adding to PATH',
+  // );
+  // setPercentage(0.35);
+  // ScriptRelease appendToPathScriptRelease =
+  //     await _apiService.getLatestAppendToPathScript();
+  // String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
+  // final String appendToPathName = "append-to-path.sh";
+  // await shell.run('''
+  // curl -o $appendToPathName -L $appendToPathScriptLink
+  // ''');
 
-  /// add `flutter` to the `PATH`
-  setCurrentTaskText(
-    'Adding Flutter SDK to the PATH',
-  );
-  setPercentage(0.35);
-  await fakeDelay();
-  String flutterPath = "${userChoice.installationPath}/flutter/bin";
-  await shell.run('''
-  echo ${userChoice.sudoPassword} | sudo -S /bin/bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathName\" $flutterPath
-  ''');
+  // /// add `flutter` to the `PATH`
+  // setCurrentTaskText(
+  //   'Adding Flutter SDK to the PATH',
+  // );
+  // setPercentage(0.35);
+  // await fakeDelay();
+  // String flutterPath = "${userChoice.installationPath}/flutter/bin";
+  // await shell.run('''
+  // osascript -e \'do shell script \"bash ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathName $flutterPath\" with administrator privileges\'
+  // ''');
 
   if (userChoice.installGit) {
     /// install `git` for macOS
@@ -255,8 +257,9 @@ Future<void> installOnMacOS({
       'Started Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
     );
     await shell.run('''
-      curl -o $visualStudioCodeName -L "$visualStudioCodeDownloadLink"
-      ''');
+    mkdir vscode
+    curl -o ./vscode/$visualStudioCodeName -L "$visualStudioCodeDownloadLink"
+    ''');
     logger.i(
       'Finished Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
     );
@@ -270,7 +273,7 @@ Future<void> installOnMacOS({
       'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
     );
     await shell.run('''
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\"
+    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/$visualStudioCodeName\"
     ''');
     logger.i(
       'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
@@ -282,12 +285,11 @@ Future<void> installOnMacOS({
     );
     setPercentage(0.85);
     await fakeDelay();
-    final String vscodeappName = "Visual Studio Code.app";
     logger.i(
       'Started Moving Visual Studio Code Latest Version',
     );
     await shell.run('''
-    echo ${userChoice.sudoPassword} | sudo -S cp -R \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$vscodeappName\" \"/Applications\"
+    osascript -e 'do shell script "cp -r ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/.  ~/Applications" with administrator privileges'
     ''');
     logger.i(
       'Finished Moving Visual Studio Code Latest Version',

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
@@ -113,17 +111,6 @@ class SummaryView extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      if (Platform.isMacOS)
-                                        Text(
-                                          '• Sudo Password: ${userChoice.sudoPassword}',
-                                          textAlign: TextAlign.start,
-                                          style: TextStyle(
-                                            fontFamily: 'RobotoMono',
-                                            color: lynchColor,
-                                            fontSize: blockSize(context) * 1.2,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
                                       if (userChoice.installVisualStudioCode)
                                         Text(
                                           '• Visual Studio Code Latest Version',

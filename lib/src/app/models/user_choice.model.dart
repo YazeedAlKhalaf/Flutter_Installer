@@ -13,7 +13,6 @@ class UserChoice {
   final bool installIntelliJIDEA;
   final bool installGit;
   final FlutterChannel flutterChannel;
-  final String sudoPassword;
 
   UserChoice({
     @required this.installationPath,
@@ -22,7 +21,6 @@ class UserChoice {
     @required this.installIntelliJIDEA,
     @required this.installGit,
     @required this.flutterChannel,
-    this.sudoPassword = '',
   });
 
   UserChoice.defaultChoice({
@@ -32,7 +30,6 @@ class UserChoice {
     this.installIntelliJIDEA = false,
     this.installGit = true,
     this.flutterChannel = FlutterChannel.stable,
-    this.sudoPassword = '',
   });
 
   Map<String, dynamic> toMap() {

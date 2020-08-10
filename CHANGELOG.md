@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Bug where some times the `append-to-path.bat` file won't add to `PATH`
+- Updated dependencies
 
 ### Removed
 

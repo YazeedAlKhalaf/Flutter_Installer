@@ -15,6 +15,12 @@ final Utils _utils = locator<Utils>();
 final LocalStorageService _localStorageService = locator<LocalStorageService>();
 final ApiService _apiService = locator<ApiService>();
 
+FlutterRelease flutterRelease;
+String archiveName;
+String tempDirName;
+
+String appendToPathScriptName = "append-to-path.bat";
+
 Future<void> installOnWindows({
   @required Logger logger,
   @required UserChoice userChoice,
@@ -25,51 +31,244 @@ Future<void> installOnWindows({
 }) async {
   logger.i('Install On Windows');
 
-  FlutterRelease flutterRelease = await _apiService.getLatestRelease(
+  Shell myShell = shell;
+
+  const double percentageMultiple = 0.06666666667;
+
+  await _initializeVariables(
+    percentage: percentageMultiple * 1,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _createShell(
+    percentage: percentageMultiple * 2,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  myShell = await _cdToTempDirectory(
+    percentage: percentageMultiple * 3,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _createFlutterInstallerTempDirectory(
+    percentage: percentageMultiple * 4,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  myShell = await _cdToFlutterInstallerTempDirectory(
+    percentage: percentageMultiple * 5,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+
+  await _downloadFlutterSdkForWindowsWithCurl(
+    percentage: percentageMultiple * 6,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _upzipDownloadedFlutterSdkForWindows(
+    percentage: percentageMultiple * 7,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+
+  await _downloadScriptForAddingFlutterToPath(
+    percentage: percentageMultiple * 8,
+    logger: logger,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _addFlutterToPath(
+    percentage: percentageMultiple * 9,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+
+  await _installGit(
+    percentage: percentageMultiple * 10,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _installAndroidStudio(
+    percentage: percentageMultiple * 11,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _installVisualStudioCode(
+    percentage: percentageMultiple * 12,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _installIntelliJIDEA(
+    percentage: percentageMultiple * 13,
+    logger: logger,
+    userChoice: userChoice,
+    shell: myShell,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+
+  await _cleanup(
+    percentage: percentageMultiple * 14,
+    logger: logger,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+  await _runDone(
+    percentage: 1.0,
+    logger: logger,
+    setCurrentTaskText: setCurrentTaskText,
+    setPercentage: setPercentage,
+    fakeDelay: fakeDelay,
+  );
+}
+
+Future<void> _initializeVariables({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
+  setCurrentTaskText('Initializing');
+  setPercentage(percentage);
+
+  flutterRelease = await _apiService.getLatestRelease(
     flutterChannel: userChoice.flutterChannel,
     platform: FlutterReleasePlatform.windows,
   );
 
-  final String archiveName =
-      _utils.getAnythingAfterLastSlash(flutterRelease.archive);
+  archiveName = _utils.getAnythingAfterLastSlash(flutterRelease.archive);
   logger.i('Archive Name: $archiveName');
-  final String tempDirName = 'flutter_installer_${_utils.randomString(5)}';
+  tempDirName = 'flutter_installer_${_utils.randomString(5)}';
   logger.i('Temp Directory Name: $tempDirName');
+}
 
-  /// create a `shell`
+/// create a `shell`
+Future<void> _createShell({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText('Creating shell');
-  setPercentage(0.05);
+  setPercentage(percentage);
   await fakeDelay();
   logger.i('Created Shell: ${shell.toString()}');
+}
 
-  /// `cd` into Temp directory
+/// `cd` into Temp directory
+Future<Shell> _cdToTempDirectory({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText('Changing directory to "temp"');
-  setPercentage(0.1);
+  setPercentage(percentage);
   await fakeDelay();
   shell = shell.pushd(await _localStorageService.getTempDiretoryPath());
   logger.i('Change Directory to Temp');
+  return shell;
+}
 
-  /// create `flutter_installer` directory
+/// create `flutter_installer` temp directory
+Future<void> _createFlutterInstallerTempDirectory({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText('Creating "$tempDirName" directory');
-  setPercentage(0.15);
+  setPercentage(percentage);
   await fakeDelay();
   await shell.run('''
     mkdir $tempDirName
     ''');
   logger.i('Created $tempDirName');
+}
 
-  /// `cd` into `flutter_installer` directory
+/// `cd` into `flutter_installer` directory
+Future<Shell> _cdToFlutterInstallerTempDirectory({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText('Changing directory to "$tempDirName"');
-  setPercentage(0.2);
+  setPercentage(percentage);
   await fakeDelay();
   shell = shell.pushd('$tempDirName');
   logger.i('Change directory to $tempDirName');
+  return shell;
+}
 
-  /// download Flutter SDK for Windows using `curl`
+/// download Flutter SDK for Windows using `curl`
+Future<void> _downloadFlutterSdkForWindowsWithCurl({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText(
     'Downloading Flutter SDK for Windows\n(This may take some time)',
   );
-  setPercentage(0.25);
+  setPercentage(percentage);
   await fakeDelay();
   logger.i(
     'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
@@ -80,12 +279,25 @@ Future<void> installOnWindows({
   logger.i(
     'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
+}
 
-  /// use `tar` to unzip the downloaded file
+/// use `tar` to unzip the downloaded file
+Future<void> _upzipDownloadedFlutterSdkForWindows({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText(
       'Unzipping Flutter SDK to installation path\n(This might take some time)');
-  setPercentage(0.3);
-  await fakeDelay();
+  setPercentage(percentage);
+
+  /// wait for file to be installed fully
+  /// sometimes it breaks of you don't wait
+  await fakeDelay(seconds: 6);
   logger.i(
     'Started Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
@@ -95,18 +307,26 @@ Future<void> installOnWindows({
   logger.i(
     'Finished Extracting of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
+}
 
-  /// download `.bat` file for adding `flutter` to `PATH`
+/// download `.bat` file for adding `flutter` to `PATH`
+Future<void> _downloadScriptForAddingFlutterToPath({
+  @required double percentage,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText(
     'Downloading Script for adding Flutter SDK to PATH',
   );
-  setPercentage(0.325);
+  setPercentage(percentage);
   await fakeDelay();
   ScriptRelease appendToPathScriptRelease =
       await _apiService.getLatestAppendToPathScript();
   String appendToPathScriptLink =
       appendToPathScriptRelease.downloadLinks.windows;
-  String appendToPathScriptName = "append-to-path.bat";
   logger.i(
     'Started Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
   );
@@ -116,24 +336,48 @@ Future<void> installOnWindows({
   logger.i(
     'Finished Downloading of \"$appendToPathScriptName\" from \"$appendToPathScriptLink\"',
   );
+}
 
-  /// add `flutter` to the `PATH`
+/// add `flutter` to the `PATH`
+Future<void> _addFlutterToPath({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText(
     'Adding Flutter SDK to the PATH',
   );
-  setPercentage(0.35);
+  setPercentage(percentage);
   await fakeDelay();
   String flutterPath = "${userChoice.installationPath}\\flutter\\bin";
   await shell.run("""
     $appendToPathScriptName $flutterPath
     """);
+  logger.i(
+    'Added Flutter to PATH',
+  );
+}
 
+/// install `git` for windows
+///  run the `.exe` installer
+Future<void> _installGit({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   if (userChoice.installGit) {
-    /// install `git` for windows
     setCurrentTaskText(
       'Downloading Git for Windows\n(This may take some time)',
     );
-    setPercentage(0.4);
+    setPercentage(percentage);
     await fakeDelay();
     GithubReleaseAsset githubReleaseAsset =
         await _apiService.getLatestGitForWindowsRelease();
@@ -149,29 +393,47 @@ Future<void> installOnWindows({
       'Finished Downloading Git For Windows from \"${githubReleaseAsset.browserDownloadUrl}\"',
     );
 
-    /// run the `.exe` installer
     setCurrentTaskText(
       'Running $gitDownloadName, Follow the steps there',
     );
-    setPercentage(0.45);
+    setPercentage(percentage + 0.03);
     await fakeDelay();
     logger.i(
-      'Started $gitDownloadName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Started $gitDownloadName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
     await shell.run('''
-      start "${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$gitDownloadName"
+      start "${await _localStorageService.getTempDiretoryPath()}\\$tempDirName\\$gitDownloadName"
       ''');
     logger.i(
-      'Finished $gitDownloadName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Finished $gitDownloadName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
   }
 
+  if (!userChoice.installGit) {
+    setCurrentTaskText(
+      'Skipping Downloading Git for Windows',
+    );
+    setPercentage(percentage);
+    await fakeDelay();
+  }
+}
+
+/// install `Android Studio` for windows
+/// run the `.exe` installer
+Future<void> _installAndroidStudio({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   if (userChoice.installAndroidStudio) {
-    /// install `Android Studio` for windows
     setCurrentTaskText(
       'Downloading Android Studio Latest Version\n(This might take some time)',
     );
-    setPercentage(0.475);
+    setPercentage(percentage);
     await fakeDelay();
     AppRelease androidStudioRelease =
         await _apiService.getLatestAndroidStudioRelease();
@@ -187,29 +449,47 @@ Future<void> installOnWindows({
       'Finished Downloading Android Studio For Windows from \"${androidStudioRelease.downloadLinks.windows}\"',
     );
 
-    /// run the `.exe` installer
     setCurrentTaskText(
       'Running $androidStudioName, Follow the steps there',
     );
-    setPercentage(0.5);
+    setPercentage(percentage + 0.03);
     await fakeDelay();
     logger.i(
-      'Started $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Started $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
     await shell.run('''
-      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$androidStudioName\"
+      start \"${await _localStorageService.getTempDiretoryPath()}\\$tempDirName\\$androidStudioName\"
       ''');
     logger.i(
-      'Finished $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Finished $androidStudioName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
   }
 
+  if (!userChoice.installAndroidStudio) {
+    setCurrentTaskText(
+      'Skipping Downloading Android Studio Latest Version for Windows',
+    );
+    setPercentage(percentage);
+    await fakeDelay();
+  }
+}
+
+/// install `Visual Studio Code` for windows
+/// run the `.exe` installer
+Future<void> _installVisualStudioCode({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   if (userChoice.installVisualStudioCode) {
-    /// install `Visual Studio Code` for windows
     setCurrentTaskText(
       'Downloading Visual Studio Code Latest Version\n(This might take some time)',
     );
-    setPercentage(0.525);
+    setPercentage(percentage);
     await fakeDelay();
     AppRelease visualStudioCodeRelease =
         await _apiService.getLatestVisualStudioCodeRelease();
@@ -224,29 +504,47 @@ Future<void> installOnWindows({
       'Finished Downloading Visual Studio Code For Windows from \"${visualStudioCodeRelease.downloadLinks.windows}\"',
     );
 
-    /// run the `.exe` installer
     setCurrentTaskText(
       'Running $visualStudioCodeName, Follow the steps there',
     );
-    setPercentage(0.55);
+    setPercentage(percentage + 0.03);
     await fakeDelay();
     logger.i(
-      'Started $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Started $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
     await shell.run('''
-      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$visualStudioCodeName\"
+      start \"${await _localStorageService.getTempDiretoryPath()}\\$tempDirName\\$visualStudioCodeName\"
       ''');
     logger.i(
-      'Finished $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Finished $visualStudioCodeName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
   }
 
+  if (!userChoice.installVisualStudioCode) {
+    setCurrentTaskText(
+      'Skipping Downloading Visual Studio Code Latest Version for macOS',
+    );
+    setPercentage(percentage);
+    await fakeDelay();
+  }
+}
+
+/// install `IntelliJ IDEA` for windows
+/// run the `.exe` installer
+Future<void> _installIntelliJIDEA({
+  @required double percentage,
+  @required Logger logger,
+  @required UserChoice userChoice,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   if (userChoice.installIntelliJIDEA) {
-    /// install `IntelliJ IDEA` for windows
     setCurrentTaskText(
       'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
     );
-    setPercentage(0.575);
+    setPercentage(percentage);
     await fakeDelay();
     AppRelease intelliJIDEARelease =
         await _apiService.getLatestIntelliJIDEARelease();
@@ -262,28 +560,61 @@ Future<void> installOnWindows({
       'Finished Downloading IntelliJ IDEA For Windows from \"${intelliJIDEARelease.downloadLinks.windows}\"',
     );
 
-    /// run the `.exe` installer
     setCurrentTaskText(
       'Running $intelliJIDEAName, Follow the steps there',
     );
-    setPercentage(0.6);
+    setPercentage(percentage + 0.03);
     await fakeDelay();
     logger.i(
-      'Started $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Started $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
     await shell.run('''
-      start \"${await _localStorageService.getTempDiretoryPath()}$tempDirName\\$intelliJIDEAName\"
+      start \"${await _localStorageService.getTempDiretoryPath()}\\$tempDirName\\$intelliJIDEAName\"
       ''');
     logger.i(
-      'Finished $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}$tempDirName',
+      'Finished $intelliJIDEAName from ${await _localStorageService.getTempDiretoryPath()}\\$tempDirName',
     );
   }
 
-  /// Done 🚀😎
+  if (!userChoice.installIntelliJIDEA) {
+    setCurrentTaskText(
+      'Skipping Downloading IntelliJ IDEA Latest Version for Windows',
+    );
+    setPercentage(percentage);
+    await fakeDelay();
+  }
+}
+
+/// cleaning up
+Future<void> _cleanup({
+  @required double percentage,
+  @required Logger logger,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
+  setCurrentTaskText(
+    'Cleaning Up!',
+  );
+  setPercentage(percentage);
+  await fakeDelay();
+  logger.i(
+    'Finished Cleaning Up!',
+  );
+}
+
+/// Done 🚀😎
+Future<void> _runDone({
+  @required double percentage,
+  @required Logger logger,
+  @required Function(String taskText) setCurrentTaskText,
+  @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
+}) async {
   setCurrentTaskText(
     'You\'re Done! 🚀😎',
   );
-  setPercentage(1.0);
+  setPercentage(percentage);
   await fakeDelay();
   logger.i(
     'Finished installing Flutter for Windows!',

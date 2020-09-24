@@ -10,6 +10,7 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
 - Install software required by Flutter, so it is an all-in-one solution.
 - Built using Flutter 💙
 - Beautiful UI ✨
+- Support for Dark mode 👀
 - Supports 3 Platforms:
     - Windows
     - macOS

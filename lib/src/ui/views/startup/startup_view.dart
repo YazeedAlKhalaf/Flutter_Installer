@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
-import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/views/startup/startup_view_model.dart';
 
 class StartupView extends StatefulWidget {
@@ -14,7 +13,9 @@ class _StartupViewState extends State<StartupView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.reactive(
       viewModelBuilder: () => StartupViewModel(),
-      onModelReady: (StartupViewModel model) => model.handleStartup(),
+      onModelReady: (StartupViewModel model) async {
+        await model.handleStartup();
+      },
       builder: (
         BuildContext context,
         StartupViewModel model,
@@ -32,11 +33,11 @@ class _StartupViewState extends State<StartupView> {
                   'assets/images/logo_flutter_1080px_clr.png',
                   width: blockSize(context) * 15,
                 ),
-                SizedBox(
-                  height: blockSize(context) * 5,
-                ),
+                verticalSpaceLarge(context),
                 CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(primaryColor),
+                  valueColor: AlwaysStoppedAnimation(
+                    Theme.of(context).accentColor,
+                  ),
                 ),
               ],
             ),

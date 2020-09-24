@@ -4,8 +4,10 @@ import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/views/faq/faq_view.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:stacked/stacked.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './steps_base_view_model.dart';
 
@@ -20,6 +22,42 @@ class StepsBaseView extends StatelessWidget {
         StepsBaseViewModel model,
         Widget child,
       ) {
+        _buildChangeThemeButtons() {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.sun,
+                  color: textColorWhite,
+                ),
+                onPressed: () {
+                  if (ThemeModeHandler.of(context).themeMode !=
+                      ThemeMode.light) {
+                    ThemeModeHandler.of(context).saveThemeMode(
+                      ThemeMode.light,
+                    );
+                  }
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.moon,
+                  color: textColorWhite,
+                ),
+                onPressed: () {
+                  if (ThemeModeHandler.of(context).themeMode !=
+                      ThemeMode.dark) {
+                    ThemeModeHandler.of(context).saveThemeMode(
+                      ThemeMode.dark,
+                    );
+                  }
+                },
+              ),
+            ],
+          );
+        }
+
         return Scaffold(
           body: SafeArea(
             child: Stack(
@@ -27,15 +65,16 @@ class StepsBaseView extends StatelessWidget {
                 Container(
                   child: Row(
                     children: <Widget>[
-                      // Left Side
+                      /// Left Side
                       Container(
                         width: blockSize(context) * 30,
                         padding: EdgeInsets.all(blockSize(context)),
                         decoration: BoxDecoration(
-                          color: primaryColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                         child: Column(
                           children: <Widget>[
+                            _buildChangeThemeButtons(),
                             StepWidget(
                               stepName: 'Terms of Service',
                               stepState: model.decideStepState(0),
@@ -98,7 +137,7 @@ class StepsBaseView extends StatelessWidget {
                         ),
                       ),
 
-                      // Right Side
+                      /// Right Side
                       Expanded(
                         child: Container(
                           child: Stack(

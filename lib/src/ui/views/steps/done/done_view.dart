@@ -8,6 +8,7 @@ import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:stacked/stacked.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './done_view_model.dart';
 
@@ -40,7 +41,6 @@ class DoneView extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        color: textColorBlack,
                         fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
                       ),
@@ -52,7 +52,15 @@ class DoneView extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: ThemeModeHandler.of(context).themeMode ==
+                                  ThemeMode.system
+                              ? Theme.of(context).brightness == Brightness.dark
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey[200]
+                              : ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.dark
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey[200],
                         ),
                         height: blockSize(context) * 30,
                         width: blockSize(context) * 50,
@@ -61,19 +69,49 @@ class DoneView extends StatelessWidget {
                           styleSheet: MarkdownStyleSheet(
                             code: TextStyle(
                               fontFamily: 'RobotoMono',
-                              backgroundColor: Colors.grey[350],
+                              backgroundColor: ThemeModeHandler.of(context)
+                                          .themeMode ==
+                                      ThemeMode.system
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Theme.of(context)
+                                          .scaffoldBackgroundColor
+                                      : Colors.grey[350]
+                                  : ThemeModeHandler.of(context).themeMode ==
+                                          ThemeMode.dark
+                                      ? Theme.of(context)
+                                          .scaffoldBackgroundColor
+                                      : Colors.grey[350],
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 1.5,
                             ),
                             h1: TextStyle(
                               fontFamily: 'Roboto',
-                              color: textColorBlack,
+                              color: ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.system
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? textColorWhite
+                                      : textColorBlack
+                                  : ThemeModeHandler.of(context).themeMode ==
+                                          ThemeMode.dark
+                                      ? textColorWhite
+                                      : textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
                             ),
                             p: TextStyle(
                               fontFamily: 'Roboto',
-                              color: textColorBlack,
+                              color: ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.system
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? textColorWhite
+                                      : textColorBlack
+                                  : ThemeModeHandler.of(context).themeMode ==
+                                          ThemeMode.dark
+                                      ? textColorWhite
+                                      : textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
@@ -89,7 +127,6 @@ class DoneView extends StatelessWidget {
                       children: <Widget>[
                         CustomButton(
                           text: 'Finish!',
-                          buttonColor: primaryColor,
                           textStyle: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 4.5,

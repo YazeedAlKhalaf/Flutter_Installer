@@ -25,14 +25,14 @@ class StepWidget extends StatelessWidget {
           return Icon(
             Icons.done,
             size: blockSize(context) * 3,
-            color: textColorWhite,
+            color: Theme.of(context).accentColor,
           );
           break;
         case StepWidgetState.Doing:
           return Icon(
             Icons.fiber_manual_record,
             size: blockSize(context) * 3,
-            color: textColorWhite,
+            color: Theme.of(context).accentColor,
           );
           break;
         case StepWidgetState.NotDone:
@@ -56,7 +56,9 @@ class StepWidget extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                CircleAvatar(),
+                CircleAvatar(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                ),
                 decideStepType(),
               ],
             ),

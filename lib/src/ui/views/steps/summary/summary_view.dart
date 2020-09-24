@@ -48,7 +48,6 @@ class SummaryView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
@@ -79,7 +78,6 @@ class SummaryView extends StatelessWidget {
                                   '* This is a summary of what will be downloaded:',
                                   style: TextStyle(
                                     fontFamily: 'RobotoMono',
-                                    color: lynchColor,
                                     fontSize: blockSize(context) * 1.5,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -106,7 +104,6 @@ class SummaryView extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontFamily: 'RobotoMono',
-                                          color: lynchColor,
                                           fontSize: blockSize(context) * 1.2,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -117,7 +114,6 @@ class SummaryView extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'RobotoMono',
-                                            color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -128,7 +124,6 @@ class SummaryView extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'RobotoMono',
-                                            color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -139,7 +134,6 @@ class SummaryView extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'RobotoMono',
-                                            color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -150,7 +144,6 @@ class SummaryView extends StatelessWidget {
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                             fontFamily: 'RobotoMono',
-                                            color: lynchColor,
                                             fontSize: blockSize(context) * 1.2,
                                             fontWeight: FontWeight.bold,
                                           ),
@@ -176,7 +169,6 @@ class SummaryView extends StatelessWidget {
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () {
                             onBackPressed();
@@ -190,7 +182,6 @@ class SummaryView extends StatelessWidget {
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () {
                             onInstallPressed();

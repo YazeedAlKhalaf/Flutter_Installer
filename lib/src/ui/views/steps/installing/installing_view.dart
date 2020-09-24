@@ -51,7 +51,6 @@ class InstallingView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
@@ -75,7 +74,7 @@ class InstallingView extends StatelessWidget {
                                 : textColorBlack,
                           ),
                         ),
-                        progressColor: primaryColor,
+                        progressColor: Theme.of(context).accentColor,
                       ),
                     ),
                     Container(
@@ -85,7 +84,6 @@ class InstallingView extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'RobotoMono',
                           fontSize: blockSize(context) * 1.5,
-                          color: lynchColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -141,7 +139,7 @@ class InstallingView extends StatelessWidget {
                                   ),
                                   child: ListView.builder(
                                     controller: model.scrollController,
-                                    itemCount: getLines().length,
+                                    itemCount: getLines().length ?? 0,
                                     itemBuilder: (
                                       BuildContext context,
                                       int index,
@@ -198,7 +196,6 @@ class InstallingView extends StatelessWidget {
                                     color: textColorWhite,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  buttonColor: primaryColor,
                                   width: blockSize(context) * 15,
                                   onPressed: () {
                                     if (!model.showLog) {
@@ -217,7 +214,6 @@ class InstallingView extends StatelessWidget {
                               color: textColorWhite,
                               fontWeight: FontWeight.bold,
                             ),
-                            buttonColor: primaryColor,
                             width: blockSize(context) * 15,
                             onPressed: () {
                               onNextPressed();

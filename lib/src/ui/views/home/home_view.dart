@@ -50,7 +50,6 @@ class HomeView extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'RobotoMono',
-                              color: textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
                             ),
@@ -75,7 +74,6 @@ class HomeView extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'RobotoMono',
-                              color: textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.w500,
                             ),

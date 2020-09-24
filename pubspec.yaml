@@ -8,31 +8,35 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #I
+
+  # icons
   cupertino_icons: ^1.0.0
-  # Stacked
+  font_awesome_flutter: ^8.8.1
+
+  # stacked
   stacked: ^1.7.6
+
   # third-party services
   stacked_services: ^0.5.4+3
+
   # navigation
   auto_route: ^0.6.7
+
   # inversion of control
   get_it: ^4.0.4
   injectable: ^1.0.4
-  # Logger
-  logger: ^0.9.3
-
-  # Data Persistence
-  shared_preferences: ^0.5.12
+  
 
   # MISC
-  percent_indicator: ^2.1.7+2
+  logger: ^0.9.3
+  percent_indicator: ^2.1.7+3
   path_provider: ^1.6.18
-  # path_provider_fde:
-  #   git:
-  #     url: git://github.com/google/flutter-desktop-embedding.git
-  #     path: plugins/flutter_plugins/path_provider_fde
-  #     ref: 9e9b68b67c2a2c0b82eed2224f709aff2ccbab7c
+  shared_preferences: ^0.5.12
+  url_launcher: ^5.7.2
+  flutter_markdown: ^0.4.4
+  process_run: ^0.11.0+2
+  http: ^0.12.2
+  theme_mode_handler: ^2.0.0
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
@@ -43,22 +47,14 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/file_chooser
       ref: 8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8
-  url_launcher: ^5.7.1
-  # url_launcher_fde:
-  #   git:
-  #     url: git://github.com/google/flutter-desktop-embedding.git
-  #     path: plugins/flutter_plugins/url_launcher_fde
-  #     ref: 9e9b68b67c2a2c0b82eed2224f709aff2ccbab7c
-  flutter_markdown: ^0.4.4
-  process_run: ^0.11.0+2
-  http: ^0.12.2
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Generators
-  build_runner: ^1.10.0
+  build_runner: ^1.10.2
   auto_route_generator: ^0.6.8
   injectable_generator: ^1.0.4
 

@@ -31,7 +31,7 @@ class CustomButton extends StatelessWidget {
             500,
           ),
         ),
-        color: buttonColor ?? primaryColor,
+        color: buttonColor ?? Theme.of(context).accentColor,
         onPressed: isButtonDisabled ? null : onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(

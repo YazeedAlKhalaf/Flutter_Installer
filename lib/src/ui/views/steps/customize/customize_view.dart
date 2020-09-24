@@ -34,6 +34,7 @@ class CustomizeView extends StatelessWidget {
         }) {
           return Expanded(
             child: CheckboxListTile(
+              activeColor: Theme.of(context).accentColor,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -75,7 +76,6 @@ class CustomizeView extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Roboto',
-                            color: textColorBlack,
                             fontSize: blockSize(context) * 4,
                             fontWeight: FontWeight.bold,
                           ),
@@ -103,7 +103,7 @@ class CustomizeView extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: model.chooseFolderTextFieldHasError
                                     ? dangerColor
-                                    : lynchColor,
+                                    : null,
                               ),
                             ),
                             style: TextStyle(
@@ -112,7 +112,7 @@ class CustomizeView extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               color: model.chooseFolderTextFieldHasError
                                   ? dangerColor
-                                  : lynchColor,
+                                  : null,
                             ),
                             enabled: false,
                           ),
@@ -135,7 +135,7 @@ class CustomizeView extends StatelessWidget {
                     verticalSpaceSmall(context),
                     Divider(
                       thickness: 2,
-                      color: lynchColor,
+                      color: Theme.of(context).primaryColor,
                       indent: 30,
                       endIndent: 30,
                     ),
@@ -217,6 +217,8 @@ class CustomizeView extends StatelessWidget {
                                               Expanded(
                                                 child: RadioListTile<
                                                     FlutterChannel>(
+                                                  activeColor: Theme.of(context)
+                                                      .accentColor,
                                                   title: Text(
                                                     'Stable',
                                                     textAlign: TextAlign.center,
@@ -235,13 +237,16 @@ class CustomizeView extends StatelessWidget {
                                                   onChanged: (FlutterChannel
                                                       newValue) {
                                                     model.setFlutterChannel(
-                                                        newValue);
+                                                      newValue,
+                                                    );
                                                   },
                                                 ),
                                               ),
                                               Expanded(
                                                 child: RadioListTile<
                                                     FlutterChannel>(
+                                                  activeColor: Theme.of(context)
+                                                      .accentColor,
                                                   title: Text(
                                                     'Beta',
                                                     textAlign: TextAlign.center,
@@ -260,13 +265,16 @@ class CustomizeView extends StatelessWidget {
                                                   onChanged: (FlutterChannel
                                                       newValue) {
                                                     model.setFlutterChannel(
-                                                        newValue);
+                                                      newValue,
+                                                    );
                                                   },
                                                 ),
                                               ),
                                               Expanded(
                                                 child: RadioListTile<
                                                     FlutterChannel>(
+                                                  activeColor: Theme.of(context)
+                                                      .accentColor,
                                                   title: Text(
                                                     'Dev',
                                                     textAlign: TextAlign.center,
@@ -285,7 +293,8 @@ class CustomizeView extends StatelessWidget {
                                                   onChanged: (FlutterChannel
                                                       newValue) {
                                                     model.setFlutterChannel(
-                                                        newValue);
+                                                      newValue,
+                                                    );
                                                   },
                                                 ),
                                               ),
@@ -325,7 +334,6 @@ class CustomizeView extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             color: textColorWhite,
                           ),
-                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () {
                             if (model.chooseFolderController.text == null ||

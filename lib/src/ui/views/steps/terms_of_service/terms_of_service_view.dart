@@ -6,6 +6,7 @@ import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:stacked/stacked.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './terms_of_service_view_model.dart';
 
@@ -38,7 +39,6 @@ class TermsOfServiceView extends StatelessWidget {
                       'Terms of Service',
                       style: TextStyle(
                         fontFamily: 'Roboto',
-                        color: textColorBlack,
                         fontSize: blockSize(context) * 4,
                         fontWeight: FontWeight.bold,
                       ),
@@ -50,7 +50,15 @@ class TermsOfServiceView extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: ThemeModeHandler.of(context).themeMode ==
+                                  ThemeMode.system
+                              ? Theme.of(context).brightness == Brightness.dark
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey[200]
+                              : ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.dark
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey[200],
                         ),
                         height: blockSize(context) * 30,
                         width: blockSize(context) * 50,
@@ -65,13 +73,31 @@ class TermsOfServiceView extends StatelessWidget {
                             ),
                             h1: TextStyle(
                               fontFamily: 'Roboto',
-                              color: textColorBlack,
+                              color: ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.system
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? textColorWhite
+                                      : textColorBlack
+                                  : ThemeModeHandler.of(context).themeMode ==
+                                          ThemeMode.dark
+                                      ? textColorWhite
+                                      : textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
                             ),
                             p: TextStyle(
                               fontFamily: 'Roboto',
-                              color: textColorBlack,
+                              color: ThemeModeHandler.of(context).themeMode ==
+                                      ThemeMode.system
+                                  ? Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? textColorWhite
+                                      : textColorBlack
+                                  : ThemeModeHandler.of(context).themeMode ==
+                                          ThemeMode.dark
+                                      ? textColorWhite
+                                      : textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
@@ -107,7 +133,6 @@ class TermsOfServiceView extends StatelessWidget {
                             color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () {
                             // TODO(yazeed): Save the user's acceptance of the Terms of Service/EULA to the memory

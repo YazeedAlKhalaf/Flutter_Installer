@@ -80,7 +80,7 @@ class FaqView extends StatelessWidget {
                     width: blockSize(context) * 20,
                     padding: EdgeInsets.all(blockSize(context)),
                     decoration: BoxDecoration(
-                      color: primaryColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -112,10 +112,8 @@ class FaqView extends StatelessWidget {
                           textStyle: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
-                            color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
-                          buttonColor: primaryColor,
                           width: blockSize(context) * 15,
                           onPressed: () async {
                             onBackPressed();

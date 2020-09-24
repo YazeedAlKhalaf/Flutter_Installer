@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+### Added
+
+- DARK mode support
+- Theming support
+
+### Changed
+
+- Refactored Windows Script
+- Started using dev channel for all platforms
+
+### Fixed
+
+- Windows was not working, now it works after it is in alpha stage
+
 ## [0.0.5] - 2020-08-10
 
 ### Added

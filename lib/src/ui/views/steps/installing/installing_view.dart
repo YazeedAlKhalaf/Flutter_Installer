@@ -26,9 +26,11 @@ class InstallingView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<InstallingViewModel>.reactive(
       viewModelBuilder: () => InstallingViewModel(),
-      onModelReady: (InstallingViewModel model) => model.initialize(
-        userChoice: userChoice,
-      ),
+      onModelReady: (InstallingViewModel model) async {
+        return model.initialize(
+          userChoice: userChoice,
+        );
+      },
       builder: (
         BuildContext context,
         InstallingViewModel model,

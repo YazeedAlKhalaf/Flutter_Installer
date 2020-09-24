@@ -51,7 +51,9 @@ class InstallingViewModel extends CustomBaseViewModel {
     if (_lines.length > 100) {
       _lines = _lines.sublist(20);
     }
-    linesCtlr.add(_lines);
+    if (!linesCtlr.isClosed) {
+      linesCtlr.add(_lines);
+    }
   }
 
   @override

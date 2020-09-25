@@ -9,10 +9,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # icons
-  cupertino_icons: ^1.0.0
-  font_awesome_flutter: ^8.8.1
-
   # stacked
   stacked: ^1.7.6
 
@@ -25,18 +21,23 @@ dependencies:
   # inversion of control
   get_it: ^4.0.4
   injectable: ^1.0.4
-  
 
-  # MISC
-  logger: ^0.9.3
+  # icons
+  cupertino_icons: ^1.0.0
+  font_awesome_flutter: ^8.8.1
+  
+  # ui
   percent_indicator: ^2.1.7+3
+  flutter_markdown: ^0.4.4
+  theme_mode_handler: ^2.0.0
+  
+  # accesses filesystem
+  process_run: ^0.11.0+2
   path_provider: ^1.6.18
   shared_preferences: ^0.5.12
-  url_launcher: ^5.7.2
-  flutter_markdown: ^0.4.4
-  process_run: ^0.11.0+2
-  http: ^0.12.2
-  theme_mode_handler: ^2.0.0
+
+  # misc
+  logger: ^0.9.3
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
@@ -47,6 +48,14 @@ dependencies:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/file_chooser
       ref: 8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8
+  
+  
+  url_launcher: ^5.7.2
+  
+  
+  http: ^0.12.2
+  
+  
   
 
 dev_dependencies:

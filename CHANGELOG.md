@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Windows was not working, now it works after it is in alpha stage
 
+### Removed
+
+- `TermsOfServiceView` is not useful so it is now removed
+
 ## [0.0.5] - 2020-08-10
 
 ### Added

@@ -112,6 +112,7 @@ class FaqView extends StatelessWidget {
                           textStyle: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: blockSize(context) * 2,
+                            color: textColorWhite,
                             fontWeight: FontWeight.bold,
                           ),
                           width: blockSize(context) * 15,

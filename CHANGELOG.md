@@ -11,11 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - DARK mode support
 - Theming support
+- Custom message when using `osascript` in macOS to gain administrator privileges
 
 ### Changed
 
 - Refactored Windows Script
 - Refactored Linux Script
+- Refactored macOS Script
 - Started using dev channel for all platforms
 
 ### Fixed

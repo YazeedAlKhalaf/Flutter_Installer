@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
@@ -9,10 +11,12 @@ import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
 import 'package:process_run/shell.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 final Utils _utils = locator<Utils>();
 final LocalStorageService _localStorageService = locator<LocalStorageService>();
 final ApiService _apiService = locator<ApiService>();
+final SnackbarService _snackbarService = locator<SnackbarService>();
 
 FlutterRelease flutterRelease;
 String archiveName;
@@ -20,6 +24,9 @@ String tempDirName;
 String distroName;
 
 String appendToPathScriptName = "append-to-path.sh";
+Duration snackBarDuration = Duration(
+  seconds: 5,
+);
 
 Future<void> installOnMacOS({
   @required Logger logger,
@@ -79,7 +86,7 @@ Future<void> installOnMacOS({
   );
 
   await _downloadFlutterSdkForMacOSWithCurl(
-    percentage: percentageMultiple * 8,
+    percentage: percentageMultiple * 6,
     logger: logger,
     shell: myShell,
     setCurrentTaskText: setCurrentTaskText,
@@ -87,7 +94,7 @@ Future<void> installOnMacOS({
     fakeDelay: fakeDelay,
   );
   await _upzipDownloadedFlutterSdkForMacOS(
-    percentage: percentageMultiple * 9,
+    percentage: percentageMultiple * 7,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -97,7 +104,7 @@ Future<void> installOnMacOS({
   );
 
   await _downloadScriptForAddingFlutterToPath(
-    percentage: percentageMultiple * 10,
+    percentage: percentageMultiple * 8,
     logger: logger,
     shell: myShell,
     setCurrentTaskText: setCurrentTaskText,
@@ -105,7 +112,7 @@ Future<void> installOnMacOS({
     fakeDelay: fakeDelay,
   );
   await _runAddFlutterToPathScript(
-    percentage: percentageMultiple * 11,
+    percentage: percentageMultiple * 9,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -115,7 +122,7 @@ Future<void> installOnMacOS({
   );
 
   await _installGit(
-    percentage: percentageMultiple * 12,
+    percentage: percentageMultiple * 10,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -124,7 +131,7 @@ Future<void> installOnMacOS({
     fakeDelay: fakeDelay,
   );
   await _installAndroidStudio(
-    percentage: percentageMultiple * 13,
+    percentage: percentageMultiple * 11,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -133,7 +140,7 @@ Future<void> installOnMacOS({
     fakeDelay: fakeDelay,
   );
   await _installIntelliJIDEA(
-    percentage: percentageMultiple * 14,
+    percentage: percentageMultiple * 12,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -142,7 +149,7 @@ Future<void> installOnMacOS({
     fakeDelay: fakeDelay,
   );
   await _installVisualStudioCode(
-    percentage: percentageMultiple * 15,
+    percentage: percentageMultiple * 13,
     logger: logger,
     userChoice: userChoice,
     shell: myShell,
@@ -152,7 +159,7 @@ Future<void> installOnMacOS({
   );
 
   await _cleanup(
-    percentage: percentageMultiple * 16,
+    percentage: percentageMultiple * 14,
     logger: logger,
     setCurrentTaskText: setCurrentTaskText,
     setPercentage: setPercentage,
@@ -356,7 +363,7 @@ Future<void> _runAddFlutterToPathScript({
   await fakeDelay();
   String flutterPath = "${userChoice.installationPath}/flutter/bin";
   await shell.run('''
-  osascript -e \'do shell script \"bash ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath\" with administrator privileges\'
+  osascript -e \'do shell script "bash ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath" with prompt "Flutter Installer needs administrator privileges to add Flutter to your PATH" with administrator privileges\'
   ''');
   logger.i(
     "Added Flutter to PATH",
@@ -372,7 +379,7 @@ Future<void> _installGit({
   @required Function(double newPercentage) setPercentage,
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
-  if (userChoice.installGit) {
+  _downloadGit() async {
     /// install `git` for macOS
     setCurrentTaskText(
       'Downloading Git for macOS\n(This may take some time)',
@@ -390,12 +397,28 @@ Future<void> _installGit({
     );
   }
 
-  if (!userChoice.installGit) {
-    setCurrentTaskText(
-      'Skipping Downloading Git for macOS',
+  try {
+    if (userChoice.installGit) {
+      await _downloadGit();
+    }
+
+    if (!userChoice.installGit) {
+      setCurrentTaskText(
+        'Skipping Downloading Git for macOS',
+      );
+      setPercentage(percentage);
+      await fakeDelay();
+    }
+  } on ShellException catch (shellException) {
+    logger.e(shellException);
+    _snackbarService.showSnackbar(
+      message: shellException.message,
     );
-    setPercentage(percentage);
-    await fakeDelay();
+  } catch (exception) {
+    logger.e(exception);
+    _snackbarService.showSnackbar(
+      message: "Something went wrong!",
+    );
   }
 }
 
@@ -408,18 +431,20 @@ Future<void> _installAndroidStudio({
   @required Function(double newPercentage) setPercentage,
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
-  if (userChoice.installAndroidStudio) {
-    /// install `Android Studio` for macOS
+  AppRelease androidStudioRelease =
+      await _apiService.getLatestAndroidStudioRelease();
+  String androidStudioName = _utils
+      .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos);
+  String androidStudioDownloadLink = androidStudioRelease.downloadLinks.macos;
+
+  _downloadAndroidStudio() async {
+    /// download `Android Studio` for macOS
     setCurrentTaskText(
       'Downloading Android Studio Latest Version\n(This might take some time)',
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease androidStudioRelease =
-        await _apiService.getLatestAndroidStudioRelease();
-    String androidStudioName = _utils
-        .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos);
-    String androidStudioDownloadLink = androidStudioRelease.downloadLinks.macos;
+
     logger.i(
       'Started Downloading Android Studio For macOS',
     );
@@ -429,7 +454,9 @@ Future<void> _installAndroidStudio({
     logger.i(
       'Finished Downloading Android Studio For macOS',
     );
+  }
 
+  _startAndroidStudio() async {
     /// start `Android Studio`
     setCurrentTaskText(
       'Running $androidStudioName, Follow the steps there\nIf nothing showed up, open finder and you\'ll find it mounted',
@@ -447,12 +474,29 @@ Future<void> _installAndroidStudio({
     );
   }
 
-  if (!userChoice.installAndroidStudio) {
-    setCurrentTaskText(
-      'Skipping Downloading Android Studio Latest Version for macOS',
+  try {
+    if (userChoice.installAndroidStudio) {
+      await _downloadAndroidStudio();
+      await _startAndroidStudio();
+    }
+
+    if (!userChoice.installAndroidStudio) {
+      setCurrentTaskText(
+        'Skipping Downloading Android Studio Latest Version for macOS',
+      );
+      setPercentage(percentage);
+      await fakeDelay();
+    }
+  } on ShellException catch (shellException) {
+    logger.e(shellException);
+    _snackbarService.showSnackbar(
+      message: shellException.message,
     );
-    setPercentage(percentage);
-    await fakeDelay();
+  } catch (exception) {
+    logger.e(exception);
+    _snackbarService.showSnackbar(
+      message: "Something went wrong!",
+    );
   }
 }
 
@@ -465,18 +509,20 @@ Future<void> _installIntelliJIDEA({
   @required Function(double newPercentage) setPercentage,
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
-  if (userChoice.installIntelliJIDEA) {
-    /// install `IntelliJ IDEA` for macOS
+  AppRelease intelliJIDEARelease =
+      await _apiService.getLatestIntelliJIDEARelease();
+  String intelliJIDEAName =
+      _utils.getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos);
+  String intelliJIDEADownloadLink = intelliJIDEARelease.downloadLinks.macos;
+
+  _downloadIntelliJIDEA() async {
+    /// download `IntelliJ IDEA` for macOS
     setCurrentTaskText(
       'Downloading IntelliJ IDEA Latest Version\n(This might take some time)',
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease intelliJIDEARelease =
-        await _apiService.getLatestIntelliJIDEARelease();
-    String intelliJIDEAName = _utils
-        .getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos);
-    String intelliJIDEADownloadLink = intelliJIDEARelease.downloadLinks.macos;
+
     logger.i(
       'Started Downloading IntelliJ IDEA For macOS from \"$intelliJIDEADownloadLink\"',
     );
@@ -486,7 +532,9 @@ Future<void> _installIntelliJIDEA({
     logger.i(
       'Finished Downloading IntelliJ IDEA For macOS from \"$intelliJIDEADownloadLink\"',
     );
+  }
 
+  _startIntelliJIDEA() async {
     /// start `IntelliJIDEA`
     setCurrentTaskText(
       'Running $intelliJIDEAName, Follow the steps there\nIf nothing showed up, open finder and you\'ll find it mounted',
@@ -504,12 +552,29 @@ Future<void> _installIntelliJIDEA({
     );
   }
 
-  if (!userChoice.installIntelliJIDEA) {
-    setCurrentTaskText(
-      'Skipping Downloading IntelliJ IDEA Latest Version for macOS',
+  try {
+    if (userChoice.installIntelliJIDEA) {
+      await _downloadIntelliJIDEA();
+      await _startIntelliJIDEA();
+    }
+
+    if (!userChoice.installIntelliJIDEA) {
+      setCurrentTaskText(
+        'Skipping Downloading IntelliJ IDEA Latest Version for macOS',
+      );
+      setPercentage(percentage);
+      await fakeDelay();
+    }
+  } on ShellException catch (shellException) {
+    logger.e(shellException);
+    _snackbarService.showSnackbar(
+      message: shellException.message,
     );
-    setPercentage(percentage);
-    await fakeDelay();
+  } catch (exception) {
+    logger.e(exception);
+    _snackbarService.showSnackbar(
+      message: "Something went wrong!",
+    );
   }
 }
 
@@ -522,29 +587,32 @@ Future<void> _installVisualStudioCode({
   @required Function(double newPercentage) setPercentage,
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
-  if (userChoice.installVisualStudioCode) {
+  AppRelease visualStudioCodeRelease =
+      await _apiService.getLatestVisualStudioCodeRelease();
+  String visualStudioCodeDownloadLink =
+      visualStudioCodeRelease.downloadLinks.macos;
+  String visualStudioCodeName = "code-stable-darwin.zip";
+
+  _downloadVisualStudioCode() async {
     /// install `Visual Studio Code` for macOS
     setCurrentTaskText(
       'Downloading Visual Studio Code Latest Version\n(This might take some time)',
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease visualStudioCodeRelease =
-        await _apiService.getLatestVisualStudioCodeRelease();
-    String visualStudioCodeDownloadLink =
-        visualStudioCodeRelease.downloadLinks.macos;
-    String visualStudioCodeName = "code-stable-darwin.zip";
     logger.i(
       'Started Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
     );
     await shell.run('''
-    mkdir vscode
-    curl -o ./vscode/$visualStudioCodeName -L "$visualStudioCodeDownloadLink"
-    ''');
+      mkdir vscode
+      curl -o ./vscode/$visualStudioCodeName -L "$visualStudioCodeDownloadLink"
+      ''');
     logger.i(
       'Finished Downloading Visual Studio Code For macOS from \"$visualStudioCodeDownloadLink\"',
     );
+  }
 
+  _unzipVisualStudioCode() async {
     /// use `tar` to unzip the downloaded file
     setCurrentTaskText(
         'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
@@ -554,12 +622,14 @@ Future<void> _installVisualStudioCode({
       'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
     );
     await shell.run('''
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/$visualStudioCodeName\"
-    ''');
+      tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/$visualStudioCodeName\"
+      ''');
     logger.i(
       'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
     );
+  }
 
+  _moveVisualStudioCode() async {
     /// move `Visual Studio Code.app` to applications
     setCurrentTaskText(
       'Moving Visual Studio Code.app to Applications',
@@ -570,19 +640,41 @@ Future<void> _installVisualStudioCode({
       'Started Moving Visual Studio Code Latest Version',
     );
     await shell.run('''
-    osascript -e 'do shell script "cp -r ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/.  ~/Applications" with administrator privileges'
-    ''');
+      osascript -e 'do shell script "cp -r ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/.  ~/Applications" with prompt "Flutter Installer needs administrator privileges to be able to copy Visual Studio Code to Applications folder" with administrator privileges'
+      ''');
     logger.i(
       'Finished Moving Visual Studio Code Latest Version',
     );
   }
 
-  if (!userChoice.installVisualStudioCode) {
-    setCurrentTaskText(
-      'Skipping Downloading Visual Studio Code Latest Version for macOS',
+  try {
+    if (userChoice.installVisualStudioCode) {
+      await _downloadVisualStudioCode();
+      await _unzipVisualStudioCode();
+      await _moveVisualStudioCode();
+    }
+
+    if (!userChoice.installVisualStudioCode) {
+      setCurrentTaskText(
+        'Skipping Downloading Visual Studio Code Latest Version for macOS',
+      );
+      setPercentage(percentage);
+      await fakeDelay();
+    }
+  } on ShellException catch (shellExecption) {
+    if (shellExecption.message
+        .contains("osascript -e \'do shell script \"cp -r /Users")) {
+      _snackbarService.showSnackbar(
+        duration: snackBarDuration,
+        message:
+            'We couldn\'t get administrator privileges, copying Visual Studio Code to Applications folder failed!',
+      );
+    }
+  } catch (exception) {
+    logger.e(exception);
+    _snackbarService.showSnackbar(
+      message: "Something went wrong!",
     );
-    setPercentage(percentage);
-    await fakeDelay();
   }
 }
 
@@ -618,6 +710,6 @@ Future<void> _runDone({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Finished installing Flutter for Windows!',
+    'Finished installing Flutter for macOS!',
   );
 }

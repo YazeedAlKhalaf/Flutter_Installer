@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Windows was not working, now it works after it is in alpha stage
+- Windows was showing `cmd` when using the shell, now it has been fixed!
 
 ### Removed
 

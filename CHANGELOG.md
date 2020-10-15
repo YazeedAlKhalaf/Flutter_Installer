@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Windows was not working, now it works after it is in alpha stage
 - Windows was showing `cmd` when using the shell, now it has been fixed!
+- Issue [#4](https://github.com/YazeedAlKhalaf/Flutter_Installer/issues/4) has been fixed!
 
 ### Removed
 

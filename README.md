@@ -7,7 +7,7 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
 ## Features
 
 - Install Flutter using a GUI interface, helpful for beginners and experts
-- Install software required by Flutter, so it is an all-in-one solution.
+- Install software required by Flutter, so it is an all-in-one solution
 - Built using Flutter 💙
 - Beautiful UI ✨
 - Support for Dark mode 👀
@@ -16,11 +16,11 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
     - macOS
     - Linux
 
-## Wanna go fast way? We have binaries built!
+## Wanna do it the quick way? We have binaries built!
 
 > ### Step 1: Go to [Latest Release](https://github.com/YazeedAlKhalaf/Flutter_Installer/releases/latest)
 >
-> ### Step: 2 Download the binary that corresponds to your OS.
+> ### Step: 2 Download the binary that corresponds to your OS
 >
 > ### Step 3: Run It!
 >

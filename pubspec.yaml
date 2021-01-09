@@ -1,6 +1,7 @@
 name: flutter_installer
 description: Flutter Installer is an installer for Flutter built with Flutter.
 version: 0.0.6+6
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

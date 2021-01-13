@@ -9,6 +9,7 @@ import 'package:flutter_installer/src/app/models/github_release.model.dart';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 import 'package:flutter_installer/src/app/models/releases.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
+import 'package:flutter_installer/src/app/services/api/my_client.dart';
 import 'package:flutter_installer/src/app/utils/logger.dart';
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
@@ -28,6 +29,8 @@ class ApiService {
   final String baseUrlForFlutterRelease =
       'https://storage.googleapis.com/flutter_infra/releases';
 
+  final MyClient myClient = MyClient(http.Client());
+
   Future getAllFlutterReleases(
     FlutterReleasePlatform platform,
   ) async {
@@ -35,17 +38,19 @@ class ApiService {
     try {
       switch (platform) {
         case FlutterReleasePlatform.windows:
-          response = await http.get(
+          response = await myClient.get(
             '$baseUrlForFlutterRelease/releases_windows.json',
           );
           break;
         case FlutterReleasePlatform.macOS:
-          response =
-              await http.get('$baseUrlForFlutterRelease/releases_macos.json');
+          response = await myClient.get(
+            '$baseUrlForFlutterRelease/releases_macos.json',
+          );
           break;
         case FlutterReleasePlatform.linux:
-          response =
-              await http.get('$baseUrlForFlutterRelease/releases_linux.json');
+          response = await myClient.get(
+            '$baseUrlForFlutterRelease/releases_linux.json',
+          );
           break;
       }
       Map<String, dynamic> data = json.decode(response.body);
@@ -89,7 +94,7 @@ class ApiService {
 
   Future<GithubReleaseAsset> getLatestGitForWindowsRelease() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://api.github.com/repos/git-for-windows/git/releases/latest',
     );
 
@@ -103,7 +108,7 @@ class ApiService {
 
   Future<AppRelease> getLatestAndroidStudioRelease() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
     );
 
@@ -118,7 +123,7 @@ class ApiService {
 
   Future<AppRelease> getLatestVisualStudioCodeRelease() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
     );
 
@@ -133,7 +138,7 @@ class ApiService {
 
   Future<AppRelease> getLatestIntelliJIDEARelease() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
     );
 
@@ -148,7 +153,7 @@ class ApiService {
 
   Future<ScriptRelease> getLatestAppendToPathScript() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
     );
 
@@ -163,7 +168,7 @@ class ApiService {
 
   Future<ScriptRelease> getLatestDistScript() async {
     Response response;
-    response = await http.get(
+    response = await myClient.get(
       'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
     );
 

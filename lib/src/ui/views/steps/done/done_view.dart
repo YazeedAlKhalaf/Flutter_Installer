@@ -115,7 +115,9 @@ class DoneView extends StatelessWidget {
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
-                          onTapLink: (String link) {
+                          onTapLink: (String new1, String link, String new2) {
+                            print(new1);
+                            print(new2);
                             model.launchUrl(link);
                           },
                         ),

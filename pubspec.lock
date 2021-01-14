@@ -35,7 +35,7 @@ packages:
       name: auto_route
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7"
+    version: "0.6.9"
   auto_route_generator:
     dependency: "direct dev"
     description:
@@ -162,6 +162,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  cross_file:
+    dependency: transitive
+    description:
+      name: cross_file
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   crypto:
     dependency: transitive
     description:
@@ -182,7 +189,7 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.2"
   dart_style:
     dependency: transitive
     description:
@@ -211,15 +218,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
-  file_chooser:
+  file_selector:
     dependency: "direct main"
     description:
-      path: "plugins/file_chooser"
-      ref: "8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8"
-      resolved-ref: "8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8"
-      url: "git://github.com/google/flutter-desktop-embedding.git"
-    source: git
-    version: "0.2.0"
+      name: file_selector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0+2"
+  file_selector_platform_interface:
+    dependency: transitive
+    description:
+      name: file_selector_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.2"
   fixnum:
     dependency: transitive
     description:
@@ -238,7 +250,7 @@ packages:
       name: flutter_markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.4"
+    version: "0.5.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -255,63 +267,21 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.8.1"
+    version: "8.11.0"
   get:
     dependency: transitive
     description:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.11.1"
-  get_core:
-    dependency: transitive
-    description:
-      name: get_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
-  get_instance:
-    dependency: transitive
-    description:
-      name: get_instance
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
+    version: "3.24.0"
   get_it:
     dependency: "direct main"
     description:
       name: get_it
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.4"
-  get_navigation:
-    dependency: transitive
-    description:
-      name: get_navigation
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
-  get_rx:
-    dependency: transitive
-    description:
-      name: get_rx
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
-  get_state_manager:
-    dependency: transitive
-    description:
-      name: get_state_manager
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
-  get_utils:
-    dependency: transitive
-    description:
-      name: get_utils
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.10.2"
+    version: "5.0.4"
   glob:
     dependency: transitive
     description:
@@ -360,7 +330,7 @@ packages:
       name: injectable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.7"
   injectable_generator:
     dependency: "direct dev"
     description:
@@ -402,7 +372,7 @@ packages:
       name: logger
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.3"
+    version: "0.9.4"
   logging:
     dependency: transitive
     description:
@@ -416,7 +386,7 @@ packages:
       name: markdown
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.5"
+    version: "3.0.0"
   matcher:
     dependency: transitive
     description:
@@ -486,7 +456,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.18"
+    version: "1.6.27"
   path_provider_linux:
     dependency: transitive
     description:
@@ -528,7 +498,7 @@ packages:
       name: percent_indicator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.7+3"
+    version: "2.1.9"
   platform:
     dependency: transitive
     description:
@@ -563,7 +533,7 @@ packages:
       name: process_run
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0+2"
+    version: "0.11.2+8"
   provider:
     dependency: transitive
     description:
@@ -598,7 +568,7 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.12"
+    version: "0.5.12+4"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -680,14 +650,14 @@ packages:
       name: stacked
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.6"
+    version: "1.7.7"
   stacked_services:
     dependency: "direct main"
     description:
       name: stacked_services
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.4+3"
+    version: "0.6.0+1"
   stream_channel:
     dependency: transitive
     description:
@@ -709,6 +679,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0-nullsafety.3"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.2.0+2"
   term_glyph:
     dependency: transitive
     description:
@@ -818,8 +795,8 @@ packages:
     dependency: "direct main"
     description:
       path: "plugins/window_size"
-      ref: "8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8"
-      resolved-ref: "8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8"
+      ref: "85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3"
+      resolved-ref: "85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3"
       url: "git://github.com/google/flutter-desktop-embedding.git"
     source: git
     version: "0.1.0"
@@ -839,4 +816,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.12.0-0.0 <3.0.0"
-  flutter: ">=1.17.0 <2.0.0"
+  flutter: ">=1.22.0 <2.0.0"

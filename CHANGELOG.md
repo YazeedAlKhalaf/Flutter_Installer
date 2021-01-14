@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+###
+
+- Started using `file_selector` plugin
+
+### Changed
+
+- User-Agent now is a custom one when downloading the Flutter SDK as per Flutter Installer requirements
+- Upgraded all packages to latest possible
+
+### Fixed
+
+- General bug fixes
+
+### Removed
+
+- Removed `file_chooser` plugin
+
 ## [0.0.6] - 2020-10-15
 
 ### Added

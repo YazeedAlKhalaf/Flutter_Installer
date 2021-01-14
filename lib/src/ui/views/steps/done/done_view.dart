@@ -23,6 +23,9 @@ class DoneView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DoneViewModel>.reactive(
       viewModelBuilder: () => DoneViewModel(),
+      onModelReady: (DoneViewModel model) async {
+        await model.initialize();
+      },
       builder: (
         BuildContext context,
         DoneViewModel model,

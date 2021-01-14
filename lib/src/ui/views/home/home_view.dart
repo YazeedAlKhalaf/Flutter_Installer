@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_installer/src/app/generated/locator/locator.dart';
+import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
+import 'package:flutter_installer/src/ui/views/steps/done/done_view.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 import './home_view_model.dart';
 
@@ -45,6 +49,16 @@ class HomeView extends StatelessWidget {
                             size: blockSize(context) * 15,
                           ),
                           verticalSpaceSmall(context),
+                          ElevatedButton(
+                            child: Text('Done'),
+                            onPressed: () async {
+                              await locator<NavigationService>().navigateToView(
+                                DoneView(
+                                  onFinishPressed: () {},
+                                ),
+                              );
+                            },
+                          ),
                           Text(
                             'Flutter Installer',
                             textAlign: TextAlign.center,

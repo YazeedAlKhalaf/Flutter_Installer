@@ -8,6 +8,7 @@ import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
+import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
 import 'package:process_run/shell.dart';
@@ -282,7 +283,7 @@ Future<void> _downloadFlutterSdkForMacOSWithCurl({
     'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
   );
   await shell.run('''
-    curl -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
+    curl -H \"User-Agent: ${Constants.flutterInstallerUserAgent}\" -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
     ''');
   logger.i(
     'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',

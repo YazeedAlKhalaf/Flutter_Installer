@@ -39,6 +39,8 @@ dependencies:
 
   # misc
   logger: ^0.9.4
+  url_launcher: ^5.7.10
+  http: ^0.12.2
   file_selector: ^0.7.0+2
   window_size:
     git:
@@ -46,18 +48,14 @@ dependencies:
       path: plugins/window_size
       ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
 
-  url_launcher: ^5.7.2
-
-  http: ^0.12.2
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Generators
-  build_runner: ^1.10.2
-  auto_route_generator: ^0.6.8
-  injectable_generator: ^1.0.4
+  build_runner: ^1.10.13
+  auto_route_generator: ^0.6.10
+  injectable_generator: ^1.0.7
 
 flutter:
   uses-material-design: true

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Fixed
+
+- `file_selector` plugin now works as expected, added platforms packages
+
 ## [0.0.7] - 2021-01-14
 
 ### Added

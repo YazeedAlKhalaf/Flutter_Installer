@@ -10,9 +10,11 @@ import 'package:stacked/stacked.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
+  final UserChoice userChoice;
   final Function(UserChoice userChoice) onNextPressed;
 
   const CustomizeView({
+    this.userChoice,
     @required this.onNextPressed,
   });
 
@@ -20,7 +22,11 @@ class CustomizeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CustomizeViewModel>.reactive(
       viewModelBuilder: () => CustomizeViewModel(),
-      onModelReady: (CustomizeViewModel model) async => await model.intialize(),
+      onModelReady: (CustomizeViewModel model) async {
+        await model.intialize(
+          userChoice: userChoice,
+        );
+      },
       builder: (
         BuildContext context,
         CustomizeViewModel model,

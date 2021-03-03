@@ -60,6 +60,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
     switch (_currentIndex) {
       case 0:
         return CustomizeView(
+          userChoice: userChoice,
           onNextPressed: (UserChoice userChoice) {
             setCurrentIndex(1);
             setUserChoice(userChoice);

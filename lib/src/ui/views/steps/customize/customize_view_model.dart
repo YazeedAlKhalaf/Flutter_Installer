@@ -104,8 +104,19 @@ class CustomizeViewModel extends CustomBaseViewModel {
     );
   }
 
-  intialize() async {
-    setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
-    chooseFolderController.text = _installationPath;
+  Future<void> intialize({
+    @required UserChoice userChoice,
+  }) async {
+    if (userChoice != null) {
+      chooseFolderController.text = userChoice.installationPath;
+      setFlutterChannel(userChoice.flutterChannel);
+      setInstallAndroidStudio(userChoice.installAndroidStudio);
+      setInstallGit(userChoice.installGit);
+      setInstallIntelliJIDEA(userChoice.installIntelliJIDEA);
+      setInstallVisualStudioCode(userChoice.installVisualStudioCode);
+    } else {
+      setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
+      chooseFolderController.text = _installationPath;
+    }
   }
 }

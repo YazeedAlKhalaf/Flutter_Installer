@@ -1,0 +1,33 @@
+{
+    "default": true,
+    "MD003": {
+        "style": "atx_closed"
+    },
+    "MD007": {
+        "indent": 4
+    },
+    "MD013": {
+        "line_length": 700
+    },
+    "MD026": false,
+    "MD033": {
+        "allowed_elements": [
+            "a",
+            "br",
+            "div",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "img",
+            "p",
+            "path",
+            "svg"
+        ]
+    },
+    "MD034": false,
+    "MD036": false,
+    "MD041": false,
+    "MD047": false,
+    "no-hard-tabs": false
+}

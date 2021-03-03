@@ -1,10 +1,10 @@
-![github_social_preview]
+<h1 align="center">Flutter Installer</h1>
 
-# Flutter Installer
+![github_social_preview]
 
 Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
 
-## Features
+## Features ##
 
 - Install Flutter using a GUI interface, helpful for beginners and experts
 - Install software required by Flutter, so it is an all-in-one solution.
@@ -16,27 +16,27 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
     - macOS
     - Linux
 
-## Wanna go fast way? We have binaries built!
+## Wanna go fast way? We have binaries built! ##
 
-> ### Step 1: Go to [Latest Release](https://github.com/YazeedAlKhalaf/Flutter_Installer/releases/latest)
->
-> ### Step: 2 Download the binary that corresponds to your OS.
->
-> ### Step 3: Run It!
->
-> #### For Windows, just double click the `Flutter Installer.exe`
->
-> #### For Linux, just double click `Flutter Installer`
->
-> #### For macOS, just copy the `Flutter Installer.app` package to applications and start using it. requires `brew`
+### Step 1: Go to [Latest Release](https://github.com/YazeedAlKhalaf/Flutter_Installer/releases/latest) ###
 
-## Requirements to build project:
+### Step: 2 Download the binary that corresponds to your OS. ###
+
+### Step 3: Run It! ###
+
+#### For Windows, just double click the `Flutter Installer.exe` ###
+
+#### For Linux, just double click `Flutter Installer` ###
+
+#### For macOS, just copy the `Flutter Installer.app` package to applications and start using it. requires `brew` ###
+
+## Requirements to build project: ##
 
 `Flutter` obviously 🚀
 
 **You need to be on Flutter dev channel**
 
-## Wanna Contribute? 🚀
+## Wanna Contribute? 🚀 ##
 
 You can contribute by doing one of the following:
 
@@ -45,7 +45,7 @@ You can contribute by doing one of the following:
 - Creating an Issue ❌
 - Creating a Pull Request ✔
 
-## License
+## License ##
 
 This project is licensed under an MIT license 🚀
 

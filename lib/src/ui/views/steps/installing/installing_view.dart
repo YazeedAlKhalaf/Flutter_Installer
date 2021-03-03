@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
@@ -27,9 +28,18 @@ class InstallingView extends StatelessWidget {
     return ViewModelBuilder<InstallingViewModel>.reactive(
       viewModelBuilder: () => InstallingViewModel(),
       onModelReady: (InstallingViewModel model) async {
-        return model.initialize(
-          userChoice: userChoice,
+        model.cancelableOperation = CancelableOperation<void>.fromFuture(
+          model.initialize(
+            userChoice: userChoice,
+          ),
+          onCancel: () async {
+            await onCancelPressed();
+          },
         );
+        model.notifyListeners();
+
+        /// run `init`
+        await model.cancelableOperation.value;
       },
       builder: (
         BuildContext context,
@@ -181,7 +191,7 @@ class InstallingView extends StatelessWidget {
                               bool isSure =
                                   await model.showCancelConfirmationDialog();
                               if (isSure) {
-                                onCancelPressed();
+                                await model.cancelableOperation.cancel();
                               }
                             },
                             isButtonDisabled:

@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `file_selector` plugin now works as expected, added platforms packages
+- Cancel not working, [#9](https://github.com/YazeedAlKhalaf/Flutter_Installer/issues/9)
 
 ## [0.0.7] - 2021-01-14
 

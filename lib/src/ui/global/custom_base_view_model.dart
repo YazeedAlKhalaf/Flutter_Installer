@@ -6,7 +6,8 @@ import 'package:stacked/stacked.dart';
 class CustomBaseViewModel extends BaseViewModel {
   final WindowSizeService _windowSizeService = locator<WindowSizeService>();
   final Utils _utils = locator<Utils>();
-  // final PreferencesService _preferencesService = locator<PreferencesService>();
+  // final PreferencesService _preferencesService =
+  //      locator<PreferencesService>();
 
   // UserChoice get userChoice =>
   //     _preferencesService.getUserChoice() ?? UserChoice.defaultChoice();
@@ -19,7 +20,7 @@ class CustomBaseViewModel extends BaseViewModel {
   }
 
   Future<void> fakeDelay({int seconds}) async {
-    await Future.delayed(
+    await Future<dynamic>.delayed(
       Duration(
         seconds: seconds ?? 1,
       ),

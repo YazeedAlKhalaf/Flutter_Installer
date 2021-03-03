@@ -12,8 +12,8 @@ import '../../services/api/api_service.dart';
 import '../../services/local_storage_service.dart';
 import '../../services/shared_prefs/shared_prefs_service.dart';
 import '../../services/third_party_services_module.dart';
-import '../../utils/utils.dart';
 import '../../services/window_size_service.dart';
+import '../../utils/utils.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -23,8 +23,9 @@ GetIt $initGetIt(
   String environment,
   EnvironmentFilter environmentFilter,
 }) {
-  final gh = GetItHelper(get, environment, environmentFilter);
-  final thirdPartyServicesModule = _$ThirdPartyServicesModule();
+  final GetItHelper gh = GetItHelper(get, environment, environmentFilter);
+  final _$ThirdPartyServicesModule thirdPartyServicesModule =
+      _$ThirdPartyServicesModule();
   gh.lazySingleton<ApiService>(() => ApiService());
   gh.lazySingleton<DialogService>(() => thirdPartyServicesModule.dialogService);
   gh.lazySingleton<LocalStorageService>(() => LocalStorageService());

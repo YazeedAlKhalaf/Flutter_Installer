@@ -1,19 +1,21 @@
 import 'package:flutter_installer/src/app/models/flutter_installer_api/latest.model.dart';
 
 class LatestRelease {
-  Latest latest;
-
   LatestRelease({this.latest});
 
   LatestRelease.fromJson(Map<String, dynamic> json) {
-    latest =
-        json['latest'] != null ? new Latest.fromJson(json['latest']) : null;
+    latest = json['latest'] != null
+        ? Latest.fromJson(
+            json['latest'] as Map<String, dynamic>,
+          )
+        : null;
   }
+  Latest latest;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.latest != null) {
-      data['latest'] = this.latest.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (latest != null) {
+      data['latest'] = latest.toJson();
     }
     return data;
   }

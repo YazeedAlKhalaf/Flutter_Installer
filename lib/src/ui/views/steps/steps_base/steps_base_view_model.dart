@@ -46,21 +46,20 @@ class StepsBaseViewModel extends CustomBaseViewModel {
 
   StepWidgetState decideStepState(int stepIndex) {
     if (_currentIndex == stepIndex) {
-      return StepWidgetState.Doing;
+      return StepWidgetState.doing;
     }
 
     if (_currentIndex > stepIndex) {
-      return StepWidgetState.Done;
+      return StepWidgetState.done;
     }
 
-    return StepWidgetState.NotDone;
+    return StepWidgetState.notDone;
   }
 
-  decideStepView() {
+  dynamic decideStepView() {
     switch (_currentIndex) {
       case 0:
         return CustomizeView(
-          userChoice: userChoice,
           onNextPressed: (UserChoice userChoice) {
             setCurrentIndex(1);
             setUserChoice(userChoice);
@@ -84,6 +83,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
             setCurrentIndex(3);
           },
           onCancelPressed: () async {
+            // Todo - unsubscribe to stream
             await navigateToHomeView();
           },
           userChoice: _userChoice,

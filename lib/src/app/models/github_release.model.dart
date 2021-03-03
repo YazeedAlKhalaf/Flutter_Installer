@@ -3,22 +3,6 @@ import 'dart:convert';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 
 class GithubRelease {
-  final String url;
-  final String assetsUrl;
-  final String uploadUrl;
-  final String htmlUrl;
-  final int id;
-  final String nodeId;
-  final String tagName;
-  final String targetCommitish;
-  final String name;
-  final bool draft;
-  // author
-  final bool prerelease;
-  final String createdAt;
-  final String publishedAt;
-  final List<GithubReleaseAsset> assets;
-
   const GithubRelease({
     this.url,
     this.assetsUrl,
@@ -35,9 +19,45 @@ class GithubRelease {
     this.publishedAt,
     this.assets,
   });
+  GithubRelease.fromMap(Map<String, dynamic> map)
+      : url = map['url'].toString(),
+        assetsUrl = map['assets_url'].toString(),
+        uploadUrl = map['upload_url'].toString(),
+        htmlUrl = map['html_url'].toString(),
+        id = int.parse(map['id'].toString()),
+        nodeId = map['node_id'].toString(),
+        tagName = map['tag_name'].toString(),
+        targetCommitish = map['target_commitish'].toString(),
+        name = map['name'].toString(),
+        draft = map['draft'] as bool,
+        prerelease = map['prerelease'] as bool,
+        createdAt = map['created_at'].toString(),
+        publishedAt = map['published_at'].toString(),
+        assets = List<GithubReleaseAsset>.from(
+          map['assets']?.map((dynamic x) =>
+                  GithubReleaseAsset.fromMap(x as Map<String, dynamic>))
+              as Iterable<dynamic>,
+        );
+  
+  final String url;
+  final String assetsUrl;
+  final String uploadUrl;
+  final String htmlUrl;
+  final int id;
+  final String nodeId;
+  final String tagName;
+  final String targetCommitish;
+  final String name;
+  final bool draft;
+  // author
+  final bool prerelease;
+  final String createdAt;
+  final String publishedAt;
+  final List<GithubReleaseAsset> assets;
+
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'url': url,
       'assets_url': assetsUrl,
       'upload_url': uploadUrl,
@@ -51,33 +71,13 @@ class GithubRelease {
       'prerelease': prerelease,
       'created_at': createdAt,
       'published_at': publishedAt,
-      'assets': assets?.map((x) => x?.toMap())?.toList(),
+      'assets': assets?.map((dynamic x) => x?.toMap())?.toList(),
     };
   }
 
-  static GithubRelease fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return GithubRelease(
-      url: map['url'],
-      assetsUrl: map['assets_url'],
-      uploadUrl: map['upload_url'],
-      htmlUrl: map['html_url'],
-      id: map['id'],
-      nodeId: map['node_id'],
-      tagName: map['tag_name'],
-      targetCommitish: map['target_commitish'],
-      name: map['name'],
-      draft: map['draft'],
-      prerelease: map['prerelease'],
-      createdAt: map['created_at'],
-      publishedAt: map['published_at'],
-      assets: List<GithubReleaseAsset>.from(
-          map['assets']?.map((x) => GithubReleaseAsset.fromMap(x))),
-    );
-  }
-
+  
   String toJson() => json.encode(toMap());
 
-  static GithubRelease fromJson(String source) => fromMap(json.decode(source));
+  GithubRelease fromJson(String source) =>
+      GithubRelease.fromMap(json.decode(source) as Map<String, dynamic>);
 }

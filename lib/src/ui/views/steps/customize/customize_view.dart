@@ -10,46 +10,38 @@ import 'package:stacked/stacked.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
-  final UserChoice userChoice;
-  final Function(UserChoice userChoice) onNextPressed;
-
   const CustomizeView({
-    this.userChoice,
     @required this.onNextPressed,
   });
 
+  final Function(UserChoice userChoice) onNextPressed;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CustomizeViewModel>.reactive(
       viewModelBuilder: () => CustomizeViewModel(),
-      onModelReady: (CustomizeViewModel model) async {
-        await model.intialize(
-          userChoice: userChoice,
-        );
-      },
+      onModelReady: (CustomizeViewModel model) async => model.intialize(),
       builder: (
         BuildContext context,
         CustomizeViewModel model,
         Widget child,
       ) {
-        _buildCheckBoxTile({
+        Expanded _buildCheckBoxTile({
           @required String logoPath,
           @required String appName,
           @required bool value,
-          @required void Function(bool) onChanged,
+          @required ValueChanged<bool> onChanged,
         }) {
           return Expanded(
             child: CheckboxListTile(
               activeColor: Theme.of(context).accentColor,
               title: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Image.asset(
                     logoPath,
                     width: blockSize(context) * 3,
                   ),
                   horizontalSpaceSmall(context),
-                  Container(
+                  SizedBox(
                     child: Text(
                       appName,
                       style: TextStyle(
@@ -92,7 +84,7 @@ class CustomizeView extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Container(
+                        SizedBox(
                           width: blockSize(context) * 35,
                           child: TextField(
                             controller: model.chooseFolderController,
@@ -151,11 +143,10 @@ class CustomizeView extends StatelessWidget {
                         horizontal: blockSize(context) * 2.5,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           // Choices
-                          Container(
+                          SizedBox(
                             height: blockSize(context) * 25,
                             child: ListView(
                               children: <Widget>[
@@ -201,114 +192,108 @@ class CustomizeView extends StatelessWidget {
                                           'assets/images/app_logos/git_logo.png',
                                       appName: 'Git',
                                       value: model.installGit,
-                                      onChanged: model.setInstallGit,
+                                      onChanged:
+                                          model.setInstallGit,
                                     ),
                                   ],
                                 ),
                                 verticalSpaceSmall(context),
-                                model.showAdvanced
-                                    ? Column(
+                                if (model.showAdvanced)
+                                  Column(
+                                    children: <Widget>[
+                                      Text(
+                                        '''
+Choose the Flutter channel you want to use:''',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                          fontFamily: 'RobotoMono',
+                                          fontSize: blockSize(context) * 2,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Row(
                                         children: <Widget>[
-                                          Text(
-                                            'Choose the Flutter channel you want to use:',
-                                            textAlign: TextAlign.start,
-                                            style: TextStyle(
-                                              fontFamily: 'RobotoMono',
-                                              fontSize: blockSize(context) * 2,
-                                              fontWeight: FontWeight.bold,
+                                          Expanded(
+                                            child:
+                                                RadioListTile<FlutterChannel>(
+                                              activeColor:
+                                                  Theme.of(context).accentColor,
+                                              title: Text(
+                                                'Stable',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'RobotoMono',
+                                                  fontSize:
+                                                      blockSize(context) * 1.5,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              value: FlutterChannel.stable,
+                                              groupValue: model.flutterChannel,
+                                              onChanged:
+                                                  (FlutterChannel newValue) {
+                                                model.setFlutterChannel(
+                                                  newValue,
+                                                );
+                                              },
                                             ),
                                           ),
-                                          Row(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
-                                                  title: Text(
-                                                    'Stable',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  value: FlutterChannel.stable,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel
-                                                      newValue) {
-                                                    model.setFlutterChannel(
-                                                      newValue,
-                                                    );
-                                                  },
+                                          Expanded(
+                                            child:
+                                                RadioListTile<FlutterChannel>(
+                                              activeColor:
+                                                  Theme.of(context).accentColor,
+                                              title: Text(
+                                                'Beta',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'RobotoMono',
+                                                  fontSize:
+                                                      blockSize(context) * 1.5,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
-                                                  title: Text(
-                                                    'Beta',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  value: FlutterChannel.beta,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel
-                                                      newValue) {
-                                                    model.setFlutterChannel(
-                                                      newValue,
-                                                    );
-                                                  },
+                                              value: FlutterChannel.beta,
+                                              groupValue: model.flutterChannel,
+                                              onChanged:
+                                                  (FlutterChannel newValue) {
+                                                model.setFlutterChannel(
+                                                  newValue,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child:
+                                                RadioListTile<FlutterChannel>(
+                                              activeColor:
+                                                  Theme.of(context).accentColor,
+                                              title: Text(
+                                                'Dev',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'RobotoMono',
+                                                  fontSize:
+                                                      blockSize(context) * 1.5,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
-                                              Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
-                                                  title: Text(
-                                                    'Dev',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  value: FlutterChannel.dev,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel
-                                                      newValue) {
-                                                    model.setFlutterChannel(
-                                                      newValue,
-                                                    );
-                                                  },
-                                                ),
-                                              ),
-                                            ],
+                                              value: FlutterChannel.dev,
+                                              groupValue: model.flutterChannel,
+                                              onChanged:
+                                                  (FlutterChannel newValue) {
+                                                model.setFlutterChannel(
+                                                  newValue,
+                                                );
+                                              },
+                                            ),
                                           ),
                                         ],
-                                      )
-                                    : Container(),
+                                      ),
+                                    ],
+                                  )
+                                else
+                                  Container(),
                                 TextLink(
                                   model.showAdvanced
                                       ? 'Hide Advanced'
@@ -319,7 +304,8 @@ class CustomizeView extends StatelessWidget {
                                     fontSize: blockSize(context) * 1.5,
                                   ),
                                   onPressed: () {
-                                    model.setShowAdvanced(!model.showAdvanced);
+                                    model.setShowAdvanced(
+                                        !model.showAdvanced);
                                   },
                                 ),
                               ],
@@ -328,7 +314,7 @@ class CustomizeView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    ExpandedContainer(),
+                    const ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -347,7 +333,8 @@ class CustomizeView extends StatelessWidget {
                                 model.chooseFolderController.text.trim() ==
                                     '' ||
                                 model.installationPath.trim() == '') {
-                              model.setChooseFolderTextFieldHasError(true);
+                              model.setChooseFolderTextFieldHasError(
+                                  true);
 
                               model.showSnackBar(
                                 title: 'Error Occured',
@@ -357,7 +344,8 @@ class CustomizeView extends StatelessWidget {
 
                               return;
                             }
-                            model.setChooseFolderTextFieldHasError(false);
+                            model.setChooseFolderTextFieldHasError(
+                                false);
 
                             onNextPressed(
                               UserChoice(

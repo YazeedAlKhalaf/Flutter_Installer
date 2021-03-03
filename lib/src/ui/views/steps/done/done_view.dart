@@ -13,19 +13,15 @@ import 'package:theme_mode_handler/theme_mode_handler.dart';
 import './done_view_model.dart';
 
 class DoneView extends StatelessWidget {
-  final Function onFinishPressed;
-
   const DoneView({
     @required this.onFinishPressed,
   });
 
+  final Function onFinishPressed;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DoneViewModel>.reactive(
       viewModelBuilder: () => DoneViewModel(),
-      onModelReady: (DoneViewModel model) async {
-        await model.initialize();
-      },
       builder: (
         BuildContext context,
         DoneViewModel model,
@@ -37,7 +33,6 @@ class DoneView extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(blockSize(context) * 2),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       'HOOORAY🚀💙😎',
@@ -48,7 +43,7 @@ class DoneView extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    ExpandedContainer(),
+                    const ExpandedContainer(),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(
                         20,
@@ -118,15 +113,14 @@ class DoneView extends StatelessWidget {
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
-                          onTapLink: (String new1, String link, String new2) {
-                            print(new1);
-                            print(new2);
+                          onTapLink: (String text, String link, String title) {
+                            assert(link != null);
                             model.launchUrl(link);
                           },
                         ),
                       ),
                     ),
-                    ExpandedContainer(),
+                    const ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -141,7 +135,7 @@ class DoneView extends StatelessWidget {
                           width: blockSize(context) * 40,
                           onPressed: () {
                             onFinishPressed();
-                            exit(0);
+                            return exit(0);
                           },
                         ),
                       ],

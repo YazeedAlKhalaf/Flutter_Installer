@@ -1,19 +1,6 @@
 import 'dart:convert';
 
 class GithubReleaseAsset {
-  final String url;
-  final int id;
-  final String nodeId;
-  final String name;
-  final String label;
-  // uploader
-  final String contentType;
-  final String state;
-  final int downloadCount;
-  final String createdAt;
-  final String publishedAt;
-  final String browserDownloadUrl;
-
   const GithubReleaseAsset({
     this.url,
     this.id,
@@ -27,9 +14,34 @@ class GithubReleaseAsset {
     this.publishedAt,
     this.browserDownloadUrl,
   });
+  GithubReleaseAsset.fromMap(Map<String, dynamic> map)
+      : url = map['url'].toString(),
+        id = int.parse(map['id'].toString()),
+        nodeId = map['node_id'].toString(),
+        name = map['name'].toString(),
+        label = map['label'].toString(),
+        contentType = map['content_type'].toString(),
+        state = map['state'].toString(),
+        downloadCount = int.parse(map['download_count'].toString()),
+        createdAt = map['created_at'].toString(),
+        publishedAt = map['published_at'].toString(),
+        browserDownloadUrl = map['browser_download_url'].toString();
+
+  final String url;
+  final int id;
+  final String nodeId;
+  final String name;
+  final String label;
+  // uploader
+  final String contentType;
+  final String state;
+  final int downloadCount;
+  final String createdAt;
+  final String publishedAt;
+  final String browserDownloadUrl;
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'url': url,
       'id': id,
       'node_id': nodeId,
@@ -44,26 +56,9 @@ class GithubReleaseAsset {
     };
   }
 
-  static GithubReleaseAsset fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return GithubReleaseAsset(
-      url: map['url'],
-      id: map['id'],
-      nodeId: map['node_id'],
-      name: map['name'],
-      label: map['label'],
-      contentType: map['content_type'],
-      state: map['state'],
-      downloadCount: map['download_count'],
-      createdAt: map['created_at'],
-      publishedAt: map['published_at'],
-      browserDownloadUrl: map['browser_download_url'],
-    );
-  }
 
   String toJson() => json.encode(toMap());
 
-  static GithubReleaseAsset fromJson(String source) =>
-      fromMap(json.decode(source));
+  GithubReleaseAsset fromJson(String source) =>
+      GithubReleaseAsset.fromMap(json.decode(source) as Map<String, dynamic>);
 }

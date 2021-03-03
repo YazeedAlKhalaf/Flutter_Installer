@@ -3,7 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import 'locator.config.dart';
 
-final locator = GetIt.instance;
+final GetIt locator = GetIt.instance;
 
 @injectableInit
 void setupLocator() => $initGetIt(locator);

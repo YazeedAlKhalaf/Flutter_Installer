@@ -7,13 +7,6 @@ enum FlutterChannel {
 }
 
 class UserChoice {
-  final String installationPath;
-  final bool installVisualStudioCode;
-  final bool installAndroidStudio;
-  final bool installIntelliJIDEA;
-  final bool installGit;
-  final FlutterChannel flutterChannel;
-
   UserChoice({
     @required this.installationPath,
     @required this.installVisualStudioCode,
@@ -31,9 +24,15 @@ class UserChoice {
     this.installGit = true,
     this.flutterChannel = FlutterChannel.stable,
   });
+  final String installationPath;
+  final bool installVisualStudioCode;
+  final bool installAndroidStudio;
+  final bool installIntelliJIDEA;
+  final bool installGit;
+  final FlutterChannel flutterChannel;
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'installationPath': installationPath,
       'installVisualStudioCode': installVisualStudioCode,
       'installAndroidStudio': installAndroidStudio,

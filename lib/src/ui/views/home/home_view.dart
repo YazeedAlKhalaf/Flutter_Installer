@@ -22,10 +22,10 @@ class HomeView extends StatelessWidget {
 
         return Scaffold(
           body: SafeArea(
-            child: Container(
+            child: SizedBox(
               child: Stack(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     child: Opacity(
                       opacity: 0.15,
                       child: Image.asset(
@@ -38,13 +38,12 @@ class HomeView extends StatelessWidget {
                       padding: EdgeInsets.all(blockSize(context)),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          ExpandedContainer(),
+                          const ExpandedContainer(),
                           FlutterLogo(
                             size: blockSize(context) * 15,
                           ),
-                          verticalSpaceSmall(context),
+                           verticalSpaceSmall(context),
                           Text(
                             'Flutter Installer',
                             textAlign: TextAlign.center,
@@ -57,7 +56,7 @@ class HomeView extends StatelessWidget {
                           verticalSpaceSmall(context),
                           CustomButton(
                             onPressed: () async {
-                              await model.navigateToStepsBaseView();
+                                await model.navigateToStepsBaseView();
                             },
                             text: 'Get Started',
                             width: blockSize(context) * 30,
@@ -68,7 +67,7 @@ class HomeView extends StatelessWidget {
                               fontSize: blockSize(context) * 3,
                             ),
                           ),
-                          ExpandedContainer(),
+                          const ExpandedContainer(),
                           Text(
                             'Made With Flutter 💙',
                             textAlign: TextAlign.center,

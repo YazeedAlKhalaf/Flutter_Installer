@@ -1,26 +1,26 @@
 import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 
 class Scripts {
-  ScriptRelease appendToPath;
-  ScriptRelease dist;
-
   Scripts({this.appendToPath, this.dist});
 
   Scripts.fromJson(Map<String, dynamic> json) {
     appendToPath = json['append_to_path'] != null
-        ? new ScriptRelease.fromJson(json['append_to_path'])
+        ? ScriptRelease.fromJson(
+            json['append_to_path'] as Map<String, dynamic>)
         : null;
-    dist =
-        json['dist'] != null ? new ScriptRelease.fromJson(json['dist']) : null;
+    dist = json['dist'] != null
+        ? ScriptRelease.fromJson(json['dist'] as Map<String, dynamic>)
+        : null;
   }
-
+  ScriptRelease appendToPath;
+  ScriptRelease dist;
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.appendToPath != null) {
-      data['append_to_path'] = this.appendToPath.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (appendToPath != null) {
+      data['append_to_path'] = appendToPath.toJson();
     }
-    if (this.dist != null) {
-      data['dist'] = this.dist.toJson();
+    if (dist != null) {
+      data['dist'] = dist.toJson();
     }
     return data;
   }

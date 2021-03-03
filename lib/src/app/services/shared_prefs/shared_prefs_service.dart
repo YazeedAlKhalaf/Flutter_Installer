@@ -1,12 +1,13 @@
 import 'package:flutter_installer/src/app/utils/logger.dart';
 import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @lazySingleton
 class SharedPrefsService {
-  final log = getLogger('SharedPrefsService');
+  final Logger log = getLogger('SharedPrefsService');
 
-  Future<bool> saveValue(String key, var value) async {
+  Future<bool> saveValue(String key, dynamic value) async {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
     log.d(
@@ -14,28 +15,28 @@ class SharedPrefsService {
     );
 
     if (value is String) {
-      return await _sharedPreferences.setString(key, value);
+      return _sharedPreferences.setString(key, value);
     }
     if (value is bool) {
-      return await _sharedPreferences.setBool(key, value);
+      return _sharedPreferences.setBool(key, value);
     }
     if (value is int) {
-      return await _sharedPreferences.setInt(key, value);
+      return _sharedPreferences.setInt(key, value);
     }
     if (value is double) {
-      return await _sharedPreferences.setDouble(key, value);
+      return _sharedPreferences.setDouble(key, value);
     }
     if (value is List<String>) {
-      return await _sharedPreferences.setStringList(key, value);
+      return _sharedPreferences.setStringList(key, value);
     }
 
     return false;
   }
 
-  Future getValue(String key) async {
+  Future<Object> getValue(String key) async {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
-    var value = await _sharedPreferences.get(key);
+    final Object value = _sharedPreferences.get(key);
     log.d(
       '(TRACE) LocalStorageService:_getFromDisk. key: $key value: $value',
     );
@@ -45,7 +46,7 @@ class SharedPrefsService {
   Future<bool> removeValue(String key) async {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
-    bool result = await _sharedPreferences.remove(key);
+    final bool result = await _sharedPreferences.remove(key);
     return result;
   }
 }

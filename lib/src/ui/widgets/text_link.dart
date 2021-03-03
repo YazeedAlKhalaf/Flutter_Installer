@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextLink extends StatelessWidget {
-  final String text;
-  final Function onPressed;
-  final TextStyle style;
-  final TextAlign textAlign;
-  final TextOverflow overflow;
-  final StrutStyle strutStyle;
-  final TextDirection textDirection;
-  final Locale locale;
-  final bool softWrap;
-  final double textScaleFactor;
-  final int maxLines;
-  final String semanticsLabel;
-  final TextWidthBasis textWidthBasis;
-
+  
   const TextLink(
     this.text, {
     this.onPressed,
@@ -30,6 +17,19 @@ class TextLink extends StatelessWidget {
     this.semanticsLabel,
     this.textWidthBasis,
   });
+  final String text;
+  final GestureTapCallback onPressed;
+  final TextStyle style;
+  final TextAlign textAlign;
+  final TextOverflow overflow;
+  final StrutStyle strutStyle;
+  final TextDirection textDirection;
+  final Locale locale;
+  final bool softWrap;
+  final double textScaleFactor;
+  final int maxLines;
+  final String semanticsLabel;
+  final TextWidthBasis textWidthBasis;
 
   @override
   Widget build(BuildContext context) {

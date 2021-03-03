@@ -14,19 +14,15 @@ class LocalStorageService {
   String get appDocPath => _appDocPath;
 
   Future<String> getTempDiretoryPath() async {
-    Directory tempDir = await getTemporaryDirectory();
+    final Directory tempDir = await getTemporaryDirectory();
 
-    _tempPath = tempDir.path;
-
-    return _tempPath;
+    return tempDir.path;
   }
 
   Future<String> getAppDocDirectoryPath() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
+    final Directory appDocDir = await getApplicationDocumentsDirectory();
 
-    _appDocPath = appDocDir.path;
-
-    return _appDocPath;
+    return appDocDir.path;
   }
 
   Future<void> initialize() async {

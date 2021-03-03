@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -16,9 +15,8 @@ import 'package:process_run/shell.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 abstract class Line {
-  final String text;
-
   Line(this.text);
+  final String text;
 }
 
 class ErrLine extends Line {
@@ -31,14 +29,13 @@ class OutLine extends Line {
 
 class InstallingViewModel extends CustomBaseViewModel {
   Shell _shell;
-  final _stdoutCtlr = StreamController<List<int>>();
-  final _stderrCtlr = StreamController<List<int>>();
-  final linesCtlr = StreamController<List<Line>>();
+  final StreamController<List<int>> _stdoutCtlr = StreamController<List<int>>();
+  final StreamController<List<int>> _stderrCtlr = StreamController<List<int>>();
+  final StreamController<List<Line>> linesCtlr = StreamController<List<Line>>();
   List<Line> _lines = <Line>[];
   List<Line> get lines => _lines;
 
   final ScrollController scrollController = ScrollController();
-  CancelableOperation<void> cancelableOperation;
 
   bool _showLog = false;
   bool get showLog => _showLog;
@@ -48,24 +45,22 @@ class InstallingViewModel extends CustomBaseViewModel {
   }
 
   void _addLine(Line line) {
-    if (!_stdoutCtlr.isClosed || !_stderrCtlr.isClosed || !linesCtlr.isClosed) {
-      _lines.add(line);
-      // Limit line count
-      if (_lines.length > 100) {
-        _lines = _lines.sublist(20);
-      }
-      if (!linesCtlr.isClosed) {
-        linesCtlr.add(_lines);
-      }
+    _lines.add(line);
+    // Limit line count
+    if (_lines.length > 100) {
+      _lines = _lines.sublist(20);
+    }
+    if (!linesCtlr.isClosed) {
+      linesCtlr.add(_lines);
     }
   }
 
   @override
   void dispose() {
-    super.dispose();
-    _stdoutCtlr.close();
-    _stderrCtlr.close();
-    linesCtlr.close();
+    _stdoutCtlr?.close();
+    _stderrCtlr?.close();
+    linesCtlr?.close();
+    return super.dispose();
   }
 
   final Logger logger = getLogger('InstallingViewModel');
@@ -93,36 +88,34 @@ class InstallingViewModel extends CustomBaseViewModel {
   Future<void> initialize({
     @required UserChoice userChoice,
   }) async {
-    try {
-      intializeStreamOfShellLines();
-      _addLine(OutLine('This is the virtual console :)'));
+    intializeStreamOfShellLines();
+    _addLine(OutLine('This is the virtual console :)'));
 
-      setPercentage(0.0);
-      setCurrentTaskText('Preparing...');
-      getVariables(
-        userChoice: userChoice,
-      );
-      logger.v('Install Function started');
-      await fakeDelay();
-      await install();
-      logger.v('Install Function ended');
-    } catch (exception) {
-      logger.e(exception.toString());
-    }
+    setPercentage(0.0);
+    setCurrentTaskText('Preparing...');
+    getVariables(
+      userChoice: userChoice,
+    );
+    logger.v('Install Function started');
+    await fakeDelay();
+    await install();
+    logger.v('Install Function ended');
   }
 
-  getVariables({
+  dynamic getVariables({
     @required UserChoice userChoice,
   }) {
     _userChoice = userChoice;
   }
 
   Future<bool> showCancelConfirmationDialog() async {
-    DialogResponse dialogResponse = await _dialogService.showConfirmationDialog(
+    final DialogResponse dialogResponse =
+        await _dialogService.showConfirmationDialog(
       title: 'Are You Sure? 😢',
       description: 'Are You Sure You Wanna Cancel This Download? 😢',
       cancelTitle: 'No, Thanks God 🙏',
-      confirmationTitle: 'Yes, I\'m Pretty Sure 🚀',
+      confirmationTitle: '''
+Yes, I'm Pretty Sure 🚀''',
       dialogPlatform: DialogPlatform.Material,
     );
 
@@ -168,17 +161,17 @@ class InstallingViewModel extends CustomBaseViewModel {
     }
   }
 
-  intializeStreamOfShellLines() {
+  void intializeStreamOfShellLines() {
     utf8.decoder
         .bind(_stdoutCtlr.stream)
         .transform(const LineSplitter())
-        .listen((text) {
+        .listen((String text) {
       _addLine(OutLine(text));
     });
     utf8.decoder
         .bind(_stderrCtlr.stream)
         .transform(const LineSplitter())
-        .listen((text) {
+        .listen((String text) {
       _addLine(ErrLine(text));
     });
     _shell = Shell(

@@ -3,6 +3,15 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 
 class CustomButton extends StatelessWidget {
+  const CustomButton({
+    @required this.text,
+    @required this.width,
+    @required this.onPressed,
+    this.textStyle,
+    this.buttonColor,
+    this.isButtonDisabled = false,
+  });
+
   final String text;
   final double width;
   final VoidCallback onPressed;
@@ -12,26 +21,21 @@ class CustomButton extends StatelessWidget {
 
   final bool isButtonDisabled;
 
-  CustomButton({
-    @required this.text,
-    @required this.width,
-    @required this.onPressed,
-    this.textStyle,
-    this.buttonColor,
-    this.isButtonDisabled = false,
-  });
-
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: width,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            500,
+      child: ElevatedButton(
+        style: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              500,
+            ),
           ),
+          primary: Colors.white,
+          backgroundColor: buttonColor ?? Theme.of(context).accentColor,
+          onSurface: Colors.grey,
         ),
-        color: buttonColor ?? Theme.of(context).accentColor,
         onPressed: isButtonDisabled ? null : onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(
@@ -41,7 +45,7 @@ class CustomButton extends StatelessWidget {
           child: Text(
             text,
             style: textStyle ??
-                TextStyle(
+                const TextStyle(
                   color: textColorWhite,
                   fontSize: 20,
                 ),

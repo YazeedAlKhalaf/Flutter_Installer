@@ -7,7 +7,7 @@ import 'package:window_size/window_size.dart';
 
 extension StringExtension on String {
   String capitalize() {
-    return "${this[0].toUpperCase()}${this.substring(1)}";
+    return '${this[0].toUpperCase()}${substring(1)}';
   }
 }
 
@@ -17,7 +17,7 @@ class WindowSizeService {
   static const double height = 720;
 
   Future<PlatformWindow> _getPlatformWindow() async {
-    return await window_size.getWindowInfo();
+    return window_size.getWindowInfo();
   }
 
   void _setWindowSize(PlatformWindow platformWindow) {
@@ -37,13 +37,13 @@ class WindowSizeService {
     );
 
     if (Platform.isMacOS) {
-      window_size.setWindowMinSize(Size(width, height));
-      window_size.setWindowMaxSize(Size(width * 2, height * 2));
+      window_size.setWindowMinSize(const Size(width, height));
+      window_size.setWindowMaxSize(const Size(width * 2, height * 2));
     }
   }
 
   Future<void> initialize() async {
-    PlatformWindow platformWindow = await _getPlatformWindow();
+    final PlatformWindow platformWindow = await _getPlatformWindow();
 
     if (platformWindow.screen != null) {
       if (platformWindow.screen.visibleFrame.width != width ||

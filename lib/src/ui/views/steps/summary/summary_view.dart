@@ -13,16 +13,14 @@ import 'package:stacked/stacked.dart';
 import './summary_view_model.dart';
 
 class SummaryView extends StatelessWidget {
-  final Function() onBackPressed;
-  final Function() onInstallPressed;
-  final UserChoice userChoice;
-
   const SummaryView({
     @required this.onInstallPressed,
     @required this.onBackPressed,
     @required this.userChoice,
   });
-
+  final Function() onBackPressed;
+  final Function() onInstallPressed;
+  final UserChoice userChoice;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SummaryViewModel>.reactive(
@@ -54,10 +52,9 @@ class SummaryView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    ExpandedContainer(),
+                    const ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Card(
                           elevation: 15,
@@ -75,7 +72,7 @@ class SummaryView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '* This is a summary of what will be downloaded:',
+                                  '''* This is a summary of what will be downloaded:''',
                                   style: TextStyle(
                                     fontFamily: 'RobotoMono',
                                     fontSize: blockSize(context) * 1.5,
@@ -90,15 +87,13 @@ class SummaryView extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         userChoice.installationPath != null
-                                            ? '• Path: ' +
-                                                locator<Utils>()
-                                                    .clipTextFromMiddle(
-                                                  userChoice.installationPath,
-                                                )
+                                            ? '''
+                                            • Path: ${locator<Utils>().clipTextFromMiddle(
+                                                userChoice.installationPath,
+                                              )}'''
                                             : '• Path: Not Specified',
                                         textAlign: TextAlign.start,
                                         overflow: TextOverflow.ellipsis,
@@ -157,7 +152,7 @@ class SummaryView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    ExpandedContainer(),
+                    const ExpandedContainer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[

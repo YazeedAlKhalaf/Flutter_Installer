@@ -5,19 +5,19 @@ class DownloadLinks {
     this.macos,
   });
 
+  factory DownloadLinks.fromJson(Map<String, dynamic> json) => DownloadLinks(
+        windows: json['windows'].toString(),
+        linux: json['linux'].toString(),
+        macos: json['macos'].toString(),
+      );
   String windows;
   String linux;
   String macos;
 
-  factory DownloadLinks.fromJson(Map<String, dynamic> json) => DownloadLinks(
-        windows: json["windows"],
-        linux: json["linux"],
-        macos: json["macos"],
-      );
 
-  Map<String, dynamic> toJson() => {
-        "windows": windows,
-        "linux": linux,
-        "macos": macos,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'windows': windows,
+        'linux': linux,
+        'macos': macos,
       };
 }

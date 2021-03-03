@@ -10,18 +10,18 @@ class StartupViewModel extends CustomBaseViewModel {
 
   Future<void> handleStartup() async {
     Timer(
-      Duration(
+      const Duration(
         seconds: 2,
       ),
       () async {
-        await navigateToHomeView();
+        await navigateToInstalledView();
       },
     );
   }
 
-  Future<void> navigateToHomeView() async {
+  Future<void> navigateToInstalledView() async {
     await _navigationService.pushNamedAndRemoveUntil(
-      Routes.homeView,
+      Routes.installed,
     );
   }
 }

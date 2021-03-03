@@ -7,31 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
-### Fixed
-
-- `file_selector` plugin now works as expected, added platforms packages
-- Cancel not working, [#9](https://github.com/YazeedAlKhalaf/Flutter_Installer/issues/9)
-- `UserChoice` is saved in between summary and customize views, going back does not reset all settings. fixes #14
-
-## [0.0.7] - 2021-01-14
-
-### Added
-
-- Started using `file_selector` plugin
-
-### Changed
-
-- User-Agent now is a custom one when downloading the Flutter SDK as per Flutter Installer requirements
-- Upgraded all packages to latest possible
-
-### Fixed
-
-- General bug fixes
-
-### Removed
-
-- Removed `file_chooser` plugin
-
 ## [0.0.6] - 2020-10-15
 
 ### Added
@@ -141,8 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Windows Support (Script Part Fully Done)
 - Fonts: (Roboto, Roboto Mono)
 
-[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.7...HEAD
-[0.0.7]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.7
+[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.6...HEAD
 [0.0.6]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.6
 [0.0.5]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.5
 [0.0.4]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.4

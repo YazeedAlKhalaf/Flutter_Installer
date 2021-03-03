@@ -27,7 +27,6 @@ class _StartupViewState extends State<StartupView> {
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
                   'assets/images/logo_flutter_1080px_clr.png',
@@ -35,7 +34,7 @@ class _StartupViewState extends State<StartupView> {
                 ),
                 verticalSpaceLarge(context),
                 CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(
+                  valueColor: AlwaysStoppedAnimation<Color>(
                     Theme.of(context).accentColor,
                   ),
                 ),

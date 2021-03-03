@@ -8,9 +8,9 @@ import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
-import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 
 final Utils _utils = locator<Utils>();
@@ -22,7 +22,7 @@ String archiveName;
 String tempDirName;
 String distroName;
 
-String appendToPathScriptName = "append-to-path.sh";
+String appendToPathScriptName = 'append-to-path.sh';
 
 Future<void> installOnLinux({
   @required Logger logger,
@@ -64,7 +64,7 @@ Future<void> installOnLinux({
     setPercentage: setPercentage,
     fakeDelay: fakeDelay,
   );
-  await _createFlutterInstallerTempDirectory(
+  await _checkDirExistance(
     percentage: percentageMultiple * 4,
     logger: logger,
     shell: myShell,
@@ -206,7 +206,7 @@ Future<void> _initializeVariables({
 
   archiveName = _utils.getAnythingAfterLastSlash(flutterRelease.archive);
   logger.i('Archive Name: $archiveName');
-  tempDirName = 'flutter_installer_${_utils.randomString(5)}';
+  tempDirName = 'flutter_installer';
   logger.i('Temp Directory Name: $tempDirName');
 }
 
@@ -237,27 +237,31 @@ Future<Shell> _cdToTempDirectory({
   setCurrentTaskText('Changing directory to "temp"');
   setPercentage(percentage);
   await fakeDelay();
-  shell = shell.pushd(await _localStorageService.getTempDiretoryPath());
+  shell.pushd(await _localStorageService.getTempDiretoryPath());
   logger.i('Change Directory to Temp');
   return shell;
 }
 
-/// create `flutter_installer` temp directory
-Future<void> _createFlutterInstallerTempDirectory({
+/// Check for `flutter_installer` temp directory
+Future<void> _checkDirExistance({
+  Logger logger,
   @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
+  Function(String taskText) setCurrentTaskText,
+  Future<void> Function({int seconds}) fakeDelay,
+  Shell shell,
   @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
-  setCurrentTaskText('Creating "$tempDirName" directory');
   setPercentage(percentage);
-  await fakeDelay();
-  await shell.run('''
-    mkdir $tempDirName
-    ''');
-  logger.i('Created $tempDirName');
+  final Directory tempDir = await getTemporaryDirectory();
+  final String dirPath = '${tempDir.path}/$tempDirName';
+  final Directory dir = Directory(dirPath);
+  final bool dirExist = await dir.exists();
+  if (dirExist) {
+    dir.deleteSync(recursive: true);
+    await dir.create(recursive: true);
+  } else {
+    await dir.create(recursive: true);
+  }
 }
 
 /// `cd` into `flutter_installer` directory
@@ -272,7 +276,7 @@ Future<Shell> _cdToFlutterInstallerTempDirectory({
   setCurrentTaskText('Changing directory to "$tempDirName"');
   setPercentage(percentage);
   await fakeDelay();
-  shell = shell.pushd('$tempDirName');
+  shell.pushd(tempDirName);
   logger.i('Change directory to $tempDirName');
   return shell;
 }
@@ -290,11 +294,12 @@ Future<void> _downloadDistDotSh({
   );
   setPercentage(percentage);
   await fakeDelay();
-  ScriptRelease distScriptRelease = await _apiService.getLatestDistScript();
-  String distScriptLink = distScriptRelease.downloadLinks.linux;
-  await shell.run("""
+  final ScriptRelease distScriptRelease =
+      await _apiService.getLatestDistScript();
+  final String distScriptLink = distScriptRelease.downloadLinks.linux;
+  await shell.run('''
   curl -o dist.sh -L $distScriptLink
-  """);
+  ''');
 }
 
 /// run `dist.sh` for knowing distor name
@@ -309,8 +314,8 @@ Future<String> _runDistDotSh({
   setCurrentTaskText('Getting Linux distro name using "dist.sh"');
   setPercentage(percentage);
   await fakeDelay();
-  List<ProcessResult> distroNameList = await shell.run('''
-  bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/dist.sh\"
+  final List<ProcessResult> distroNameList = await shell.run('''
+  bash "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/dist.sh"
   ''');
   final String distroName = distroNameList[0].stdout;
   logger.i('Distro Name: $distroName');
@@ -332,13 +337,13 @@ Future<void> _downloadFlutterSdkForLinuxWithCurl({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+    'Started Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
   );
   await shell.run('''
-    curl -H \"User-Agent: ${Constants.flutterInstallerUserAgent}\" -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
+    curl -o $archiveName "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"
     ''');
   logger.i(
-    'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+    'Finished Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
   );
 }
 
@@ -353,7 +358,7 @@ Future<void> _upzipDownloadedFlutterSdkForLinux({
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
-    "Unzipping Flutter SDK to installation path\n(This might take some time)",
+    'Unzipping Flutter SDK to installation path\n(This might take some time)',
   );
   setPercentage(percentage);
 
@@ -361,13 +366,13 @@ Future<void> _upzipDownloadedFlutterSdkForLinux({
   /// sometimes it breaks of you don't wait
   await fakeDelay(seconds: 6);
   logger.i(
-    "Started Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}",
+    'Started Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
   );
-  await shell.run("""
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
-    """);
+  await shell.run('''
+    tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName" -C "${userChoice.installationPath}"
+    ''');
   logger.i(
-    "Finished Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}",
+    'Finished Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
   );
 }
 
@@ -385,17 +390,20 @@ Future<void> _downloadScriptForAddingFlutterToPath({
   );
   setPercentage(percentage);
   await fakeDelay();
-  ScriptRelease appendToPathScriptRelease =
+  final ScriptRelease appendToPathScriptRelease =
       await _apiService.getLatestAppendToPathScript();
-  String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.linux;
+  final String appendToPathScriptLink =
+      appendToPathScriptRelease.downloadLinks.linux;
   logger.i(
-    "Started Downloading of $appendToPathScriptName from $appendToPathScriptLink",
+    '''
+Started Downloading of $appendToPathScriptName from $appendToPathScriptLink''',
   );
-  await shell.run("""
+  await shell.run('''
   curl -o $appendToPathScriptName -L $appendToPathScriptLink
-  """);
+  ''');
   logger.i(
-    "Finished Downloading of $appendToPathScriptName from $appendToPathScriptLink",
+    '''
+Finished Downloading of $appendToPathScriptName from $appendToPathScriptLink''',
   );
 }
 
@@ -410,16 +418,16 @@ Future<void> _runAddFlutterToPathScript({
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
-    "Adding Flutter SDK to the PATH",
+    'Adding Flutter SDK to the PATH',
   );
   setPercentage(percentage);
   await fakeDelay();
-  String flutterPath = "${userChoice.installationPath}/flutter/bin";
-  await shell.run("""
-  bash \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName\" $flutterPath
-  """);
+  final String flutterPath = '${userChoice.installationPath}/flutter/bin';
+  await shell.run('''
+  bash "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName" $flutterPath
+  ''');
   logger.i(
-    "Added Flutter to PATH",
+    'Added Flutter to PATH',
   );
 }
 
@@ -443,34 +451,34 @@ Future<void> _installGit({
       'Started Downloading Git For Linux',
     );
     switch (distroName) {
-      case "ubuntu":
-      case "debian":
+      case 'ubuntu':
+      case 'debian':
         await shell.run('''
         sudo apt install git -y
         ''');
         break;
-      case "archlinux":
+      case 'archlinux':
         await shell.run('''
         sudo pacman -S git -y
         ''');
         break;
-      case "opensuse":
+      case 'opensuse':
         await shell.run('''
         sudo zypper install git -y
         ''');
         break;
-      case "OpenBSD":
+      case 'OpenBSD':
         await shell.run('''
         sudo pkg_add git -y
         ''');
         break;
-      case "NetBSD":
-      case "FreeBSD":
+      case 'NetBSD':
+      case 'FreeBSD':
         await shell.run('''
         sudo pkg install git -y
         ''');
         break;
-      case "solaris":
+      case 'solaris':
         await shell.run('''
         sudo pkgutil -i git -y
         ''');
@@ -509,32 +517,38 @@ Future<void> _installAndroidStudio({
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease androidStudioRelease =
+    final AppRelease androidStudioRelease =
         await _apiService.getLatestAndroidStudioRelease();
-    String androidStudioName = _utils
+    final String androidStudioName = _utils
         .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.linux);
     logger.i(
-      'Started Downloading Android Studio For Linux from \"${androidStudioRelease.downloadLinks.linux}\"',
+      '''
+Started Downloading Android Studio For Linux from "${androidStudioRelease.downloadLinks.linux}"''',
     );
     await shell.run('''
       curl -o $androidStudioName -L "${androidStudioRelease.downloadLinks.linux}"
       ''');
     logger.i(
-      'Finished Downloading Android Studio For Linux from \"${androidStudioRelease.downloadLinks.linux}\"',
+      '''
+Finished Downloading Android Studio For Linux from "${androidStudioRelease.downloadLinks.linux}"''',
     );
 
     setCurrentTaskText(
-        'Unzipping Android Studio Latest Version to installation path\n(This might take some time)');
+      '''
+Unzipping Android Studio Latest Version to installation path\n(This might take some time)''',
+    );
     setPercentage(percentage + 0.01);
     await fakeDelay();
     logger.i(
-      'Started Extracting of \"$androidStudioName\" from \"${androidStudioRelease.downloadLinks.linux}\"',
+      '''
+Started Extracting of "$androidStudioName" from "${androidStudioRelease.downloadLinks.linux}"''',
     );
     await shell.run('''
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$androidStudioName\" -C \"${userChoice.installationPath}\"
+    tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$androidStudioName" -C "${userChoice.installationPath}"
     ''');
     logger.i(
-      'Finished Extracting of \"$androidStudioName\" from \"${androidStudioRelease.downloadLinks.linux}\"',
+      '''
+Finished Extracting of "$androidStudioName" from "${androidStudioRelease.downloadLinks.linux}"''',
     );
 
     setCurrentTaskText(
@@ -542,12 +556,12 @@ Future<void> _installAndroidStudio({
     );
     setPercentage(percentage + 0.02);
     await fakeDelay();
-    String extractedFolderName = "android-studio";
+    const String extractedFolderName = 'android-studio';
     logger.i(
       'Started Android Studio Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
     await shell.run('''
-      bash \"${userChoice.installationPath}/$extractedFolderName/bin/studio.sh\"
+      bash "${userChoice.installationPath}/$extractedFolderName/bin/studio.sh"
       ''');
     logger.i(
       'Finished Android Studio Latest Version from ${userChoice.installationPath}/$extractedFolderName',
@@ -581,34 +595,38 @@ Future<void> _installIntelliJIDEA({
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease intelliJIDEARelease =
+    final AppRelease intelliJIDEARelease =
         await _apiService.getLatestIntelliJIDEARelease();
-    String intelliJIDEAName = _utils
+    final String intelliJIDEAName = _utils
         .getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.linux);
     logger.i(
-      'Started Downloading IntelliJ IDEA For Linux from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+      '''
+Started Downloading IntelliJ IDEA For Linux from "${intelliJIDEARelease.downloadLinks.linux}"''',
     );
     await shell.run('''
       curl -o $intelliJIDEAName -L "${intelliJIDEARelease.downloadLinks.linux}"
       ''');
     logger.i(
-      'Finished Downloading IntelliJ IDEA For Linux from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+      '''
+Finished Downloading IntelliJ IDEA For Linux from "${intelliJIDEARelease.downloadLinks.linux}"''',
     );
 
-    setCurrentTaskText(
-        'Unzipping IntelliJIDEA Latest Version to installation path\n(This might take some time)');
+    setCurrentTaskText('''
+Unzipping IntelliJIDEA Latest Version to installation path\n(This might take some time)''');
     setPercentage(percentage + 0.01);
     await fakeDelay();
-    String extractedFolderName = "idea-IC";
+    const String extractedFolderName = 'idea-IC';
     logger.i(
-      'Started Extracting of \"$intelliJIDEAName\" from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+      '''
+Started Extracting of "$intelliJIDEAName" from "${intelliJIDEARelease.downloadLinks.linux}"''',
     );
     await shell.run('''
     mkdir ${userChoice.installationPath}/$extractedFolderName
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName" -C "${userChoice.installationPath}/$extractedFolderName" --strip-components=1
     ''');
     logger.i(
-      'Finished Extracting of \"$intelliJIDEAName\" from \"${intelliJIDEARelease.downloadLinks.linux}\"',
+      '''
+Finished Extracting of "$intelliJIDEAName" from "${intelliJIDEARelease.downloadLinks.linux}"''',
     );
 
     setCurrentTaskText(
@@ -617,13 +635,13 @@ Future<void> _installIntelliJIDEA({
     setPercentage(percentage + 0.02);
     await fakeDelay();
     logger.i(
-      "Started IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName",
+      'Started IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
-    await shell.run("""
-      bash \"${userChoice.installationPath}/$extractedFolderName/bin/idea.sh\"
-      """);
+    await shell.run('''
+      bash "${userChoice.installationPath}/$extractedFolderName/bin/idea.sh"
+      ''');
     logger.i(
-      "Finished IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName",
+      'Finished IntelliJIDEA Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
   }
 
@@ -650,39 +668,44 @@ Future<void> _installVisualStudioCode({
 }) async {
   if (userChoice.installVisualStudioCode) {
     setCurrentTaskText(
-      'Downloading Visual Studio Code Latest Version\n(This might take some time)',
+      '''
+Downloading Visual Studio Code Latest Version\n(This might take some time)''',
     );
     setPercentage(percentage);
     await fakeDelay();
-    AppRelease visualStudioCodeRelease =
+    final AppRelease visualStudioCodeRelease =
         await _apiService.getLatestVisualStudioCodeRelease();
-    String visualStudioCodeDownloadLink =
+    final String visualStudioCodeDownloadLink =
         visualStudioCodeRelease.downloadLinks.linux;
-    String visualStudioCodeName = "code-stable.tar.gz";
+    const String visualStudioCodeName = 'code-stable.tar.gz';
     logger.i(
-      'Started Downloading Visual Studio Code For Linux from \"$visualStudioCodeDownloadLink\"',
+      '''
+Started Downloading Visual Studio Code For Linux from "$visualStudioCodeDownloadLink"''',
     );
     await shell.run('''
       curl -o $visualStudioCodeName -L "$visualStudioCodeDownloadLink"
       ''');
     logger.i(
-      'Finished Downloading Visual Studio Code For Linux from \"$visualStudioCodeDownloadLink\"',
+      '''
+Finished Downloading Visual Studio Code For Linux from "$visualStudioCodeDownloadLink"''',
     );
 
-    setCurrentTaskText(
-        'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
+    setCurrentTaskText('''
+Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)''');
     setPercentage(percentage + 0.01);
     await fakeDelay();
-    String extractedFolderName = "vs-code-x64-linux";
+    const String extractedFolderName = 'vs-code-x64-linux';
     logger.i(
-      'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+      '''
+Started Extracting of "$visualStudioCodeName" from "$visualStudioCodeDownloadLink"''',
     );
     await shell.run('''
     mkdir ${userChoice.installationPath}/$extractedFolderName
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName\" -C \"${userChoice.installationPath}/$extractedFolderName\" --strip-components=1
+    tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$visualStudioCodeName" -C "${userChoice.installationPath}/$extractedFolderName" --strip-components=1
     ''');
     logger.i(
-      'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
+      '''
+Finished Extracting of "$visualStudioCodeName" from "$visualStudioCodeDownloadLink"''',
     );
 
     setCurrentTaskText(
@@ -694,7 +717,7 @@ Future<void> _installVisualStudioCode({
       'Started Visual Studio Code Latest Version from ${userChoice.installationPath}/$extractedFolderName',
     );
     await shell.run('''
-      bash \"${userChoice.installationPath}/$extractedFolderName/bin/code\"
+      bash "${userChoice.installationPath}/$extractedFolderName/bin/code"
       ''');
     logger.i(
       'Finished Visual Studio Code Latest Version from ${userChoice.installationPath}/$extractedFolderName',
@@ -737,7 +760,8 @@ Future<void> _runDone({
   @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
-    'You\'re Done! 🚀😎',
+    '''
+You're Done! 🚀😎''',
   );
   setPercentage(percentage);
   await fakeDelay();

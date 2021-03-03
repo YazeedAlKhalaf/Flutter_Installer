@@ -11,11 +11,10 @@ class Utils {
     String textToClip, {
     int clipThreshold = 45,
   }) {
-    int textToClipLength = textToClip.length;
+    final int textToClipLength = textToClip.length;
     if (textToClipLength >= clipThreshold) {
-      String editedText = textToClip.substring(0, 20) +
-          '...' +
-          textToClip.substring(textToClipLength - 20, textToClipLength);
+      final String editedText = '''
+${textToClip.substring(0, 20)}...${textToClip.substring(textToClipLength - 20, textToClipLength)}''';
 
       return editedText;
     }
@@ -24,7 +23,7 @@ class Utils {
   }
 
   Future<String> getStringFromFile(String path) async {
-    return await rootBundle.loadString(path);
+    return rootBundle.loadString(path);
   }
 
   Future<void> launchUrl(String url) async {
@@ -41,19 +40,18 @@ class Utils {
 
   String getAnythingAfterLastSlash(String text) {
     final RegExp getAnythingAfterLastSlash = RegExp('[^/]+\$');
-    RegExpMatch matches = getAnythingAfterLastSlash.firstMatch(text);
+    final RegExpMatch matches = getAnythingAfterLastSlash.firstMatch(text);
 
     return matches[0];
   }
 
   String randomString(int length) {
-    final String chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
-    String result = "";
-    for (var i = 0; i < length; i++) {
-      result += chars[rnd.nextInt(chars.length)];
+    const String chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    final StringBuffer result = StringBuffer();
+    final Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
+    for (int i = 0; i < length; i++) {
+      result.write(chars[rnd.nextInt(chars.length)]);
     }
-    return result;
+    return result.toString();
   }
 }

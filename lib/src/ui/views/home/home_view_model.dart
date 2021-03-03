@@ -7,6 +7,6 @@ class HomeViewModel extends CustomBaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
   Future<void> navigateToStepsBaseView() async {
-    await _navigationService.navigateTo(Routes.stepsBaseView);
+    await _navigationService.navigateTo(Routes.installed);
   }
 }

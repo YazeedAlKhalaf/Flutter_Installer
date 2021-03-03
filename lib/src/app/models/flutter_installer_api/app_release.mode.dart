@@ -6,20 +6,21 @@ class AppRelease {
     this.version,
     this.downloadLinks,
   });
+  factory AppRelease.fromJson(Map<String, dynamic> json) => AppRelease(
+        name: json['name'].toString(),
+        version: json['version'].toString(),
+        downloadLinks: DownloadLinks.fromJson(
+          json['download_links'] as Map<String, dynamic>,
+        ),
+      );
 
   String name;
   String version;
   DownloadLinks downloadLinks;
 
-  factory AppRelease.fromJson(Map<String, dynamic> json) => AppRelease(
-        name: json["name"],
-        version: json["version"],
-        downloadLinks: DownloadLinks.fromJson(json["download_links"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "name": name,
-        "version": version,
-        "download_links": downloadLinks.toJson(),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'name': name,
+        'version': version,
+        'download_links': downloadLinks.toJson(),
       };
 }

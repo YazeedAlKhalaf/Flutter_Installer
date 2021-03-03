@@ -5,14 +5,20 @@ import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/views/faq/faq_view.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_installer/src/ui/widgets/toggle.dart';
 
 import 'package:stacked/stacked.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './steps_base_view_model.dart';
 
-class StepsBaseView extends StatelessWidget {
+class StepsBaseView extends StatefulWidget {
+  @override
+  _StepsBaseViewState createState() => _StepsBaseViewState();
+}
+
+class _StepsBaseViewState extends State<StepsBaseView> {
+  bool colorChange = false;
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StepsBaseViewModel>.reactive(
@@ -23,43 +29,23 @@ class StepsBaseView extends StatelessWidget {
         StepsBaseViewModel model,
         Widget child,
       ) {
-        _buildChangeThemeButtons() {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.sun,
-                  color: textColorWhite,
-                ),
-                onPressed: () {
-                  if (ThemeModeHandler.of(context).themeMode !=
-                      ThemeMode.light) {
-                    ThemeModeHandler.of(context).saveThemeMode(
-                      ThemeMode.light,
-                    );
-                  }
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  FontAwesomeIcons.moon,
-                  color: textColorWhite,
-                ),
-                onPressed: () {
-                  if (ThemeModeHandler.of(context).themeMode !=
-                      ThemeMode.dark) {
-                    ThemeModeHandler.of(context).saveThemeMode(
-                      ThemeMode.dark,
-                    );
-                  }
-                },
-              ),
-            ],
+        LiteRollingSwitch _buildChangeThemeButtons() {
+          return LiteRollingSwitch(
+            onChanged: (bool state) {
+              if (ThemeModeHandler.of(context).themeMode != ThemeMode.light) {
+                ThemeModeHandler.of(context).saveThemeMode(
+                  ThemeMode.light,
+                );
+              } else {
+                ThemeModeHandler.of(context).saveThemeMode(
+                  ThemeMode.dark,
+                );
+              }
+            },
           );
         }
 
-        _buildStepsWidgets() {
+        Column _buildStepsWidgets() {
           return Column(
             children: <Widget>[
               StepWidget(
@@ -82,15 +68,19 @@ class StepsBaseView extends StatelessWidget {
           );
         }
 
-        _buildGetHelpButton() {
+        Row _buildGetHelpButton() {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              FlatButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    500,
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      500,
+                    ),
                   ),
+                  primary: Colors.white,
+                  backgroundColor: Colors.teal,
+                  onSurface: Colors.grey,
                 ),
                 icon: Icon(
                   Icons.help_outline,
@@ -125,7 +115,7 @@ class StepsBaseView extends StatelessWidget {
           body: SafeArea(
             child: Stack(
               children: <Widget>[
-                Container(
+                SizedBox(
                   child: Row(
                     children: <Widget>[
                       /// Left Side
@@ -139,19 +129,19 @@ class StepsBaseView extends StatelessWidget {
                           children: <Widget>[
                             _buildChangeThemeButtons(),
                             _buildStepsWidgets(),
-                            ExpandedContainer(),
+                            const ExpandedContainer(),
                             _buildGetHelpButton(),
-                            ExpandedContainer(),
+                            const ExpandedContainer(),
                           ],
                         ),
                       ),
 
                       /// Right Side
                       Expanded(
-                        child: Container(
+                        child: SizedBox(
                           child: Stack(
                             children: <Widget>[
-                              model.decideStepView(),
+                              model.decideStepView() as Widget,
                             ],
                           ),
                         ),
@@ -159,13 +149,14 @@ class StepsBaseView extends StatelessWidget {
                     ],
                   ),
                 ),
-                model.showFAQView
-                    ? FaqView(
-                        onBackPressed: () {
-                          model.setShowFAQView(false);
-                        },
-                      )
-                    : SizedBox.shrink(),
+                if (model.showFAQView)
+                  FaqView(
+                    onBackPressed: () {
+                      model.setShowFAQView(false);
+                    },
+                  )
+                else
+                  const SizedBox.shrink(),
               ],
             ),
           ),

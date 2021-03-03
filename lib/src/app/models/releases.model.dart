@@ -6,36 +6,34 @@ import 'package:flutter_installer/src/app/models/current_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 
 class Releases {
-  final String baseUrl;
-  final CurrentRelease currentRelease;
-  final List<FlutterRelease> releases;
-
   const Releases({
     @required this.baseUrl,
     @required this.currentRelease,
     @required this.releases,
   });
+  Releases.fromMap(Map<String, dynamic> map)
+      : baseUrl = map['base_url'].toString(),
+        currentRelease = CurrentRelease.fromMap(
+            map['current_release'] as Map<String, dynamic>),
+        releases = List<FlutterRelease>.from(
+          map['releases']?.map(
+            (dynamic x) => FlutterRelease.fromMap(x as Map<String, dynamic>),
+          ) as Iterable<dynamic>,
+        );
+  final String baseUrl;
+  final CurrentRelease currentRelease;
+  final List<FlutterRelease> releases;
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'base_url': baseUrl,
       'current_release': currentRelease?.toMap(),
-      'releases': releases?.map((x) => x?.toMap())?.toList(),
+      'releases': releases?.map((dynamic x) => x?.toMap())?.toList(),
     };
-  }
-
-  static Releases fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
-    return Releases(
-      baseUrl: map['base_url'],
-      currentRelease: CurrentRelease.fromMap(map['current_release']),
-      releases: List<FlutterRelease>.from(
-          map['releases']?.map((x) => FlutterRelease.fromMap(x))),
-    );
   }
 
   String toJson() => json.encode(toMap());
 
-  static Releases fromJson(String source) => fromMap(json.decode(source));
+  Releases fromJson(String source) =>
+      Releases.fromMap(json.decode(source) as Map<String, dynamic>);
 }

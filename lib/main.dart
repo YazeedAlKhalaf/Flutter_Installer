@@ -5,7 +5,7 @@ import 'package:flutter_installer/src/app/services/window_size_service.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 
-main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Sets logging level

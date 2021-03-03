@@ -1,0 +1,21 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  errors:
+    unused_local_variable: ignore
+    invalid_assignment: ignore
+    missing_return: error
+    dead_code: info
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    sort_constructors_first: true
+    prefer_single_quotes: true
+    lines_longer_than_80_chars: true
+    avoid_empty_else: true
+    cancel_subscriptions: true
+    close_sinks: true
+    prefer_conditional_assignment: true
+    cast_nullable_to_non_nullable: true
+    always_specify_types: true

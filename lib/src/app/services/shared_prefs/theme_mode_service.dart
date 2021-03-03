@@ -5,27 +5,27 @@ import 'package:theme_mode_handler/theme_mode_manager_interface.dart';
 class ThemeModeService extends SharedPrefsService implements IThemeModeManager {
   @override
   Future<String> loadThemeMode() async {
-    return await getTheme();
+    return await getTheme() as String;
   }
 
   @override
   Future<bool> saveThemeMode(String value) async {
-    return await saveTheme(value);
+    return saveTheme(value);
   }
 
   String _themeMode;
   String get themeMode => _themeMode;
 
-  Future getTheme() async {
-    return await getValue(Constants.themeModeKey);
+  Future<Object> getTheme() async {
+    return getValue(Constants.themeModeKey);
   }
 
   Future<bool> saveTheme(String value) async {
     _themeMode = value;
-    return await saveValue(Constants.themeModeKey, value);
+    return saveValue(Constants.themeModeKey, value);
   }
 
   Future<bool> removeTheme(String value) async {
-    return await removeValue(Constants.themeModeKey);
+    return removeValue(Constants.themeModeKey);
   }
 }

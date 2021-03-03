@@ -3,39 +3,38 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 
 enum StepWidgetState {
-  Done,
-  Doing,
-  NotDone,
+  done,
+  doing,
+  notDone,
 }
 
 class StepWidget extends StatelessWidget {
-  final String stepName;
-  final StepWidgetState stepState;
-
   const StepWidget({
     @required this.stepName,
     @required this.stepState,
   });
+  final String stepName;
+  final StepWidgetState stepState;
 
   @override
   Widget build(BuildContext context) {
-    decideStepType() {
+    StatelessWidget decideStepType() {
       switch (stepState) {
-        case StepWidgetState.Done:
+        case StepWidgetState.done:
           return Icon(
             Icons.done,
             size: blockSize(context) * 3,
             color: Theme.of(context).accentColor,
           );
           break;
-        case StepWidgetState.Doing:
+        case StepWidgetState.doing:
           return Icon(
             Icons.fiber_manual_record,
             size: blockSize(context) * 3,
             color: Theme.of(context).accentColor,
           );
           break;
-        case StepWidgetState.NotDone:
+        case StepWidgetState.notDone:
         default:
           return Container();
           break;
@@ -48,15 +47,16 @@ class StepWidget extends StatelessWidget {
         horizontal: blockSize(context),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
+          SizedBox(
             width: blockSize(context) * 4,
             height: blockSize(context) * 4,
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
                 CircleAvatar(
+                  maxRadius: blockSize(context) * 2.5,
+                  minRadius: blockSize(context) * 2,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 decideStepType(),

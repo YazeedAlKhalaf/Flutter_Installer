@@ -2,11 +2,6 @@ import 'package:flutter_installer/src/app/models/flutter_installer_api/app_relea
 import 'package:flutter_installer/src/app/models/flutter_installer_api/scripts.model.dart';
 
 class Latest {
-  AppRelease androidStudio;
-  AppRelease visualStudioCode;
-  AppRelease intellijIdea;
-  Scripts scripts;
-
   Latest(
       {this.androidStudio,
       this.visualStudioCode,
@@ -15,31 +10,45 @@ class Latest {
 
   Latest.fromJson(Map<String, dynamic> json) {
     androidStudio = json['android_studio'] != null
-        ? AppRelease.fromJson(json['android_studio'])
+        ? AppRelease.fromJson(
+            json['android_studio'] as Map<String, dynamic>,
+          )
         : null;
     visualStudioCode = json['visual_studio_code'] != null
-        ? AppRelease.fromJson(json['visual_studio_code'])
+        ? AppRelease.fromJson(
+            json['visual_studio_code'] as Map<String, dynamic>,
+          )
         : null;
     intellijIdea = json['intellij_idea'] != null
-        ? AppRelease.fromJson(json['intellij_idea'])
+        ? AppRelease.fromJson(
+            json['intellij_idea'] as Map<String, dynamic>,
+          )
         : null;
-    scripts =
-        json['scripts'] != null ? Scripts.fromJson(json['scripts']) : null;
+    scripts = json['scripts'] != null
+        ? Scripts.fromJson(
+            json['scripts'] as Map<String, dynamic>,
+          )
+        : null;
   }
 
+  AppRelease androidStudio;
+  AppRelease visualStudioCode;
+  AppRelease intellijIdea;
+  Scripts scripts;
+
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.androidStudio != null) {
-      data['android_studio'] = this.androidStudio.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (androidStudio != null) {
+      data['android_studio'] = androidStudio.toJson();
     }
-    if (this.visualStudioCode != null) {
-      data['visual_studio_code'] = this.visualStudioCode.toJson();
+    if (visualStudioCode != null) {
+      data['visual_studio_code'] = visualStudioCode.toJson();
     }
-    if (this.intellijIdea != null) {
-      data['intellij_idea'] = this.intellijIdea.toJson();
+    if (intellijIdea != null) {
+      data['intellij_idea'] = intellijIdea.toJson();
     }
-    if (this.scripts != null) {
-      data['scripts'] = this.scripts.toJson();
+    if (scripts != null) {
+      data['scripts'] = scripts.toJson();
     }
     return data;
   }

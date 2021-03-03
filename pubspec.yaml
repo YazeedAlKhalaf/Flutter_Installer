@@ -11,10 +11,10 @@ dependencies:
     sdk: flutter
 
   # stacked
-  stacked: ^1.7.7
+  stacked: ^1.9.5
 
   # third-party services
-  stacked_services: ^0.6.0+1
+  stacked_services: ^0.7.2
 
   # navigation
   auto_route: ^0.6.9
@@ -28,18 +28,18 @@ dependencies:
   font_awesome_flutter: ^8.11.0
 
   # ui
-  percent_indicator: ^2.1.9
+  percent_indicator: ^2.1.9+1
   flutter_markdown: ^0.5.2
   theme_mode_handler: ^2.0.0
 
   # accesses filesystem
   process_run: ^0.11.2+8
-  path_provider: ^1.6.27
-  shared_preferences: ^0.5.12+4
+  path_provider: ^2.0.1
+  shared_preferences: ^2.0.3
 
   # misc
   logger: ^0.9.4
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
   http: ^0.12.2
   file_selector: ^0.7.0+2
   file_selector_windows: ^0.0.1

@@ -8,12 +8,12 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../../services/api/api_service.dart';
-import '../../services/local_storage_service.dart';
-import '../../services/shared_prefs/shared_prefs_service.dart';
-import '../../services/third_party_services_module.dart';
-import '../../services/window_size_service.dart';
-import '../../utils/utils.dart';
+import 'package:flutter_installer/src/app/services/api/api_service.dart';
+import 'package:flutter_installer/src/app/services/local_storage_service.dart';
+import 'package:flutter_installer/src/app/services/shared_prefs/shared_prefs_service.dart';
+import 'package:flutter_installer/src/app/services/third_party_services_module.dart';
+import 'package:flutter_installer/src/app/utils/utils.dart';
+import 'package:flutter_installer/src/app/services/window_size_service.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance

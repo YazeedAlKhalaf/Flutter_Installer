@@ -12,13 +12,7 @@ import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 import './steps_base_view_model.dart';
 
-class StepsBaseView extends StatefulWidget {
-  @override
-  _StepsBaseViewState createState() => _StepsBaseViewState();
-}
-
-class _StepsBaseViewState extends State<StepsBaseView> {
-  bool colorChange = false;
+class StepsBaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StepsBaseViewModel>.reactive(
@@ -44,6 +38,7 @@ class _StepsBaseViewState extends State<StepsBaseView> {
             },
           );
         }
+
 
         Column _buildStepsWidgets() {
           return Column(
@@ -149,14 +144,11 @@ class _StepsBaseViewState extends State<StepsBaseView> {
                     ],
                   ),
                 ),
-                if (model.showFAQView)
-                  FaqView(
-                    onBackPressed: () {
-                      model.setShowFAQView(false);
-                    },
-                  )
-                else
-                  const SizedBox.shrink(),
+                if (model.showFAQView) FaqView(
+                        onBackPressed: () {
+                          model.setShowFAQView(false);
+                        },
+                      ) else const SizedBox.shrink(),
               ],
             ),
           ),

@@ -13,15 +13,19 @@ import 'package:theme_mode_handler/theme_mode_handler.dart';
 import './done_view_model.dart';
 
 class DoneView extends StatelessWidget {
+
   const DoneView({
     @required this.onFinishPressed,
   });
-
   final Function onFinishPressed;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DoneViewModel>.reactive(
       viewModelBuilder: () => DoneViewModel(),
+      onModelReady: (DoneViewModel model) async {
+        await model.initialize();
+      },
       builder: (
         BuildContext context,
         DoneViewModel model,
@@ -113,8 +117,7 @@ class DoneView extends StatelessWidget {
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
-                          onTapLink: (String text, String link, String title) {
-                            assert(link != null);
+                          onTapLink: (String new1, String link, String new2) {
                             model.launchUrl(link);
                           },
                         ),
@@ -135,7 +138,7 @@ class DoneView extends StatelessWidget {
                           width: blockSize(context) * 40,
                           onPressed: () {
                             onFinishPressed();
-                            return exit(0);
+                            exit(0);
                           },
                         ),
                       ],

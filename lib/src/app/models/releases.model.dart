@@ -11,24 +11,24 @@ class Releases {
     @required this.currentRelease,
     @required this.releases,
   });
+
   Releases.fromMap(Map<String, dynamic> map)
       : baseUrl = map['base_url'].toString(),
         currentRelease = CurrentRelease.fromMap(
             map['current_release'] as Map<String, dynamic>),
         releases = List<FlutterRelease>.from(
-          map['releases']?.map(
+          (map['releases'] as Iterable<dynamic>)?.map(
             (dynamic x) => FlutterRelease.fromMap(x as Map<String, dynamic>),
-          ) as Iterable<dynamic>,
+          ),
         );
   final String baseUrl;
   final CurrentRelease currentRelease;
   final List<FlutterRelease> releases;
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'base_url': baseUrl,
       'current_release': currentRelease?.toMap(),
-      'releases': releases?.map((dynamic x) => x?.toMap())?.toList(),
+      'releases': releases?.map((FlutterRelease x) => x?.toMap())?.toList(),
     };
   }
 

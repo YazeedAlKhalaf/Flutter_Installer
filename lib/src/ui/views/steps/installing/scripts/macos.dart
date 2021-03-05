@@ -8,6 +8,7 @@ import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
+import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
 import 'package:process_run/shell.dart';
@@ -24,7 +25,9 @@ String tempDirName;
 String distroName;
 
 String appendToPathScriptName = 'append-to-path.sh';
-Duration snackBarDuration = const Duration(seconds: 5);
+Duration snackBarDuration = const Duration(
+  seconds: 5,
+);
 
 Future<void> installOnMacOS({
   @required Logger logger,
@@ -277,13 +280,13 @@ Future<void> _downloadFlutterSdkForMacOSWithCurl({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Started Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Started Download of "$archiveName" from "${_apiService.baseUrlForMacFlutterRelease}/${flutterRelease.archive}"',
   );
   await shell.run('''
-    curl -o $archiveName "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"
+    curl -H "User-Agent: ${Constants.flutterInstallerUserAgent}" -o $archiveName "${_apiService.baseUrlForMacFlutterRelease}/${flutterRelease.archive}"
     ''');
   logger.i(
-    'Finished Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Finished Download of "$archiveName" from "${_apiService.baseUrlForMacFlutterRelease}/${flutterRelease.archive}"',
   );
 }
 
@@ -306,13 +309,13 @@ Future<void> _upzipDownloadedFlutterSdkForMacOS({
   /// sometimes it breaks of you don't wait
   await fakeDelay(seconds: 6);
   logger.i(
-    'Started Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
+    'Started Extracting of $archiveName from ${_apiService.baseUrlForMacFlutterRelease}/${flutterRelease.archive}',
   );
   await shell.run('''
     tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName" -C "${userChoice.installationPath}"
     ''');
   logger.i(
-    'Finished Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
+    'Finished Extracting of $archiveName from ${_apiService.baseUrlForMacFlutterRelease}/${flutterRelease.archive}',
   );
 }
 
@@ -364,9 +367,7 @@ Future<void> _runAddFlutterToPathScript({
   await fakeDelay();
   final String flutterPath = '${userChoice.installationPath}/flutter/bin';
   await shell.run('''
-  osascript -e 'do shell script "bash 
-  ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath" with prompt 
-  "Flutter Installer needs administrator privileges to add Flutter to your PATH" with administrator privileges'
+  osascript -e 'do shell script "bash ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath" with prompt "Flutter Installer needs administrator privileges to add Flutter to your PATH" with administrator privileges'
   ''');
   logger.i(
     'Added Flutter to PATH',

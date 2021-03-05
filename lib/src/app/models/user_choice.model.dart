@@ -30,7 +30,6 @@ class UserChoice {
   final bool installIntelliJIDEA;
   final bool installGit;
   final FlutterChannel flutterChannel;
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'installationPath': installationPath,

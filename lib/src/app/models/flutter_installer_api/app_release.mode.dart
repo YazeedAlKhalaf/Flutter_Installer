@@ -6,14 +6,13 @@ class AppRelease {
     this.version,
     this.downloadLinks,
   });
+
   factory AppRelease.fromJson(Map<String, dynamic> json) => AppRelease(
         name: json['name'].toString(),
         version: json['version'].toString(),
         downloadLinks: DownloadLinks.fromJson(
-          json['download_links'] as Map<String, dynamic>,
-        ),
+            json['download_links'] as Map<String, dynamic>),
       );
-
   String name;
   String version;
   DownloadLinks downloadLinks;

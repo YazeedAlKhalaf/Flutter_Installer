@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class TextLink extends StatelessWidget {
-  
   const TextLink(
     this.text, {
     this.onPressed,
@@ -17,6 +16,7 @@ class TextLink extends StatelessWidget {
     this.semanticsLabel,
     this.textWidthBasis,
   });
+  
   final String text;
   final GestureTapCallback onPressed;
   final TextStyle style;

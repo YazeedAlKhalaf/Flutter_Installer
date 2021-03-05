@@ -60,6 +60,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
     switch (_currentIndex) {
       case 0:
         return CustomizeView(
+          userChoice: userChoice,
           onNextPressed: (UserChoice userChoice) {
             setCurrentIndex(1);
             setUserChoice(userChoice);
@@ -83,7 +84,6 @@ class StepsBaseViewModel extends CustomBaseViewModel {
             setCurrentIndex(3);
           },
           onCancelPressed: () async {
-            // Todo - unsubscribe to stream
             await navigateToHomeView();
           },
           userChoice: _userChoice,

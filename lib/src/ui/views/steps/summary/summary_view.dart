@@ -21,6 +21,8 @@ class SummaryView extends StatelessWidget {
   final Function() onBackPressed;
   final Function() onInstallPressed;
   final UserChoice userChoice;
+
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SummaryViewModel>.reactive(
@@ -72,7 +74,8 @@ class SummaryView extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '''* This is a summary of what will be downloaded:''',
+                                  '''
+* This is a summary of what will be downloaded:''',
                                   style: TextStyle(
                                     fontFamily: 'RobotoMono',
                                     fontSize: blockSize(context) * 1.5,
@@ -91,7 +94,7 @@ class SummaryView extends StatelessWidget {
                                       Text(
                                         userChoice.installationPath != null
                                             ? '''
-                                            • Path: ${locator<Utils>().clipTextFromMiddle(
+• Path: ${locator<Utils>().clipTextFromMiddle(
                                                 userChoice.installationPath,
                                               )}'''
                                             : '• Path: Not Specified',

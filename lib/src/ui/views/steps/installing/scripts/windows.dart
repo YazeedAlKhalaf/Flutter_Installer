@@ -7,6 +7,7 @@ import 'package:flutter_installer/src/app/models/github_release_asset.model.dart
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
+import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
 import 'package:process_run/shell.dart';
@@ -185,7 +186,7 @@ Future<void> _initializeVariables({
 
   archiveName = _utils.getAnythingAfterLastSlash(flutterRelease.archive);
   logger.i('Archive Name: $archiveName');
-  tempDirName = 'flutter_installer';
+  tempDirName = 'flutter_installer_${_utils.randomString(5)}';
   logger.i('Temp Directory Name: $tempDirName');
 }
 
@@ -271,13 +272,13 @@ Future<void> _downloadFlutterSdkForWindowsWithCurl({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Started Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Started Download of "$archiveName" from "${_apiService.baseUrlForWinFlutterRelease}/${flutterRelease.archive}"',
   );
   await shell.run('''
-    curl -o $archiveName "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"
+    curl -H "User-Agent: ${Constants.flutterInstallerUserAgent}" -o $archiveName "${_apiService.baseUrlForWinFlutterRelease}/${flutterRelease.archive}"
     ''');
   logger.i(
-    'Finished Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Finished Download of "$archiveName" from "${_apiService.baseUrlForWinFlutterRelease}/${flutterRelease.archive}"',
   );
 }
 
@@ -299,13 +300,13 @@ Unzipping Flutter SDK to installation path\n(This might take some time)''');
   /// sometimes it breaks of you don't wait
   await fakeDelay(seconds: 6);
   logger.i(
-    'Started Extracting of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Started Extracting of "$archiveName" from "${_apiService.baseUrlForWinFlutterRelease}/${flutterRelease.archive}"',
   );
   await shell.run('''
     C:\\Windows\\System32\\tar.exe -xvf "${await _localStorageService.getTempDiretoryPath()}\\$tempDirName\\$archiveName" -C "${userChoice.installationPath}"
     ''');
   logger.i(
-    'Finished Extracting of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Finished Extracting of "$archiveName" from "${_apiService.baseUrlForWinFlutterRelease}/${flutterRelease.archive}"',
   );
 }
 

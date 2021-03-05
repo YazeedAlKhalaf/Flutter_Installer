@@ -5,9 +5,7 @@ class LatestRelease {
 
   LatestRelease.fromJson(Map<String, dynamic> json) {
     latest = json['latest'] != null
-        ? Latest.fromJson(
-            json['latest'] as Map<String, dynamic>,
-          )
+        ? Latest.fromJson(json['latest'] as Map<String, dynamic>)
         : null;
   }
   Latest latest;

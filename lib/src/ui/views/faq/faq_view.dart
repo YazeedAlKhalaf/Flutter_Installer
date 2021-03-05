@@ -10,7 +10,6 @@ import '../../global/ui_helpers.dart';
 import './faq_view_model.dart';
 
 class FaqView extends StatelessWidget {
-
   const FaqView({
     @required this.onBackPressed,
   });
@@ -134,24 +133,19 @@ class FaqView extends StatelessWidget {
                         children: <Widget>[
                           _buildQuestionAndAnswer(
                             question: 'What is Flutter Installer?',
-                            answer:
-                                '''
+                            answer: '''
 Flutter Installer is a tool made by Yazeed AlKhalaf for installing Flutter and needed software to your machine or environment.''',
                           ),
                           _buildQuestionAndAnswer(
-                            question:
-                                '''
+                            question: '''
 Why use Flutter to build an installer for Flutter?''',
-                            answer:
-                                '''
+                            answer: '''
 Flutter is great for a lot of things. This is a test to see how well it performs and is a great thing that a framework has the potential to build itself an installer :)''',
                           ),
                           _buildQuestionAndAnswer(
-                            question:
-                                '''
+                            question: '''
 Why does the app ask for my Sudo password? (mac only)''',
-                            answer:
-                                '''
+                            answer: '''
 The app needs it to be able to add Flutter to your PATH and to copy Visual Studio Code to your applications folder.''',
                           ),
                         ],

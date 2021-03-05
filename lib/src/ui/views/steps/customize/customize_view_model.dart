@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:file_chooser/file_chooser.dart';
+import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -75,13 +75,12 @@ class CustomizeViewModel extends CustomBaseViewModel {
     if (Platform.isMacOS || Platform.isWindows) {
       initialDirectory = await _localStorageService.getAppDocDirectoryPath();
     }
-    final FileChooserResult result = await showOpenPanel(
-      allowsMultipleSelection: false,
-      canSelectDirectories: true,
+    final String directoryPath = await file_selector.getDirectoryPath(
       initialDirectory: initialDirectory,
+      confirmButtonText: 'Install Here',
     );
 
-    if (result.canceled) {
+    if (directoryPath == null || directoryPath == '') {
       setChooseFolderTextFieldHasError(true);
       showSnackBar(
         title: 'Error Occured',
@@ -91,7 +90,7 @@ class CustomizeViewModel extends CustomBaseViewModel {
     }
 
     setChooseFolderTextFieldHasError(false);
-    setInstallationPath(result.paths.join('\n'));
+    setInstallationPath(directoryPath);
     chooseFolderController.text = installationPath;
   }
 
@@ -105,8 +104,19 @@ class CustomizeViewModel extends CustomBaseViewModel {
     );
   }
 
-  Future<void> intialize() async {
-    setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
-    chooseFolderController.text = _installationPath;
+  Future<void> intialize({
+    @required UserChoice userChoice,
+  }) async {
+    if (userChoice != null) {
+      chooseFolderController.text = userChoice.installationPath;
+      setFlutterChannel(userChoice.flutterChannel);
+      setInstallAndroidStudio(userChoice.installAndroidStudio);
+      setInstallGit(userChoice.installGit);
+      setInstallIntelliJIDEA(userChoice.installIntelliJIDEA);
+      setInstallVisualStudioCode(userChoice.installVisualStudioCode);
+    } else {
+      setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
+      chooseFolderController.text = _installationPath;
+    }
   }
 }

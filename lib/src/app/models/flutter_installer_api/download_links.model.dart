@@ -14,7 +14,6 @@ class DownloadLinks {
   String linux;
   String macos;
 
-
   Map<String, dynamic> toJson() => <String, dynamic>{
         'windows': windows,
         'linux': linux,

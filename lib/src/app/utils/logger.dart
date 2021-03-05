@@ -13,19 +13,21 @@ Logger getLogger(String className) {
 }
 
 class SimpleLogPrinter extends LogPrinter {
+
   SimpleLogPrinter(
     this.className,
   );
   final String className;
+  Logger logger = Logger();
 
   final LocalStorageService _localStorageService =
       locator<LocalStorageService>();
 
   @override
   List<String> log(LogEvent event) {
-    final Logger logger = Logger();
     final String logFilePath = _localStorageService.appDocPath;
-    final String logFileName = '''
+    final String logFileName =
+        '''
 flutter_installer_log_${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}.txt''';
 
     final AnsiColor color = PrettyPrinter.levelColors[event.level];

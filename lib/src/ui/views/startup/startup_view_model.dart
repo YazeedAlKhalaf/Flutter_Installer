@@ -14,14 +14,14 @@ class StartupViewModel extends CustomBaseViewModel {
         seconds: 2,
       ),
       () async {
-        await navigateToInstalledView();
+        await navigateToHomeView();
       },
     );
   }
 
-  Future<void> navigateToInstalledView() async {
+  Future<void> navigateToHomeView() async {
     await _navigationService.pushNamedAndRemoveUntil(
-      Routes.installed,
+      Routes.homeView,
     );
   }
 }

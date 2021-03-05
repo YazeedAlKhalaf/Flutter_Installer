@@ -34,11 +34,10 @@ class GithubRelease {
         createdAt = map['created_at'].toString(),
         publishedAt = map['published_at'].toString(),
         assets = List<GithubReleaseAsset>.from(
-          map['assets']?.map((dynamic x) =>
-                  GithubReleaseAsset.fromMap(x as Map<String, dynamic>))
-              as Iterable<dynamic>,
-        );
-  
+          (map['assets'] as Iterable<dynamic>)?.map((dynamic x) =>
+              GithubReleaseAsset.fromMap(x as Map<String, dynamic>)),
+        ).toList();
+
   final String url;
   final String assetsUrl;
   final String uploadUrl;
@@ -55,7 +54,6 @@ class GithubRelease {
   final String publishedAt;
   final List<GithubReleaseAsset> assets;
 
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'url': url,
@@ -71,11 +69,10 @@ class GithubRelease {
       'prerelease': prerelease,
       'created_at': createdAt,
       'published_at': publishedAt,
-      'assets': assets?.map((dynamic x) => x?.toMap())?.toList(),
+      'assets': assets?.map((GithubReleaseAsset x) => x?.toMap())?.toList(),
     };
   }
 
-  
   String toJson() => json.encode(toMap());
 
   GithubRelease fromJson(String source) =>

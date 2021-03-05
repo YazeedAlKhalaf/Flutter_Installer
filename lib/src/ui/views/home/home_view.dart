@@ -43,7 +43,7 @@ class HomeView extends StatelessWidget {
                           FlutterLogo(
                             size: blockSize(context) * 15,
                           ),
-                           verticalSpaceSmall(context),
+                          verticalSpaceSmall(context),
                           Text(
                             'Flutter Installer',
                             textAlign: TextAlign.center,
@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
                           verticalSpaceSmall(context),
                           CustomButton(
                             onPressed: () async {
-                                await model.navigateToStepsBaseView();
+                              await model.navigateToStepsBaseView();
                             },
                             text: 'Get Started',
                             width: blockSize(context) * 30,

@@ -11,6 +11,7 @@ class FlutterRelease {
     @required this.archive,
     @required this.sha256,
   });
+
   FlutterRelease.fromMap(Map<String, dynamic> map)
       : hash = map['hash'].toString(),
         channel = map['channel'].toString(),
@@ -18,7 +19,7 @@ class FlutterRelease {
         releaseDate = map['release_date'].toString(),
         archive = map['archive'].toString(),
         sha256 = map['sha256'].toString();
-
+        
   final String hash;
   final String channel;
   final String version;

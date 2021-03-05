@@ -5,8 +5,7 @@ class Scripts {
 
   Scripts.fromJson(Map<String, dynamic> json) {
     appendToPath = json['append_to_path'] != null
-        ? ScriptRelease.fromJson(
-            json['append_to_path'] as Map<String, dynamic>)
+        ? ScriptRelease.fromJson(json['append_to_path'] as Map<String, dynamic>)
         : null;
     dist = json['dist'] != null
         ? ScriptRelease.fromJson(json['dist'] as Map<String, dynamic>)
@@ -14,6 +13,7 @@ class Scripts {
   }
   ScriptRelease appendToPath;
   ScriptRelease dist;
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (appendToPath != null) {

@@ -55,8 +55,6 @@ class StepWidget extends StatelessWidget {
               alignment: Alignment.center,
               children: <Widget>[
                 CircleAvatar(
-                  maxRadius: blockSize(context) * 2.5,
-                  minRadius: blockSize(context) * 2,
                   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 decideStepType(),

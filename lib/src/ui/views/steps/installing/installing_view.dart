@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:stacked/stacked.dart';
 import './installing_view_model.dart';
 
 class InstallingView extends StatelessWidget {
+
   const InstallingView({
     @required this.onNextPressed,
     @required this.onCancelPressed,
@@ -26,9 +28,18 @@ class InstallingView extends StatelessWidget {
     return ViewModelBuilder<InstallingViewModel>.reactive(
       viewModelBuilder: () => InstallingViewModel(),
       onModelReady: (InstallingViewModel model) async {
-        return model.initialize(
-          userChoice: userChoice,
+        model.cancelableOperation = CancelableOperation<void>.fromFuture(
+          model.initialize(
+            userChoice: userChoice,
+          ),
+          onCancel: () async {
+            await onCancelPressed();
+          },
         );
+        model.notifyListeners();
+
+        /// run `init`
+        await model.cancelableOperation.value;
       },
       builder: (
         BuildContext context,
@@ -88,78 +99,77 @@ class InstallingView extends StatelessWidget {
                       ),
                     ),
                     const ExpandedContainer(),
-                    if (model.showLog)
-                      StreamBuilder<List<Line>>(
-                        stream: model.linesCtlr.stream,
-                        builder: (
-                          BuildContext context,
-                          AsyncSnapshot<List<Line>> snapshot,
-                        ) {
-                          if (snapshot.data == null) {
-                            return Container();
-                          }
+                    if (model.showLog) StreamBuilder<List<Line>>(
+                            stream: model.linesCtlr.stream,
+                            builder: (
+                              BuildContext context,
+                              AsyncSnapshot<List<Line>> snapshot,
+                            ) {
+                              if (snapshot.data == null) {
+                                return Container();
+                              }
 
-                          List<Widget> getLines() {
-                            return snapshot.data.map(
-                              (Line line) {
-                                return Text(
-                                  line.text ?? '',
-                                  style: line is ErrLine
-                                      ? TextStyle(
-                                          color: dangerColor,
-                                          fontSize: blockSize(context) * 1.3,
-                                          fontWeight: FontWeight.bold,
-                                        )
-                                      : TextStyle(
-                                          color: textColorWhite,
-                                          fontSize: blockSize(context) * 1.3,
-                                        ),
-                                );
-                              },
-                            ).toList();
-                          }
-
-                          return Card(
-                            color: textColorBlack,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                20,
-                              ),
-                            ),
-                            elevation: 15,
-                            child: Container(
-                              height: blockSize(context) * 20,
-                              width: blockSize(context) * 50,
-                              margin: EdgeInsets.all(blockSize(context)),
-                              decoration: const BoxDecoration(
-                                color: textColorBlack,
-                              ),
-                              child: ListView.builder(
-                                controller: model.scrollController,
-                                itemCount: getLines().length ?? 0,
-                                itemBuilder: (
-                                  BuildContext context,
-                                  int index,
-                                ) {
-                                  if (index != 0) {
-                                    model.scrollController.animateTo(
-                                      model.scrollController.position
-                                          .maxScrollExtent,
-                                      duration: const Duration(
-                                        milliseconds: 200,
-                                      ),
-                                      curve: Curves.easeInOut,
+                              List<Widget> getLines() {
+                                return snapshot.data.map(
+                                  (Line line) {
+                                    return Text(
+                                      line.text ?? '',
+                                      style: line is ErrLine
+                                          ? TextStyle(
+                                              color: dangerColor,
+                                              fontSize:
+                                                  blockSize(context) * 1.3,
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                          : TextStyle(
+                                              color: textColorWhite,
+                                              fontSize:
+                                                  blockSize(context) * 1.3,
+                                            ),
                                     );
-                                  }
-                                  return getLines()[index];
-                                },
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    else
-                      const ExpandedContainer(),
+                                  },
+                                ).toList();
+                              }
+
+                              return Card(
+                                color: textColorBlack,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                    20,
+                                  ),
+                                ),
+                                elevation: 15,
+                                child: Container(
+                                  height: blockSize(context) * 20,
+                                  width: blockSize(context) * 50,
+                                  margin: EdgeInsets.all(blockSize(context)),
+                                  decoration: const BoxDecoration(
+                                    color: textColorBlack,
+                                  ),
+                                  child: ListView.builder(
+                                    controller: model.scrollController,
+                                    itemCount: getLines().length ?? 0,
+                                    itemBuilder: (
+                                      BuildContext context,
+                                      int index,
+                                    ) {
+                                      if (index != 0) {
+                                        model.scrollController.animateTo(
+                                          model.scrollController.position
+                                              .maxScrollExtent,
+                                          duration: const Duration(
+                                            milliseconds: 200,
+                                          ),
+                                          curve: Curves.easeInOut,
+                                        );
+                                      }
+                                      return getLines()[index];
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ) else const ExpandedContainer(),
                     const ExpandedContainer(),
                     SizedBox(
                       child: Row(
@@ -179,31 +189,29 @@ class InstallingView extends StatelessWidget {
                               final bool isSure =
                                   await model.showCancelConfirmationDialog();
                               if (isSure) {
-                                onCancelPressed();
+                                await model.cancelableOperation.cancel();
                               }
                             },
-                            isButtonDisabled: model.percentage >= 1.0 || false,
+                            isButtonDisabled:
+                                model.percentage >= 1.0 || false,
                           ),
-                          if (!model.showLog)
-                            CustomButton(
-                              text: 'Show Log',
-                              textStyle: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: blockSize(context) * 2,
-                                color: textColorWhite,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              width: blockSize(context) * 15,
-                              onPressed: () {
-                                if (!model.showLog) {
-                                  model.setShowLog( true);
-                                }
-                              },
-                              isButtonDisabled:
-                                  model.percentage >= 1.0 || false,
-                            )
-                          else
-                            Container(),
+                          if (!model.showLog) CustomButton(
+                                  text: 'Show Log',
+                                  textStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: blockSize(context) * 2,
+                                    color: textColorWhite,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  width: blockSize(context) * 15,
+                                  onPressed: () {
+                                    if (!model.showLog) {
+                                      model.setShowLog(true);
+                                    }
+                                  },
+                                  isButtonDisabled:
+                                      model.percentage >= 1.0 || false,
+                                ) else Container(),
                           CustomButton(
                             text: 'Next',
                             textStyle: TextStyle(
@@ -216,7 +224,8 @@ class InstallingView extends StatelessWidget {
                             onPressed: () {
                               onNextPressed();
                             },
-                            isButtonDisabled: model.percentage >= 1.0 && true,
+                            isButtonDisabled:
+                                !(model.percentage >= 1.0) || false,
                           ),
                         ],
                       ),

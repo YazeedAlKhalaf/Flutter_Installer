@@ -8,9 +8,9 @@ import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
+import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 import 'package:logger/logger.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:process_run/shell.dart';
 
 final Utils _utils = locator<Utils>();
@@ -64,7 +64,7 @@ Future<void> installOnLinux({
     setPercentage: setPercentage,
     fakeDelay: fakeDelay,
   );
-  await _checkDirExistance(
+  await _createFlutterInstallerTempDirectory(
     percentage: percentageMultiple * 4,
     logger: logger,
     shell: myShell,
@@ -206,7 +206,7 @@ Future<void> _initializeVariables({
 
   archiveName = _utils.getAnythingAfterLastSlash(flutterRelease.archive);
   logger.i('Archive Name: $archiveName');
-  tempDirName = 'flutter_installer';
+  tempDirName = 'flutter_installer_${_utils.randomString(5)}';
   logger.i('Temp Directory Name: $tempDirName');
 }
 
@@ -242,26 +242,22 @@ Future<Shell> _cdToTempDirectory({
   return shell;
 }
 
-/// Check for `flutter_installer` temp directory
-Future<void> _checkDirExistance({
-  Logger logger,
+/// create `flutter_installer` temp directory
+Future<void> _createFlutterInstallerTempDirectory({
   @required double percentage,
-  Function(String taskText) setCurrentTaskText,
-  Future<void> Function({int seconds}) fakeDelay,
-  Shell shell,
+  @required Logger logger,
+  @required Shell shell,
+  @required Function(String taskText) setCurrentTaskText,
   @required Function(double newPercentage) setPercentage,
+  @required Future<void> Function({int seconds}) fakeDelay,
 }) async {
+  setCurrentTaskText('Creating "$tempDirName" directory');
   setPercentage(percentage);
-  final Directory tempDir = await getTemporaryDirectory();
-  final String dirPath = '${tempDir.path}/$tempDirName';
-  final Directory dir = Directory(dirPath);
-  final bool dirExist = await dir.exists();
-  if (dirExist) {
-    dir.deleteSync(recursive: true);
-    await dir.create(recursive: true);
-  } else {
-    await dir.create(recursive: true);
-  }
+  await fakeDelay();
+  await shell.run('''
+    mkdir $tempDirName
+    ''');
+  logger.i('Created $tempDirName');
 }
 
 /// `cd` into `flutter_installer` directory
@@ -317,7 +313,7 @@ Future<String> _runDistDotSh({
   final List<ProcessResult> distroNameList = await shell.run('''
   bash "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/dist.sh"
   ''');
-  final String distroName = distroNameList[0].stdout;
+  final String distroName = distroNameList[0].stdout.toString();
   logger.i('Distro Name: $distroName');
   return distroName;
 }
@@ -337,13 +333,13 @@ Future<void> _downloadFlutterSdkForLinuxWithCurl({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Started Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Started Download of "$archiveName" from "${_apiService.baseUrlForLinuxFlutterRelease}/${flutterRelease.archive}"',
   );
   await shell.run('''
-    curl -o $archiveName "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"
+    curl -H "User-Agent: ${Constants.flutterInstallerUserAgent}" -o $archiveName "${_apiService.baseUrlForLinuxFlutterRelease}/${flutterRelease.archive}"
     ''');
   logger.i(
-    'Finished Download of "$archiveName" from "${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}"',
+    'Finished Download of "$archiveName" from "${_apiService.baseUrlForLinuxFlutterRelease}/${flutterRelease.archive}"',
   );
 }
 
@@ -366,13 +362,13 @@ Future<void> _upzipDownloadedFlutterSdkForLinux({
   /// sometimes it breaks of you don't wait
   await fakeDelay(seconds: 6);
   logger.i(
-    'Started Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
+    'Started Extracting of $archiveName from ${_apiService.baseUrlForLinuxFlutterRelease}/${flutterRelease.archive}',
   );
   await shell.run('''
     tar -xvf "${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName" -C "${userChoice.installationPath}"
     ''');
   logger.i(
-    'Finished Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}',
+    'Finished Extracting of $archiveName from ${_apiService.baseUrlForLinuxFlutterRelease}/${flutterRelease.archive}',
   );
 }
 
@@ -533,10 +529,8 @@ Started Downloading Android Studio For Linux from "${androidStudioRelease.downlo
 Finished Downloading Android Studio For Linux from "${androidStudioRelease.downloadLinks.linux}"''',
     );
 
-    setCurrentTaskText(
-      '''
-Unzipping Android Studio Latest Version to installation path\n(This might take some time)''',
-    );
+    setCurrentTaskText('''
+Unzipping Android Studio Latest Version to installation path\n(This might take some time)''');
     setPercentage(percentage + 0.01);
     await fakeDelay();
     logger.i(

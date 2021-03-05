@@ -14,6 +14,7 @@ class GithubReleaseAsset {
     this.publishedAt,
     this.browserDownloadUrl,
   });
+
   GithubReleaseAsset.fromMap(Map<String, dynamic> map)
       : url = map['url'].toString(),
         id = int.parse(map['id'].toString()),
@@ -55,7 +56,6 @@ class GithubReleaseAsset {
       'browser_download_url': browserDownloadUrl,
     };
   }
-
 
   String toJson() => json.encode(toMap());
 

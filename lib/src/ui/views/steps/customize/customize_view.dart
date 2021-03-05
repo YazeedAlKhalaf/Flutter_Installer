@@ -11,15 +11,21 @@ import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
   const CustomizeView({
+    this.userChoice,
     @required this.onNextPressed,
   });
-
+  final UserChoice userChoice;
   final Function(UserChoice userChoice) onNextPressed;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CustomizeViewModel>.reactive(
       viewModelBuilder: () => CustomizeViewModel(),
-      onModelReady: (CustomizeViewModel model) async => model.intialize(),
+      onModelReady: (CustomizeViewModel model) async {
+        await model.intialize(
+          userChoice: userChoice,
+        );
+      },
       builder: (
         BuildContext context,
         CustomizeViewModel model,
@@ -29,7 +35,7 @@ class CustomizeView extends StatelessWidget {
           @required String logoPath,
           @required String appName,
           @required bool value,
-          @required ValueChanged<bool> onChanged,
+          @required void Function(bool) onChanged,
         }) {
           return Expanded(
             child: CheckboxListTile(
@@ -192,8 +198,7 @@ class CustomizeView extends StatelessWidget {
                                           'assets/images/app_logos/git_logo.png',
                                       appName: 'Git',
                                       value: model.installGit,
-                                      onChanged:
-                                          model.setInstallGit,
+                                      onChanged: model.setInstallGit,
                                     ),
                                   ],
                                 ),
@@ -304,8 +309,7 @@ Choose the Flutter channel you want to use:''',
                                     fontSize: blockSize(context) * 1.5,
                                   ),
                                   onPressed: () {
-                                    model.setShowAdvanced(
-                                        !model.showAdvanced);
+                                    model.setShowAdvanced(!model.showAdvanced);
                                   },
                                 ),
                               ],
@@ -333,8 +337,7 @@ Choose the Flutter channel you want to use:''',
                                 model.chooseFolderController.text.trim() ==
                                     '' ||
                                 model.installationPath.trim() == '') {
-                              model.setChooseFolderTextFieldHasError(
-                                  true);
+                              model.setChooseFolderTextFieldHasError(true);
 
                               model.showSnackBar(
                                 title: 'Error Occured',
@@ -344,8 +347,7 @@ Choose the Flutter channel you want to use:''',
 
                               return;
                             }
-                            model.setChooseFolderTextFieldHasError(
-                                false);
+                            model.setChooseFolderTextFieldHasError(false);
 
                             onNextPressed(
                               UserChoice(

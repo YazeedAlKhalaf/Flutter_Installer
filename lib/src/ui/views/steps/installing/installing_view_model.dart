@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
@@ -16,6 +17,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 abstract class Line {
   Line(this.text);
+
   final String text;
 }
 
@@ -36,6 +38,7 @@ class InstallingViewModel extends CustomBaseViewModel {
   List<Line> get lines => _lines;
 
   final ScrollController scrollController = ScrollController();
+  CancelableOperation<void> cancelableOperation;
 
   bool _showLog = false;
   bool get showLog => _showLog;
@@ -45,22 +48,24 @@ class InstallingViewModel extends CustomBaseViewModel {
   }
 
   void _addLine(Line line) {
-    _lines.add(line);
-    // Limit line count
-    if (_lines.length > 100) {
-      _lines = _lines.sublist(20);
-    }
-    if (!linesCtlr.isClosed) {
-      linesCtlr.add(_lines);
+    if (!_stdoutCtlr.isClosed || !_stderrCtlr.isClosed || !linesCtlr.isClosed) {
+      _lines.add(line);
+      // Limit line count
+      if (_lines.length > 100) {
+        _lines = _lines.sublist(20);
+      }
+      if (!linesCtlr.isClosed) {
+        linesCtlr.add(_lines);
+      }
     }
   }
 
   @override
   void dispose() {
-    _stdoutCtlr?.close();
-    _stderrCtlr?.close();
-    linesCtlr?.close();
-    return super.dispose();
+    super.dispose();
+    _stdoutCtlr.close();
+    _stderrCtlr.close();
+    linesCtlr.close();
   }
 
   final Logger logger = getLogger('InstallingViewModel');
@@ -70,7 +75,7 @@ class InstallingViewModel extends CustomBaseViewModel {
   UserChoice _userChoice;
   UserChoice get userChoice => _userChoice;
 
-  double _percentage;
+  double _percentage = 0;
   double get percentage => _percentage;
   void setPercentage(double newValue) {
     _percentage = newValue;
@@ -88,18 +93,22 @@ class InstallingViewModel extends CustomBaseViewModel {
   Future<void> initialize({
     @required UserChoice userChoice,
   }) async {
-    intializeStreamOfShellLines();
-    _addLine(OutLine('This is the virtual console :)'));
+    try {
+      intializeStreamOfShellLines();
+      _addLine(OutLine('This is the virtual console :)'));
 
-    setPercentage(0.0);
-    setCurrentTaskText('Preparing...');
-    getVariables(
-      userChoice: userChoice,
-    );
-    logger.v('Install Function started');
-    await fakeDelay();
-    await install();
-    logger.v('Install Function ended');
+      setPercentage(0.0);
+      setCurrentTaskText('Preparing...');
+      getVariables(
+        userChoice: userChoice,
+      );
+      logger.v('Install Function started');
+      await fakeDelay();
+      await install();
+      logger.v('Install Function ended');
+    } catch (exception) {
+      logger.e(exception.toString());
+    }
   }
 
   dynamic getVariables({
@@ -114,8 +123,7 @@ class InstallingViewModel extends CustomBaseViewModel {
       title: 'Are You Sure? 😢',
       description: 'Are You Sure You Wanna Cancel This Download? 😢',
       cancelTitle: 'No, Thanks God 🙏',
-      confirmationTitle: '''
-Yes, I'm Pretty Sure 🚀''',
+      confirmationTitle: '''Yes, I'm Pretty Sure 🚀''',
       dialogPlatform: DialogPlatform.Material,
     );
 

@@ -27,8 +27,10 @@ class _InstalledState extends State<Installed> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Lottie.asset('assets/misc/congrats.json',
-                      width: blockSize(context) * 20),
+                  Lottie.asset(
+                    'assets/misc/installed.json',
+                    width: blockSize(context) * 20,
+                  ),
                   Text(
                     'Yoho, you have already installed Flutter',
                     style: TextStyle(

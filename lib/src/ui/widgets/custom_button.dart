@@ -11,7 +11,6 @@ class CustomButton extends StatelessWidget {
     this.buttonColor,
     this.isButtonDisabled = false,
   });
-
   final String text;
   final double width;
   final VoidCallback onPressed;
@@ -20,6 +19,8 @@ class CustomButton extends StatelessWidget {
   final Color buttonColor;
 
   final bool isButtonDisabled;
+
+  
 
   @override
   Widget build(BuildContext context) {

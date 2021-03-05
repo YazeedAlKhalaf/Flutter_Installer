@@ -10,24 +10,17 @@ class Latest {
 
   Latest.fromJson(Map<String, dynamic> json) {
     androidStudio = json['android_studio'] != null
-        ? AppRelease.fromJson(
-            json['android_studio'] as Map<String, dynamic>,
-          )
+        ? AppRelease.fromJson(json['android_studio'] as Map<String, dynamic>)
         : null;
     visualStudioCode = json['visual_studio_code'] != null
         ? AppRelease.fromJson(
-            json['visual_studio_code'] as Map<String, dynamic>,
-          )
+            json['visual_studio_code'] as Map<String, dynamic>)
         : null;
     intellijIdea = json['intellij_idea'] != null
-        ? AppRelease.fromJson(
-            json['intellij_idea'] as Map<String, dynamic>,
-          )
+        ? AppRelease.fromJson(json['intellij_idea'] as Map<String, dynamic>)
         : null;
     scripts = json['scripts'] != null
-        ? Scripts.fromJson(
-            json['scripts'] as Map<String, dynamic>,
-          )
+        ? Scripts.fromJson(json['scripts'] as Map<String, dynamic>)
         : null;
   }
 

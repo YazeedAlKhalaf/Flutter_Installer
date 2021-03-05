@@ -1,19 +1,17 @@
 name: flutter_installer
 description: Flutter Installer is an installer for Flutter built with Flutter.
-version: 0.0.6+6
-
-publish_to: "none"
+version: 0.0.7+7
+publish_to: none
 
 environment:
   sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   auto_route: ^0.6.7
-  file_chooser:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/file_chooser
-      ref: 8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8
+  file_selector: ^0.8.2
+  file_selector_linux: ^0.0.1
+  file_selector_macos: ^0.0.1
+  file_selector_windows: ^0.0.1
   flutter:
     sdk: flutter
   flutter_markdown: ^0.6.0
@@ -43,7 +41,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   injectable_generator: ^1.0.4
-
+  
 flutter:
   uses-material-design: true
 

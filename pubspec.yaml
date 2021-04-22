@@ -7,13 +7,18 @@ environment:
   sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
+  window_size:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: 8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8
   auto_route: ^0.6.7
   file_selector: ^0.8.2
   file_selector_linux: ^0.0.1
   file_selector_macos: ^0.0.1
-  file_selector_windows: ^0.0.1
-  flutter:
-    sdk: flutter
+  file_selector_windows: ^0.0.2
   flutter_markdown: ^0.6.0
   get: ^3.17.1
   http: ^0.13.0
@@ -29,19 +34,14 @@ dependencies:
   stacked_services: ^0.7.2
   theme_mode_handler: ^2.0.0
   url_launcher: ^6.0.2
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
-      ref: 8ea9f1ce79f04e44bd6392f4155a014b0a7eb6e8
 
 dev_dependencies:
-  auto_route_generator: ^0.6.10
-  build_runner: ^1.10.2
   flutter_test:
     sdk: flutter
+  auto_route_generator: ^0.6.10
+  build_runner: ^1.10.2
   injectable_generator: ^1.0.4
-  
+
 flutter:
   uses-material-design: true
 

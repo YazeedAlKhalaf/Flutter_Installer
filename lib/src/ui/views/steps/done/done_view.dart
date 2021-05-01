@@ -1,14 +1,15 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:stacked/stacked.dart';
+import 'package:theme_mode_builder/theme_mode_builder.dart';
+
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 
-import 'package:stacked/stacked.dart';
-import 'package:theme_mode_builder/theme_mode_builder.dart';
 import './done_view_model.dart';
 
 class DoneView extends StatelessWidget {

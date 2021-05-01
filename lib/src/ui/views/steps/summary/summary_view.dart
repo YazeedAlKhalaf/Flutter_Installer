@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
@@ -7,8 +9,6 @@ import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
-
-import 'package:stacked/stacked.dart';
 
 import './summary_view_model.dart';
 

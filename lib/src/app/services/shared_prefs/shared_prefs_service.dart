@@ -10,7 +10,7 @@ class SharedPrefsService {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
     log.d(
-      '(TRACE) LocalStorageService:_saveToDisk. key: $key value: $value',
+      'saveValue | key: $key value: $value',
     );
 
     if (value is String) {
@@ -37,7 +37,7 @@ class SharedPrefsService {
         await SharedPreferences.getInstance();
     var value = _sharedPreferences.get(key);
     log.d(
-      '(TRACE) LocalStorageService:_getFromDisk. key: $key value: $value',
+      'getValue | key: $key value: $value',
     );
     return value;
   }
@@ -46,6 +46,11 @@ class SharedPrefsService {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
     bool result = await _sharedPreferences.remove(key);
+
+    log.d(
+      'removeValue | key: $key',
+    );
+
     return result;
   }
 }

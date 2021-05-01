@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:stacked/stacked.dart';
+import 'package:theme_mode_builder/theme_mode_builder.dart';
+
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/views/faq/faq_view.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'package:stacked/stacked.dart';
-import 'package:theme_mode_builder/theme_mode_builder.dart';
 
 import './steps_base_view_model.dart';
 

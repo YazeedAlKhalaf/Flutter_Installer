@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
 import 'package:flutter_installer/src/ui/global/app_colors.dart';
 import 'package:flutter_installer/src/ui/global/ui_helpers.dart';
 import 'package:flutter_installer/src/ui/widgets/custom_button.dart';
 import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 
-import 'package:stacked/stacked.dart';
-
-import '../../global/ui_helpers.dart';
 import './faq_view_model.dart';
 
 class FaqView extends StatelessWidget {

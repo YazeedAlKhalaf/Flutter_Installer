@@ -4,6 +4,10 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+import 'package:process_run/shell.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/utils/logger.dart';
@@ -11,9 +15,6 @@ import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 import 'package:flutter_installer/src/ui/views/steps/installing/scripts/linux.dart';
 import 'package:flutter_installer/src/ui/views/steps/installing/scripts/macos.dart';
 import 'package:flutter_installer/src/ui/views/steps/installing/scripts/windows.dart';
-import 'package:logger/logger.dart';
-import 'package:process_run/shell.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 abstract class Line {
   final String text;

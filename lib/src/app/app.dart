@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:theme_mode_builder/theme_mode_builder.dart';
+
+import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/services/router_service.dart';
 import 'package:flutter_installer/src/app/services/window_size_service.dart';
-import 'package:flutter_installer/src/app/generated/locator/locator.dart';
-import 'package:theme_mode_builder/theme_mode_builder.dart';
 
 class App extends StatelessWidget {
   @override

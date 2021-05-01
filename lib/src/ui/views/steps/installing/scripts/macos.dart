@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:logger/logger.dart';
+import 'package:process_run/shell.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
@@ -10,9 +14,6 @@ import 'package:flutter_installer/src/app/services/api/api_service.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
-import 'package:logger/logger.dart';
-import 'package:process_run/shell.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 final Utils _utils = locator<Utils>();
 final LocalStorageService _localStorageService = locator<LocalStorageService>();

@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import "package:logger/logger.dart";
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
-import 'package:logger/logger.dart';
+
+export 'package:logger/logger.dart';
 
 Logger getLogger(String className) {
   return Logger(

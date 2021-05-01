@@ -1,6 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+import 'package:injectable/injectable.dart';
+import 'package:logger/logger.dart';
+
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/latest_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
@@ -11,10 +16,6 @@ import 'package:flutter_installer/src/app/models/releases.model.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/api/my_client.dart';
 import 'package:flutter_installer/src/app/utils/logger.dart';
-import 'package:http/http.dart';
-import 'package:injectable/injectable.dart';
-import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 
 enum FlutterReleasePlatform {
   macOS,

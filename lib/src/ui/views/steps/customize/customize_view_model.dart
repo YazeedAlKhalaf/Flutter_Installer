@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:file_selector/file_selector.dart' as file_selector;
 import 'package:flutter/material.dart';
+import 'package:stacked_services/stacked_services.dart';
+
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
 import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class CustomizeViewModel extends CustomBaseViewModel {
   final SnackbarService _snackbarService = SnackbarService();

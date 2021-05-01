@@ -31,7 +31,7 @@ class _StartupViewState extends State<StartupView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  'assets/images/logo_flutter_1080px_clr.png',
+                  'assets/images/flutter_installer_logo.png',
                   width: blockSize(context) * 15,
                 ),
                 verticalSpaceLarge(context),

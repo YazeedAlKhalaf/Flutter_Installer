@@ -1,10 +1,11 @@
-![github_social_preview]
-
-Flutter and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC.
-
-# Flutter Installer
+<div style="display: flex; align-items: center; font-size: 25px; justify-content: space-around;">
+  <img src="assets/images/flutter_installer_logo.png" width="150px" />
+  <h1>Flutter Installer</h1>
+</div>
 
 Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
+
+> Flutter and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC.
 
 ## Features
 
@@ -17,6 +18,8 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
   - Windows
   - macOS
   - Linux
+
+![github_social_preview]
 
 ## Wanna do it the quick way? We have binaries built!
 

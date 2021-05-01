@@ -60,6 +60,8 @@ dev_dependencies:
   auto_route_generator: ^2.0.1
   injectable_generator: ^1.3.0
 
+  msix: ^2.0.0
+
 flutter:
   uses-material-design: true
 
@@ -82,3 +84,14 @@ flutter:
           weight: 500
         - asset: assets/fonts/RobotoMono/RobotoMono-Bold.ttf
           weight: 700
+
+msix_config:
+  display_name: Flutter Installer
+  publisher_display_name: Yazeed AlKhalaf
+  publisher: CN=93334AAE-C29A-45CE-B580-55884CF74482
+  identity_name: 51837YazeedAlKhalaf.FlutterInstaller
+  msix_version: 0.0.7
+  icons_background_color: transparent
+  architecture: x64
+  # See https://docs.microsoft.com/en-us/windows/uwp/packaging/app-capability-declarations
+  capabilities: "internetClient"

@@ -41,8 +41,12 @@ class HomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           ExpandedContainer(),
-                          FlutterLogo(
-                            size: blockSize(context) * 15,
+                          // FlutterLogo(
+                          //   size: blockSize(context) * 15,
+                          // ),
+                          Image.asset(
+                            'assets/images/flutter_installer_logo.png',
+                            width: blockSize(context) * 15,
                           ),
                           verticalSpaceSmall(context),
                           Text(
@@ -76,6 +80,18 @@ class HomeView extends StatelessWidget {
                               fontFamily: 'RobotoMono',
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Opacity(
+                            opacity: 0.5,
+                            child: Text(
+                              'Flutter and the related logo are trademarks of Google LLC.\nWe are not endorsed by or affiliated with Google LLC.',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'RobotoMono',
+                                fontSize: blockSize(context) * 0.9,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ],

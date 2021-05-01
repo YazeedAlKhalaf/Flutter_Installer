@@ -39,17 +39,17 @@ class ApiService {
       switch (platform) {
         case FlutterReleasePlatform.windows:
           response = await myClient.get(
-            '$baseUrlForFlutterRelease/releases_windows.json',
+            Uri.parse('$baseUrlForFlutterRelease/releases_windows.json'),
           );
           break;
         case FlutterReleasePlatform.macOS:
           response = await myClient.get(
-            '$baseUrlForFlutterRelease/releases_macos.json',
+            Uri.parse('$baseUrlForFlutterRelease/releases_macos.json'),
           );
           break;
         case FlutterReleasePlatform.linux:
           response = await myClient.get(
-            '$baseUrlForFlutterRelease/releases_linux.json',
+            Uri.parse('$baseUrlForFlutterRelease/releases_linux.json'),
           );
           break;
       }
@@ -95,7 +95,8 @@ class ApiService {
   Future<GithubReleaseAsset> getLatestGitForWindowsRelease() async {
     Response response;
     response = await myClient.get(
-      'https://api.github.com/repos/git-for-windows/git/releases/latest',
+      Uri.parse(
+          'https://api.github.com/repos/git-for-windows/git/releases/latest'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -109,7 +110,8 @@ class ApiService {
   Future<AppRelease> getLatestAndroidStudioRelease() async {
     Response response;
     response = await myClient.get(
-      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+      Uri.parse(
+          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -124,7 +126,8 @@ class ApiService {
   Future<AppRelease> getLatestVisualStudioCodeRelease() async {
     Response response;
     response = await myClient.get(
-      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+      Uri.parse(
+          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -139,7 +142,8 @@ class ApiService {
   Future<AppRelease> getLatestIntelliJIDEARelease() async {
     Response response;
     response = await myClient.get(
-      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+      Uri.parse(
+          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -154,7 +158,8 @@ class ApiService {
   Future<ScriptRelease> getLatestAppendToPathScript() async {
     Response response;
     response = await myClient.get(
-      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+      Uri.parse(
+          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -169,7 +174,8 @@ class ApiService {
   Future<ScriptRelease> getLatestDistScript() async {
     Response response;
     response = await myClient.get(
-      'https://flutter-installer-api.herokuapp.com/api/v1/latest_release',
+      Uri.parse(
+          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);

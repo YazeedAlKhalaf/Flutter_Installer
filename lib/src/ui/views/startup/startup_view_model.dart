@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
-import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
+import 'package:flutter_installer/src/app/generated/router/router.dart';
+import 'package:flutter_installer/src/app/services/router_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class StartupViewModel extends CustomBaseViewModel {
-  final NavigationService _navigationService = locator<NavigationService>();
+  final RouterService _routerService = locator<RouterService>();
 
   Future<void> handleStartup() async {
     Timer(
@@ -20,8 +20,9 @@ class StartupViewModel extends CustomBaseViewModel {
   }
 
   Future<void> navigateToHomeView() async {
-    await _navigationService.pushNamedAndRemoveUntil(
-      Routes.homeView,
+    await _routerService.router.pushAndPopUntil(
+      HomeRoute(),
+      predicate: (_) => false,
     );
   }
 }

@@ -4,74 +4,79 @@
 // AutoRouteGenerator
 // **************************************************************************
 
-// ignore_for_file: public_member_api_docs
+import 'package:auto_route/auto_route.dart' as _i1;
+import 'package:flutter/material.dart' as _i2;
+import 'package:flutter_installer/src/ui/views/faq/faq_view.dart' as _i5;
+import 'package:flutter_installer/src/ui/views/home/home_view.dart' as _i4;
+import 'package:flutter_installer/src/ui/views/startup/startup_view.dart'
+    as _i3;
+import 'package:flutter_installer/src/ui/views/steps/steps_base/steps_base_view.dart'
+    as _i6;
 
-import 'package:auto_route/auto_route.dart';
+class AppRouter extends _i1.RootStackRouter {
+  AppRouter([_i2.GlobalKey<_i2.NavigatorState> navigatorKey])
+      : super(navigatorKey);
 
-import '../../../ui/views/faq/faq_view.dart';
-import '../../../ui/views/home/home_view.dart';
-import '../../../ui/views/startup/startup_view.dart';
-import '../../../ui/views/steps/steps_base/steps_base_view.dart';
-
-class Routes {
-  static const String startupView = '/';
-  static const String homeView = '/home';
-  static const String faqView = '/faq';
-  static const String stepsBaseView = '/installing';
-  static const all = <String>{
-    startupView,
-    homeView,
-    faqView,
-    stepsBaseView,
+  @override
+  final Map<String, _i1.PageFactory> pagesMap = {
+    StartupRoute.name: (routeData) {
+      return _i1.AdaptivePage<dynamic>(
+          routeData: routeData, child: _i3.StartupView());
+    },
+    HomeRoute.name: (routeData) {
+      return _i1.AdaptivePage<dynamic>(
+          routeData: routeData, child: _i4.HomeView());
+    },
+    FaqRoute.name: (routeData) {
+      final args =
+          routeData.argsAs<FaqRouteArgs>(orElse: () => const FaqRouteArgs());
+      return _i1.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: _i5.FaqView(onBackPressed: args.onBackPressed));
+    },
+    StepsBaseRoute.name: (routeData) {
+      return _i1.AdaptivePage<dynamic>(
+          routeData: routeData, child: _i6.StepsBaseView());
+    }
   };
+
+  @override
+  List<_i1.RouteConfig> get routes => [
+        _i1.RouteConfig(StartupRoute.name, path: '/'),
+        _i1.RouteConfig(HomeRoute.name, path: '/home'),
+        _i1.RouteConfig(FaqRoute.name, path: '/faq'),
+        _i1.RouteConfig(StepsBaseRoute.name, path: '/installing')
+      ];
 }
 
-class Router extends RouterBase {
-  @override
-  List<RouteDef> get routes => _routes;
-  final _routes = <RouteDef>[
-    RouteDef(Routes.startupView, page: StartupView),
-    RouteDef(Routes.homeView, page: HomeView),
-    RouteDef(Routes.faqView, page: FaqView),
-    RouteDef(Routes.stepsBaseView, page: StepsBaseView),
-  ];
-  @override
-  Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
-  final _pagesMap = <Type, AutoRouteFactory>{
-    StartupView: (data) {
-      return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => StartupView(),
-        settings: data,
-      );
-    },
-    HomeView: (data) {
-      return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => HomeView(),
-        settings: data,
-      );
-    },
-    FaqView: (data) {
-      final args = data.getArgs<FaqViewArguments>(nullOk: false);
-      return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => FaqView(onBackPressed: args.onBackPressed),
-        settings: data,
-      );
-    },
-    StepsBaseView: (data) {
-      return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => StepsBaseView(),
-        settings: data,
-      );
-    },
-  };
+class StartupRoute extends _i1.PageRouteInfo {
+  const StartupRoute() : super(name, path: '/');
+
+  static const String name = 'StartupRoute';
 }
 
-/// ************************************************************************
-/// Arguments holder classes
-/// *************************************************************************
+class HomeRoute extends _i1.PageRouteInfo {
+  const HomeRoute() : super(name, path: '/home');
 
-/// FaqView arguments holder class
-class FaqViewArguments {
+  static const String name = 'HomeRoute';
+}
+
+class FaqRoute extends _i1.PageRouteInfo<FaqRouteArgs> {
+  FaqRoute({dynamic Function() onBackPressed})
+      : super(name,
+            path: '/faq', args: FaqRouteArgs(onBackPressed: onBackPressed));
+
+  static const String name = 'FaqRoute';
+}
+
+class FaqRouteArgs {
+  const FaqRouteArgs({this.onBackPressed});
+
   final dynamic Function() onBackPressed;
-  FaqViewArguments({@required this.onBackPressed});
+}
+
+class StepsBaseRoute extends _i1.PageRouteInfo {
+  const StepsBaseRoute() : super(name, path: '/installing');
+
+  static const String name = 'StepsBaseRoute';
 }

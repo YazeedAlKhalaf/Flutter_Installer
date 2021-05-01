@@ -35,7 +35,7 @@ class SharedPrefsService {
   Future getValue(String key) async {
     final SharedPreferences _sharedPreferences =
         await SharedPreferences.getInstance();
-    var value = await _sharedPreferences.get(key);
+    var value = _sharedPreferences.get(key);
     log.d(
       '(TRACE) LocalStorageService:_getFromDisk. key: $key value: $value',
     );

@@ -1,16 +1,16 @@
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
-import 'package:flutter_installer/src/app/generated/router/router.gr.dart';
+import 'package:flutter_installer/src/app/generated/router/router.dart';
 import 'package:flutter_installer/src/app/models/user_choice.model.dart';
+import 'package:flutter_installer/src/app/services/router_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 import 'package:flutter_installer/src/ui/views/steps/customize/customize_view.dart';
 import 'package:flutter_installer/src/ui/views/steps/done/done_view.dart';
 import 'package:flutter_installer/src/ui/views/steps/installing/installing_view.dart';
 import 'package:flutter_installer/src/ui/views/steps/summary/summary_view.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
-import 'package:stacked_services/stacked_services.dart';
 
 class StepsBaseViewModel extends CustomBaseViewModel {
-  final NavigationService _navigationService = locator<NavigationService>();
+  final RouterService _routerService = locator<RouterService>();
 
   bool _showFAQView = false;
   bool get showFAQView => _showFAQView;
@@ -99,8 +99,9 @@ class StepsBaseViewModel extends CustomBaseViewModel {
   }
 
   Future<void> navigateToHomeView() async {
-    await _navigationService.pushNamedAndRemoveUntil(
-      Routes.homeView,
+    await _routerService.router.pushAndPopUntil(
+      HomeRoute(),
+      predicate: (_) => false,
     );
   }
 }

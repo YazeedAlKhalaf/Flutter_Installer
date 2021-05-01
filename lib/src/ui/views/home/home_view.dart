@@ -41,9 +41,6 @@ class HomeView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           ExpandedContainer(),
-                          // FlutterLogo(
-                          //   size: blockSize(context) * 15,
-                          // ),
                           Image.asset(
                             'assets/images/flutter_installer_logo.png',
                             width: blockSize(context) * 15,

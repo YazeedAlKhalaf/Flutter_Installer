@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- `msix` package for packaging Windows app.
+- New logo for the app, Flutter Installer.
+
 ### Changed
 
 - Upgrade all dependencies.

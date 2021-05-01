@@ -117,7 +117,7 @@ class ApiService {
 
     Map<String, dynamic> data = json.decode(response.body);
 
-    LatestRelease latestRelease = LatestRelease.fromJson(data);
+    LatestRelease latestRelease = LatestRelease.fromMap(data);
 
     AppRelease appRelease = latestRelease.latest.androidStudio;
 
@@ -133,7 +133,7 @@ class ApiService {
 
     Map<String, dynamic> data = json.decode(response.body);
 
-    LatestRelease latestRelease = LatestRelease.fromJson(data);
+    LatestRelease latestRelease = LatestRelease.fromMap(data);
 
     AppRelease appRelease = latestRelease.latest.visualStudioCode;
 
@@ -149,7 +149,7 @@ class ApiService {
 
     Map<String, dynamic> data = json.decode(response.body);
 
-    LatestRelease latestRelease = LatestRelease.fromJson(data);
+    LatestRelease latestRelease = LatestRelease.fromMap(data);
 
     AppRelease appRelease = latestRelease.latest.intellijIdea;
 
@@ -165,7 +165,7 @@ class ApiService {
 
     Map<String, dynamic> data = json.decode(response.body);
 
-    LatestRelease latestRelease = LatestRelease.fromJson(data);
+    LatestRelease latestRelease = LatestRelease.fromMap(data);
 
     ScriptRelease scriptRelease = latestRelease.latest.scripts.appendToPath;
 
@@ -181,7 +181,7 @@ class ApiService {
 
     Map<String, dynamic> data = json.decode(response.body);
 
-    LatestRelease latestRelease = LatestRelease.fromJson(data);
+    LatestRelease latestRelease = LatestRelease.fromMap(data);
 
     ScriptRelease scriptRelease = latestRelease.latest.scripts.dist;
 

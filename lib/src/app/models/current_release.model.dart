@@ -13,6 +13,18 @@ class CurrentRelease {
     @required this.stable,
   });
 
+  CurrentRelease copyWith({
+    String beta,
+    String dev,
+    String stable,
+  }) {
+    return CurrentRelease(
+      beta: beta ?? this.beta,
+      dev: dev ?? this.dev,
+      stable: stable ?? this.stable,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'beta': beta,
@@ -21,9 +33,7 @@ class CurrentRelease {
     };
   }
 
-  static CurrentRelease fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
+  factory CurrentRelease.fromMap(Map<String, dynamic> map) {
     return CurrentRelease(
       beta: map['beta'],
       dev: map['dev'],
@@ -33,5 +43,23 @@ class CurrentRelease {
 
   String toJson() => json.encode(toMap());
 
-  static CurrentRelease fromJson(String source) => fromMap(json.decode(source));
+  factory CurrentRelease.fromJson(String source) =>
+      CurrentRelease.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'CurrentRelease(beta: $beta, dev: $dev, stable: $stable)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is CurrentRelease &&
+        other.beta == beta &&
+        other.dev == dev &&
+        other.stable == stable;
+  }
+
+  @override
+  int get hashCode => beta.hashCode ^ dev.hashCode ^ stable.hashCode;
 }

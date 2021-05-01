@@ -1,46 +1,80 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/scripts.model.dart';
 
 class Latest {
-  AppRelease androidStudio;
-  AppRelease visualStudioCode;
-  AppRelease intellijIdea;
-  Scripts scripts;
+  final AppRelease androidStudio;
+  final AppRelease visualStudioCode;
+  final AppRelease intellijIdea;
+  final Scripts scripts;
 
-  Latest(
-      {this.androidStudio,
-      this.visualStudioCode,
-      this.intellijIdea,
-      this.scripts});
+  const Latest({
+    @required this.androidStudio,
+    @required this.visualStudioCode,
+    @required this.intellijIdea,
+    @required this.scripts,
+  });
 
-  Latest.fromJson(Map<String, dynamic> json) {
-    androidStudio = json['android_studio'] != null
-        ? AppRelease.fromJson(json['android_studio'])
-        : null;
-    visualStudioCode = json['visual_studio_code'] != null
-        ? AppRelease.fromJson(json['visual_studio_code'])
-        : null;
-    intellijIdea = json['intellij_idea'] != null
-        ? AppRelease.fromJson(json['intellij_idea'])
-        : null;
-    scripts =
-        json['scripts'] != null ? Scripts.fromJson(json['scripts']) : null;
+  Latest copyWith({
+    AppRelease androidStudio,
+    AppRelease visualStudioCode,
+    AppRelease intellijIdea,
+    Scripts scripts,
+  }) {
+    return Latest(
+      androidStudio: androidStudio ?? this.androidStudio,
+      visualStudioCode: visualStudioCode ?? this.visualStudioCode,
+      intellijIdea: intellijIdea ?? this.intellijIdea,
+      scripts: scripts ?? this.scripts,
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.androidStudio != null) {
-      data['android_studio'] = this.androidStudio.toJson();
-    }
-    if (this.visualStudioCode != null) {
-      data['visual_studio_code'] = this.visualStudioCode.toJson();
-    }
-    if (this.intellijIdea != null) {
-      data['intellij_idea'] = this.intellijIdea.toJson();
-    }
-    if (this.scripts != null) {
-      data['scripts'] = this.scripts.toJson();
-    }
-    return data;
+  Map<String, dynamic> toMap() {
+    return {
+      'android_studio': androidStudio.toMap(),
+      'visual_studio_code': visualStudioCode.toMap(),
+      'intellij_idea': intellijIdea.toMap(),
+      'scripts': scripts.toMap(),
+    };
+  }
+
+  factory Latest.fromMap(Map<String, dynamic> map) {
+    return Latest(
+      androidStudio: AppRelease.fromMap(map['android_studio']),
+      visualStudioCode: AppRelease.fromMap(map['visual_studio_code']),
+      intellijIdea: AppRelease.fromMap(map['intellij_idea']),
+      scripts: Scripts.fromMap(map['scripts']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Latest.fromJson(String source) => Latest.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Latest(androidStudio: $androidStudio, visualStudioCode: $visualStudioCode, intellijIdea: $intellijIdea, scripts: $scripts)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Latest &&
+        other.androidStudio == androidStudio &&
+        other.visualStudioCode == visualStudioCode &&
+        other.intellijIdea == intellijIdea &&
+        other.scripts == scripts;
+  }
+
+  @override
+  int get hashCode {
+    return androidStudio.hashCode ^
+        visualStudioCode.hashCode ^
+        intellijIdea.hashCode ^
+        scripts.hashCode;
   }
 }

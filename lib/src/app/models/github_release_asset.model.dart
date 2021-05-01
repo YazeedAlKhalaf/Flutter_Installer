@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 class GithubReleaseAsset {
   final String url;
   final int id;
@@ -15,18 +17,46 @@ class GithubReleaseAsset {
   final String browserDownloadUrl;
 
   const GithubReleaseAsset({
-    this.url,
-    this.id,
-    this.nodeId,
-    this.name,
-    this.label,
-    this.contentType,
-    this.state,
-    this.downloadCount,
-    this.createdAt,
-    this.publishedAt,
-    this.browserDownloadUrl,
+    @required this.url,
+    @required this.id,
+    @required this.nodeId,
+    @required this.name,
+    @required this.label,
+    @required this.contentType,
+    @required this.state,
+    @required this.downloadCount,
+    @required this.createdAt,
+    @required this.publishedAt,
+    @required this.browserDownloadUrl,
   });
+
+  GithubReleaseAsset copyWith({
+    String url,
+    int id,
+    String nodeId,
+    String name,
+    String label,
+    String contentType,
+    String state,
+    int downloadCount,
+    String createdAt,
+    String publishedAt,
+    String browserDownloadUrl,
+  }) {
+    return GithubReleaseAsset(
+      url: url ?? this.url,
+      id: id ?? this.id,
+      nodeId: nodeId ?? this.nodeId,
+      name: name ?? this.name,
+      label: label ?? this.label,
+      contentType: contentType ?? this.contentType,
+      state: state ?? this.state,
+      downloadCount: downloadCount ?? this.downloadCount,
+      createdAt: createdAt ?? this.createdAt,
+      publishedAt: publishedAt ?? this.publishedAt,
+      browserDownloadUrl: browserDownloadUrl ?? this.browserDownloadUrl,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -44,9 +74,7 @@ class GithubReleaseAsset {
     };
   }
 
-  static GithubReleaseAsset fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
+  factory GithubReleaseAsset.fromMap(Map<String, dynamic> map) {
     return GithubReleaseAsset(
       url: map['url'],
       id: map['id'],
@@ -64,6 +92,44 @@ class GithubReleaseAsset {
 
   String toJson() => json.encode(toMap());
 
-  static GithubReleaseAsset fromJson(String source) =>
-      fromMap(json.decode(source));
+  factory GithubReleaseAsset.fromJson(String source) =>
+      GithubReleaseAsset.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'GithubReleaseAsset(url: $url, id: $id, nodeId: $nodeId, name: $name, label: $label, contentType: $contentType, state: $state, downloadCount: $downloadCount, createdAt: $createdAt, publishedAt: $publishedAt, browserDownloadUrl: $browserDownloadUrl)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is GithubReleaseAsset &&
+        other.url == url &&
+        other.id == id &&
+        other.nodeId == nodeId &&
+        other.name == name &&
+        other.label == label &&
+        other.contentType == contentType &&
+        other.state == state &&
+        other.downloadCount == downloadCount &&
+        other.createdAt == createdAt &&
+        other.publishedAt == publishedAt &&
+        other.browserDownloadUrl == browserDownloadUrl;
+  }
+
+  @override
+  int get hashCode {
+    return url.hashCode ^
+        id.hashCode ^
+        nodeId.hashCode ^
+        name.hashCode ^
+        label.hashCode ^
+        contentType.hashCode ^
+        state.hashCode ^
+        downloadCount.hashCode ^
+        createdAt.hashCode ^
+        publishedAt.hashCode ^
+        browserDownloadUrl.hashCode;
+  }
 }

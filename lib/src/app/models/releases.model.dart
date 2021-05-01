@@ -16,17 +16,27 @@ class Releases {
     @required this.releases,
   });
 
+  Releases copyWith({
+    String baseUrl,
+    CurrentRelease currentRelease,
+    List<FlutterRelease> releases,
+  }) {
+    return Releases(
+      baseUrl: baseUrl ?? this.baseUrl,
+      currentRelease: currentRelease ?? this.currentRelease,
+      releases: releases ?? this.releases,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'base_url': baseUrl,
-      'current_release': currentRelease?.toMap(),
-      'releases': releases?.map((x) => x?.toMap())?.toList(),
+      'current_release': currentRelease.toMap(),
+      'releases': releases?.map((x) => x.toMap())?.toList(),
     };
   }
 
-  static Releases fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-
+  factory Releases.fromMap(Map<String, dynamic> map) {
     return Releases(
       baseUrl: map['base_url'],
       currentRelease: CurrentRelease.fromMap(map['current_release']),
@@ -37,5 +47,24 @@ class Releases {
 
   String toJson() => json.encode(toMap());
 
-  static Releases fromJson(String source) => fromMap(json.decode(source));
+  factory Releases.fromJson(String source) =>
+      Releases.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'Releases(baseUrl: $baseUrl, currentRelease: $currentRelease, releases: $releases)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Releases &&
+        other.baseUrl == baseUrl &&
+        other.currentRelease == currentRelease &&
+        listEquals(other.releases, releases);
+  }
+
+  @override
+  int get hashCode =>
+      baseUrl.hashCode ^ currentRelease.hashCode ^ releases.hashCode;
 }

@@ -1,24 +1,60 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter_installer/src/app/models/flutter_installer_api/download_links.model.dart';
 
 class ScriptRelease {
-  String name;
-  DownloadLinks downloadLinks;
+  final String name;
+  final DownloadLinks downloadLinks;
 
-  ScriptRelease({this.name, this.downloadLinks});
+  const ScriptRelease({
+    @required this.name,
+    @required this.downloadLinks,
+  });
 
-  ScriptRelease.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    downloadLinks = json['download_links'] != null
-        ? new DownloadLinks.fromJson(json['download_links'])
-        : null;
+  ScriptRelease copyWith({
+    String name,
+    DownloadLinks downloadLinks,
+  }) {
+    return ScriptRelease(
+      name: name ?? this.name,
+      downloadLinks: downloadLinks ?? this.downloadLinks,
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    if (this.downloadLinks != null) {
-      data['download_links'] = this.downloadLinks.toJson();
-    }
-    return data;
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'downloadLinks': downloadLinks.toMap(),
+    };
   }
+
+  factory ScriptRelease.fromMap(Map<String, dynamic> map) {
+    return ScriptRelease(
+      name: map['name'],
+      downloadLinks: DownloadLinks.fromMap(map['downloadLinks']),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory ScriptRelease.fromJson(String source) =>
+      ScriptRelease.fromMap(json.decode(source));
+
+  @override
+  String toString() =>
+      'ScriptRelease(name: $name, downloadLinks: $downloadLinks)';
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ScriptRelease &&
+        other.name == name &&
+        other.downloadLinks == downloadLinks;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ downloadLinks.hashCode;
 }

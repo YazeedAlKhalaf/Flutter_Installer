@@ -8,7 +8,7 @@ import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:stacked/stacked.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
+import 'package:theme_mode_builder/theme_mode_builder.dart';
 
 import './steps_base_view_model.dart';
 
@@ -33,11 +33,8 @@ class StepsBaseView extends StatelessWidget {
                   color: textColorWhite,
                 ),
                 onPressed: () {
-                  if (ThemeModeHandler.of(context).themeMode !=
-                      ThemeMode.light) {
-                    ThemeModeHandler.of(context).saveThemeMode(
-                      ThemeMode.light,
-                    );
+                  if (ThemeModeBuilderConfig.isDarkTheme()) {
+                    ThemeModeBuilderConfig.setLight();
                   }
                 },
               ),
@@ -47,11 +44,8 @@ class StepsBaseView extends StatelessWidget {
                   color: textColorWhite,
                 ),
                 onPressed: () {
-                  if (ThemeModeHandler.of(context).themeMode !=
-                      ThemeMode.dark) {
-                    ThemeModeHandler.of(context).saveThemeMode(
-                      ThemeMode.dark,
-                    );
+                  if (!ThemeModeBuilderConfig.isDarkTheme()) {
+                    ThemeModeBuilderConfig.setDark();
                   }
                 },
               ),

@@ -4,6 +4,7 @@ import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/app/services/window_size_service.dart';
 import 'package:logger/logger.dart';
 import 'package:flutter_installer/src/app/generated/locator/locator.dart';
+import 'package:theme_mode_builder/theme_mode_builder.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,6 +14,9 @@ main() async {
 
   // Register all the models and services before the app starts
   setupLocator();
+
+  /// initialize theme mode builder
+  ThemeModeBuilderConfig.ensureInitialized();
 
   await locator<WindowSizeService>().initialize();
 

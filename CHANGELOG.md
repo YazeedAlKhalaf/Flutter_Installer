@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Upgrade all dependencies.
+- `theme_mode_handler` is now replaced with `theme_mode_builder`.
 
 ### Fixed
 

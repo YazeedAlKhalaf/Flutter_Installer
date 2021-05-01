@@ -8,8 +8,7 @@ import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:stacked/stacked.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
-
+import 'package:theme_mode_builder/theme_mode_builder.dart';
 import './done_view_model.dart';
 
 class DoneView extends StatelessWidget {
@@ -55,15 +54,9 @@ class DoneView extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: ThemeModeHandler.of(context).themeMode ==
-                                  ThemeMode.system
-                              ? Theme.of(context).brightness == Brightness.dark
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey[200]
-                              : ThemeModeHandler.of(context).themeMode ==
-                                      ThemeMode.dark
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey[200],
+                          color: ThemeModeBuilderConfig.isDarkTheme()
+                              ? Theme.of(context).primaryColor
+                              : Colors.grey[200],
                         ),
                         height: blockSize(context) * 30,
                         width: blockSize(context) * 50,
@@ -72,16 +65,8 @@ class DoneView extends StatelessWidget {
                           styleSheet: MarkdownStyleSheet(
                             code: TextStyle(
                               fontFamily: 'RobotoMono',
-                              backgroundColor: ThemeModeHandler.of(context)
-                                          .themeMode ==
-                                      ThemeMode.system
-                                  ? Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Theme.of(context)
-                                          .scaffoldBackgroundColor
-                                      : Colors.grey[350]
-                                  : ThemeModeHandler.of(context).themeMode ==
-                                          ThemeMode.dark
+                              backgroundColor:
+                                  ThemeModeBuilderConfig.isDarkTheme()
                                       ? Theme.of(context)
                                           .scaffoldBackgroundColor
                                       : Colors.grey[350],
@@ -90,31 +75,17 @@ class DoneView extends StatelessWidget {
                             ),
                             h1: TextStyle(
                               fontFamily: 'Roboto',
-                              color: ThemeModeHandler.of(context).themeMode ==
-                                      ThemeMode.system
-                                  ? Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? textColorWhite
-                                      : textColorBlack
-                                  : ThemeModeHandler.of(context).themeMode ==
-                                          ThemeMode.dark
-                                      ? textColorWhite
-                                      : textColorBlack,
+                              color: ThemeModeBuilderConfig.isDarkTheme()
+                                  ? textColorWhite
+                                  : textColorBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: blockSize(context) * 3,
                             ),
                             p: TextStyle(
                               fontFamily: 'Roboto',
-                              color: ThemeModeHandler.of(context).themeMode ==
-                                      ThemeMode.system
-                                  ? Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? textColorWhite
-                                      : textColorBlack
-                                  : ThemeModeHandler.of(context).themeMode ==
-                                          ThemeMode.dark
-                                      ? textColorWhite
-                                      : textColorBlack,
+                              color: ThemeModeBuilderConfig.isDarkTheme()
+                                  ? textColorWhite
+                                  : textColorBlack,
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),

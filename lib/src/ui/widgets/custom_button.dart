@@ -26,13 +26,15 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            500,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              500,
+            ),
           ),
+          primary: buttonColor ?? Theme.of(context).accentColor,
         ),
-        color: buttonColor ?? Theme.of(context).accentColor,
         onPressed: isButtonDisabled ? null : onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(

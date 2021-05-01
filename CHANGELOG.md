@@ -11,12 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upgrade all dependencies.
 - `theme_mode_handler` is now replaced with `theme_mode_builder`.
+- Data models and imports refactored.
 
 ### Fixed
 
 - `file_selector` plugin now works as expected, added platforms packages
 - Cancel not working, [#9](https://github.com/YazeedAlKhalaf/Flutter_Installer/issues/9)
 - `UserChoice` is saved in between summary and customize views, going back does not reset all settings. fixes #14
+
+### Removed
+
+- Deprecated buttons.
 
 ## [0.0.7] - 2021-01-14
 

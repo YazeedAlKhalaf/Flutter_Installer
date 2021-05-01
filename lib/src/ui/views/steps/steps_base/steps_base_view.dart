@@ -80,10 +80,12 @@ class StepsBaseView extends StatelessWidget {
           return Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              FlatButton.icon(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    500,
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      500,
+                    ),
                   ),
                 ),
                 icon: Icon(

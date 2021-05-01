@@ -26,14 +26,14 @@ class ScriptRelease {
   Map<String, dynamic> toMap() {
     return {
       'name': name,
-      'downloadLinks': downloadLinks.toMap(),
+      'download_links': downloadLinks.toMap(),
     };
   }
 
   factory ScriptRelease.fromMap(Map<String, dynamic> map) {
     return ScriptRelease(
       name: map['name'],
-      downloadLinks: DownloadLinks.fromMap(map['downloadLinks']),
+      downloadLinks: DownloadLinks.fromMap(map['download_links']),
     );
   }
 

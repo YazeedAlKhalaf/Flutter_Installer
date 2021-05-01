@@ -17,7 +17,7 @@ main() async {
   setupLocator();
 
   /// initialize theme mode builder
-  ThemeModeBuilderConfig.ensureInitialized();
+  await ThemeModeBuilderConfig.ensureInitialized();
 
   await locator<WindowSizeService>().initialize();
 

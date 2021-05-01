@@ -1,5 +1,7 @@
 ![github_social_preview]
 
+Flutter and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC.
+
 # Flutter Installer
 
 Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
@@ -12,9 +14,9 @@ Flutter Installer is an installer for Flutter built with Flutter 💙😎✌
 - Beautiful UI ✨
 - Support for Dark mode 👀
 - Supports 3 Platforms:
-    - Windows
-    - macOS
-    - Linux
+  - Windows
+  - macOS
+  - Linux
 
 ## Wanna do it the quick way? We have binaries built!
 

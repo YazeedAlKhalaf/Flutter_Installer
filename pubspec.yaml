@@ -1,6 +1,6 @@
 name: flutter_installer
 description: Flutter Installer is an installer for Flutter built with Flutter.
-version: 0.0.7+7
+version: 0.0.8+8
 publish_to: none
 
 environment:
@@ -90,7 +90,7 @@ msix_config:
   publisher_display_name: Yazeed AlKhalaf
   publisher: CN=93334AAE-C29A-45CE-B580-55884CF74482
   identity_name: 51837YazeedAlKhalaf.FlutterInstaller
-  msix_version: 0.0.7
+  msix_version: 0.0.8.0
   icons_background_color: transparent
   architecture: x64
   # See https://docs.microsoft.com/en-us/windows/uwp/packaging/app-capability-declarations

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.0.8] - 2021-05-02
+
 ### Added
 
 - `msix` package for packaging Windows app.
@@ -156,7 +158,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Windows Support (Script Part Fully Done)
 - Fonts: (Roboto, Roboto Mono)
 
-[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.7...HEAD
+[unreleased]: https://github.com/YazeedAlKhalaf/Split_It/compare/v0.0.8...HEAD
+[0.0.8]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.8
 [0.0.7]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.7
 [0.0.6]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.6
 [0.0.5]: https://github.com/YazeedAlKhalaf/Split_It/releases/tag/v0.0.5

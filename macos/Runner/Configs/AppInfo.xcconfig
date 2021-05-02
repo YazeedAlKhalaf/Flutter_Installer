@@ -11,4 +11,4 @@ PRODUCT_NAME = Flutter Installer
 PRODUCT_BUNDLE_IDENTIFIER = dev.alkhalaf.flutterInstaller
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 dev.alkhalaf All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2021 dev.alkhalaf. All rights reserved.

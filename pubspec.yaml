@@ -29,7 +29,7 @@ dependencies:
   # ui
   percent_indicator: ^3.0.1
   flutter_markdown: ^0.6.1
-  theme_mode_builder: ^1.0.0
+  theme_mode_builder: ^1.0.1
 
   # accesses filesystem
   process_run: ^0.12.1

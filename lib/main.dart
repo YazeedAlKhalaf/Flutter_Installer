@@ -17,7 +17,9 @@ main() async {
   setupLocator();
 
   /// initialize theme mode builder
-  await ThemeModeBuilderConfig.ensureInitialized();
+  await ThemeModeBuilderConfig.ensureInitialized(
+    subDir: "Flutter Installer",
+  );
 
   await locator<WindowSizeService>().initialize();
 

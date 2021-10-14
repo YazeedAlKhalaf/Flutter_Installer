@@ -18,12 +18,16 @@ class App extends StatelessWidget {
           routeInformationParser: locator<RouterService>().router.defaultRouteParser(),
           themeMode: themeMode,
           theme: ThemeData(
-            brightness: Brightness.light,
-            primaryColor: Color(0xff085A9C),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              brightness: Brightness.light,
+              primary: Color(0xff085A9C),
+            ),
           ),
           darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.deepOrangeAccent),
+            colorScheme: ColorScheme.fromSwatch().copyWith(
+              secondary: Colors.deepOrangeAccent,
+              brightness: Brightness.dark,
+            ),
           ),
         );
       },

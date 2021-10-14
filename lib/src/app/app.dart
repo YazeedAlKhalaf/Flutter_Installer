@@ -15,7 +15,8 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Flutter Installer',
           routerDelegate: locator<RouterService>().router.delegate(),
-          routeInformationParser: locator<RouterService>().router.defaultRouteParser(),
+          routeInformationParser:
+              locator<RouterService>().router.defaultRouteParser(),
           themeMode: themeMode,
           theme: ThemeData(
             brightness: Brightness.light,
@@ -23,7 +24,7 @@ class App extends StatelessWidget {
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
-            colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.deepOrangeAccent),
+            accentColor: Colors.deepOrangeAccent,
           ),
         );
       },

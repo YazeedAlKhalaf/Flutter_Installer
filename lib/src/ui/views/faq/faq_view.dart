@@ -9,10 +9,10 @@ import 'package:flutter_installer/src/ui/widgets/expanded_container.dart';
 import './faq_view_model.dart';
 
 class FaqView extends StatelessWidget {
-  final Function() onBackPressed;
+  final Function()? onBackPressed;
 
   const FaqView({
-    @required this.onBackPressed,
+    required this.onBackPressed,
   });
 
   @override
@@ -22,7 +22,7 @@ class FaqView extends StatelessWidget {
       builder: (
         BuildContext context,
         FaqViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         model.initializeWindowSize();
         final TextStyle verticalTextStyle = TextStyle(
@@ -33,8 +33,8 @@ class FaqView extends StatelessWidget {
         );
 
         _buildQuestionAndAnswer({
-          @required String question,
-          @required String answer,
+          required String question,
+          required String answer,
         }) {
           return Card(
             elevation: 5,
@@ -116,7 +116,7 @@ class FaqView extends StatelessWidget {
                           ),
                           width: blockSize(context) * 15,
                           onPressed: () async {
-                            onBackPressed();
+                            onBackPressed!();
                           },
                         ),
                         ExpandedContainer(),

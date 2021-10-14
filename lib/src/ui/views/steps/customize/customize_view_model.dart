@@ -11,7 +11,7 @@ import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 
 class CustomizeViewModel extends CustomBaseViewModel {
   final SnackbarService _snackbarService = SnackbarService();
-  final LocalStorageService _localStorageService =
+  final LocalStorageService? _localStorageService =
       locator<LocalStorageService>();
   final TextEditingController chooseFolderController = TextEditingController();
 
@@ -29,54 +29,54 @@ class CustomizeViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  String _installationPath;
-  String get installationPath => _installationPath;
-  void setInstallationPath(String newValue) {
+  String? _installationPath;
+  String? get installationPath => _installationPath;
+  void setInstallationPath(String? newValue) {
     _installationPath = newValue;
     notifyListeners();
   }
 
-  bool _installVisualStudioCode = false;
-  bool get installVisualStudioCode => _installVisualStudioCode;
-  void setInstallVisualStudioCode(bool newValue) {
+  bool? _installVisualStudioCode = false;
+  bool? get installVisualStudioCode => _installVisualStudioCode;
+  void setInstallVisualStudioCode(bool? newValue) {
     _installVisualStudioCode = newValue;
     notifyListeners();
   }
 
-  bool _installAndroidStudio = true;
-  bool get installAndroidStudio => _installAndroidStudio;
-  void setInstallAndroidStudio(bool newValue) {
+  bool? _installAndroidStudio = true;
+  bool? get installAndroidStudio => _installAndroidStudio;
+  void setInstallAndroidStudio(bool? newValue) {
     _installAndroidStudio = newValue;
     notifyListeners();
   }
 
-  bool _installIntelliJIDEA = false;
-  bool get installIntelliJIDEA => _installIntelliJIDEA;
-  void setInstallIntelliJIDEA(bool newValue) {
+  bool? _installIntelliJIDEA = false;
+  bool? get installIntelliJIDEA => _installIntelliJIDEA;
+  void setInstallIntelliJIDEA(bool? newValue) {
     _installIntelliJIDEA = newValue;
     notifyListeners();
   }
 
-  bool _installGit = true;
-  bool get installGit => _installGit;
-  void setInstallGit(bool newValue) {
+  bool? _installGit = true;
+  bool? get installGit => _installGit;
+  void setInstallGit(bool? newValue) {
     _installGit = newValue;
     notifyListeners();
   }
 
-  FlutterChannel _flutterChannel = FlutterChannel.stable;
-  FlutterChannel get flutterChannel => _flutterChannel;
-  void setFlutterChannel(FlutterChannel newValue) {
+  FlutterChannel? _flutterChannel = FlutterChannel.stable;
+  FlutterChannel? get flutterChannel => _flutterChannel;
+  void setFlutterChannel(FlutterChannel? newValue) {
     _flutterChannel = newValue;
     notifyListeners();
   }
 
   Future<void> onBrowsePressed() async {
-    String initialDirectory;
+    String? initialDirectory;
     if (Platform.isMacOS || Platform.isWindows) {
-      initialDirectory = await _localStorageService.getAppDocDirectoryPath();
+      initialDirectory = await _localStorageService!.getAppDocDirectoryPath();
     }
-    final String directoryPath = await file_selector.getDirectoryPath(
+    final String? directoryPath = await file_selector.getDirectoryPath(
       initialDirectory: initialDirectory,
       confirmButtonText: 'Install Here',
     );
@@ -92,12 +92,12 @@ class CustomizeViewModel extends CustomBaseViewModel {
 
     setChooseFolderTextFieldHasError(false);
     setInstallationPath(directoryPath);
-    chooseFolderController.text = installationPath;
+    chooseFolderController.text = installationPath!;
   }
 
   showSnackBar({
-    String title,
-    @required String message,
+    required String title,
+    required String message,
   }) {
     _snackbarService.showSnackbar(
       title: title,
@@ -106,18 +106,18 @@ class CustomizeViewModel extends CustomBaseViewModel {
   }
 
   Future<void> intialize({
-    @required UserChoice userChoice,
+    required UserChoice? userChoice,
   }) async {
     if (userChoice != null) {
-      chooseFolderController.text = userChoice.installationPath;
+      chooseFolderController.text = userChoice.installationPath!;
       setFlutterChannel(userChoice.flutterChannel);
       setInstallAndroidStudio(userChoice.installAndroidStudio);
       setInstallGit(userChoice.installGit);
       setInstallIntelliJIDEA(userChoice.installIntelliJIDEA);
       setInstallVisualStudioCode(userChoice.installVisualStudioCode);
     } else {
-      setInstallationPath(await _localStorageService.getAppDocDirectoryPath());
-      chooseFolderController.text = _installationPath;
+      setInstallationPath(await _localStorageService!.getAppDocDirectoryPath());
+      chooseFolderController.text = _installationPath!;
     }
   }
 }

@@ -15,12 +15,12 @@ import './summary_view_model.dart';
 class SummaryView extends StatelessWidget {
   final Function() onBackPressed;
   final Function() onInstallPressed;
-  final UserChoice userChoice;
+  final UserChoice? userChoice;
 
   const SummaryView({
-    @required this.onInstallPressed,
-    @required this.onBackPressed,
-    @required this.userChoice,
+    required this.onInstallPressed,
+    required this.onBackPressed,
+    required this.userChoice,
   });
 
   @override
@@ -30,7 +30,7 @@ class SummaryView extends StatelessWidget {
       builder: (
         BuildContext context,
         SummaryViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         return Scaffold(
           body: SafeArea(
@@ -93,11 +93,11 @@ class SummaryView extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
-                                        userChoice.installationPath != null
+                                        userChoice!.installationPath != null
                                             ? '• Path: ' +
                                                 locator<Utils>()
                                                     .clipTextFromMiddle(
-                                                  userChoice.installationPath,
+                                                  userChoice!.installationPath!,
                                                 )
                                             : '• Path: Not Specified',
                                         textAlign: TextAlign.start,
@@ -108,7 +108,7 @@ class SummaryView extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      if (userChoice.installVisualStudioCode)
+                                      if (userChoice!.installVisualStudioCode!)
                                         Text(
                                           '• Visual Studio Code Latest Version',
                                           textAlign: TextAlign.start,
@@ -118,7 +118,7 @@ class SummaryView extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      if (userChoice.installAndroidStudio)
+                                      if (userChoice!.installAndroidStudio!)
                                         Text(
                                           '• Android Studio Latest Version',
                                           textAlign: TextAlign.start,
@@ -128,7 +128,7 @@ class SummaryView extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      if (userChoice.installIntelliJIDEA)
+                                      if (userChoice!.installIntelliJIDEA!)
                                         Text(
                                           '• IntelliJ IDEA Latest Version',
                                           textAlign: TextAlign.start,
@@ -138,7 +138,7 @@ class SummaryView extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      if (userChoice.installGit)
+                                      if (userChoice!.installGit!)
                                         Text(
                                           '• Git',
                                           textAlign: TextAlign.start,

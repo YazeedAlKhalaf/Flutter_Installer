@@ -8,11 +8,11 @@ class LatestRelease {
   final Latest latest;
 
   const LatestRelease({
-    @required this.latest,
+    required this.latest,
   });
 
   LatestRelease copyWith({
-    Latest latest,
+    Latest? latest,
   }) {
     return LatestRelease(
       latest: latest ?? this.latest,

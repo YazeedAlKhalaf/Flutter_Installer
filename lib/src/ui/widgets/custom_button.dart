@@ -8,15 +8,15 @@ class CustomButton extends StatelessWidget {
   final double width;
   final VoidCallback onPressed;
 
-  final TextStyle textStyle;
-  final Color buttonColor;
+  final TextStyle? textStyle;
+  final Color? buttonColor;
 
   final bool isButtonDisabled;
 
   CustomButton({
-    @required this.text,
-    @required this.width,
-    @required this.onPressed,
+    required this.text,
+    required this.width,
+    required this.onPressed,
     this.textStyle,
     this.buttonColor,
     this.isButtonDisabled = false,

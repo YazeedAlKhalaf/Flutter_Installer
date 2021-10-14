@@ -4,10 +4,10 @@ import 'package:flutter_installer/src/app/services/router_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 
 class HomeViewModel extends CustomBaseViewModel {
-  final RouterService _routerService = locator<RouterService>();
+  final RouterService? _routerService = locator<RouterService>();
 
   Future<void> navigateToStepsBaseView() async {
-    await _routerService.router.push(
+    await _routerService!.router.push(
       StepsBaseRoute(),
     );
   }

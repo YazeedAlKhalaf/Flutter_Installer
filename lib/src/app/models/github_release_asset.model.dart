@@ -3,45 +3,45 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class GithubReleaseAsset {
-  final String url;
-  final int id;
-  final String nodeId;
-  final String name;
-  final String label;
+  final String? url;
+  final int? id;
+  final String? nodeId;
+  final String? name;
+  final String? label;
   // uploader
-  final String contentType;
-  final String state;
-  final int downloadCount;
-  final String createdAt;
-  final String publishedAt;
-  final String browserDownloadUrl;
+  final String? contentType;
+  final String? state;
+  final int? downloadCount;
+  final String? createdAt;
+  final String? publishedAt;
+  final String? browserDownloadUrl;
 
   const GithubReleaseAsset({
-    @required this.url,
-    @required this.id,
-    @required this.nodeId,
-    @required this.name,
-    @required this.label,
-    @required this.contentType,
-    @required this.state,
-    @required this.downloadCount,
-    @required this.createdAt,
-    @required this.publishedAt,
-    @required this.browserDownloadUrl,
+    required this.url,
+    required this.id,
+    required this.nodeId,
+    required this.name,
+    required this.label,
+    required this.contentType,
+    required this.state,
+    required this.downloadCount,
+    required this.createdAt,
+    required this.publishedAt,
+    required this.browserDownloadUrl,
   });
 
   GithubReleaseAsset copyWith({
-    String url,
-    int id,
-    String nodeId,
-    String name,
-    String label,
-    String contentType,
-    String state,
-    int downloadCount,
-    String createdAt,
-    String publishedAt,
-    String browserDownloadUrl,
+    String? url,
+    int? id,
+    String? nodeId,
+    String? name,
+    String? label,
+    String? contentType,
+    String? state,
+    int? downloadCount,
+    String? createdAt,
+    String? publishedAt,
+    String? browserDownloadUrl,
   }) {
     return GithubReleaseAsset(
       url: url ?? this.url,

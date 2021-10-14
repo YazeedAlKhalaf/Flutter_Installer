@@ -12,17 +12,17 @@ class Latest {
   final Scripts scripts;
 
   const Latest({
-    @required this.androidStudio,
-    @required this.visualStudioCode,
-    @required this.intellijIdea,
-    @required this.scripts,
+    required this.androidStudio,
+    required this.visualStudioCode,
+    required this.intellijIdea,
+    required this.scripts,
   });
 
   Latest copyWith({
-    AppRelease androidStudio,
-    AppRelease visualStudioCode,
-    AppRelease intellijIdea,
-    Scripts scripts,
+    AppRelease? androidStudio,
+    AppRelease? visualStudioCode,
+    AppRelease? intellijIdea,
+    Scripts? scripts,
   }) {
     return Latest(
       androidStudio: androidStudio ?? this.androidStudio,

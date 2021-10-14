@@ -46,8 +46,8 @@ class WindowSizeService {
     PlatformWindow platformWindow = await _getPlatformWindow();
 
     if (platformWindow.screen != null) {
-      if (platformWindow.screen.visibleFrame.width != width ||
-          platformWindow.screen.visibleFrame.height != height) {
+      if (platformWindow.screen!.visibleFrame.width != width ||
+          platformWindow.screen!.visibleFrame.height != height) {
         _setWindowSize(platformWindow);
       }
     }

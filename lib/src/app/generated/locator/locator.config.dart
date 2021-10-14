@@ -19,7 +19,7 @@ import '../../utils/utils.dart' as _i8; // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
 _i1.GetIt $initGetIt(_i1.GetIt get,
-    {String environment, _i2.EnvironmentFilter environmentFilter}) {
+    {String? environment, _i2.EnvironmentFilter? environmentFilter}) {
   final gh = _i2.GetItHelper(get, environment, environmentFilter);
   final thirdPartyServicesModule = _$ThirdPartyServicesModule();
   gh.lazySingleton<_i3.ApiService>(() => _i3.ApiService());

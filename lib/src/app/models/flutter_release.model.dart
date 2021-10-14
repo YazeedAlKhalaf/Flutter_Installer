@@ -3,29 +3,29 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class FlutterRelease {
-  final String hash;
-  final String channel;
-  final String version;
-  final String releaseDate;
-  final String archive;
-  final String sha256;
+  final String? hash;
+  final String? channel;
+  final String? version;
+  final String? releaseDate;
+  final String? archive;
+  final String? sha256;
 
   const FlutterRelease({
-    @required this.hash,
-    @required this.channel,
-    @required this.version,
-    @required this.releaseDate,
-    @required this.archive,
-    @required this.sha256,
+    required this.hash,
+    required this.channel,
+    required this.version,
+    required this.releaseDate,
+    required this.archive,
+    required this.sha256,
   });
 
   FlutterRelease copyWith({
-    String hash,
-    String channel,
-    String version,
-    String releaseDate,
-    String archive,
-    String sha256,
+    String? hash,
+    String? channel,
+    String? version,
+    String? releaseDate,
+    String? archive,
+    String? sha256,
   }) {
     return FlutterRelease(
       hash: hash ?? this.hash,

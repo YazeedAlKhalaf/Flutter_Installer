@@ -5,20 +5,20 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/download_links.model.dart';
 
 class AppRelease {
-  final String name;
-  final String version;
+  final String? name;
+  final String? version;
   final DownloadLinks downloadLinks;
 
   const AppRelease({
-    @required this.name,
-    @required this.version,
-    @required this.downloadLinks,
+    required this.name,
+    required this.version,
+    required this.downloadLinks,
   });
 
   AppRelease copyWith({
-    String name,
-    String version,
-    DownloadLinks downloadLinks,
+    String? name,
+    String? version,
+    DownloadLinks? downloadLinks,
   }) {
     return AppRelease(
       name: name ?? this.name,

@@ -31,7 +31,7 @@ class OutLine extends Line {
 }
 
 class InstallingViewModel extends CustomBaseViewModel {
-  Shell _shell;
+  late Shell _shell;
   final _stdoutCtlr = StreamController<List<int>>();
   final _stderrCtlr = StreamController<List<int>>();
   final linesCtlr = StreamController<List<Line>>();
@@ -39,7 +39,7 @@ class InstallingViewModel extends CustomBaseViewModel {
   List<Line> get lines => _lines;
 
   final ScrollController scrollController = ScrollController();
-  CancelableOperation<void> cancelableOperation;
+  late CancelableOperation<void> cancelableOperation;
 
   bool _showLog = false;
   bool get showLog => _showLog;
@@ -71,13 +71,13 @@ class InstallingViewModel extends CustomBaseViewModel {
 
   final Logger logger = getLogger('InstallingViewModel');
 
-  final DialogService _dialogService = locator<DialogService>();
+  final DialogService? _dialogService = locator<DialogService>();
 
-  UserChoice _userChoice;
-  UserChoice get userChoice => _userChoice;
+  UserChoice? _userChoice;
+  UserChoice? get userChoice => _userChoice;
 
-  double _percentage;
-  double get percentage => _percentage;
+  double? _percentage;
+  double? get percentage => _percentage;
   void setPercentage(double newValue) {
     _percentage = newValue;
     notifyListeners();
@@ -92,7 +92,7 @@ class InstallingViewModel extends CustomBaseViewModel {
   }
 
   Future<void> initialize({
-    @required UserChoice userChoice,
+    required UserChoice? userChoice,
   }) async {
     try {
       intializeStreamOfShellLines();
@@ -113,19 +113,19 @@ class InstallingViewModel extends CustomBaseViewModel {
   }
 
   getVariables({
-    @required UserChoice userChoice,
+    required UserChoice? userChoice,
   }) {
     _userChoice = userChoice;
   }
 
   Future<bool> showCancelConfirmationDialog() async {
-    DialogResponse dialogResponse = await _dialogService.showConfirmationDialog(
+    DialogResponse dialogResponse = await (_dialogService!.showConfirmationDialog(
       title: 'Are You Sure? 😢',
       description: 'Are You Sure You Wanna Cancel This Download? 😢',
       cancelTitle: 'No, Thanks God 🙏',
       confirmationTitle: 'Yes, I\'m Pretty Sure 🚀',
       dialogPlatform: DialogPlatform.Material,
-    );
+    ) as FutureOr<DialogResponse<dynamic>>);
 
     if (dialogResponse.confirmed) {
       logger.i('Installation Cancelled!');
@@ -138,7 +138,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     if (Platform.isWindows) {
       await installOnWindows(
         logger: logger,
-        userChoice: userChoice,
+        userChoice: userChoice!,
         shell: _shell,
         setCurrentTaskText: setCurrentTaskText,
         setPercentage: setPercentage,
@@ -149,7 +149,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     if (Platform.isMacOS) {
       await installOnMacOS(
         logger: logger,
-        userChoice: userChoice,
+        userChoice: userChoice!,
         shell: _shell,
         setCurrentTaskText: setCurrentTaskText,
         setPercentage: setPercentage,
@@ -160,7 +160,7 @@ class InstallingViewModel extends CustomBaseViewModel {
     if (Platform.isLinux) {
       await installOnLinux(
         logger: logger,
-        userChoice: userChoice,
+        userChoice: userChoice!,
         shell: _shell,
         setCurrentTaskText: setCurrentTaskText,
         setPercentage: setPercentage,

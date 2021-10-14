@@ -27,21 +27,21 @@ class Utils {
     return await rootBundle.loadString(path);
   }
 
-  Future<void> launchUrl(String url) async {
+  Future<void> launchUrl(String? url) async {
     if (!Platform.isWindows) {
-      if (await canLaunch(url)) {
+      if (await canLaunch(url!)) {
         await launch(url);
       } else {
         throw 'Could not launch $url';
       }
     } else {
-      await launch(url);
+      await launch(url!);
     }
   }
 
-  String getAnythingAfterLastSlash(String text) {
+  String? getAnythingAfterLastSlash(String text) {
     final RegExp getAnythingAfterLastSlash = RegExp('[^/]+\$');
-    RegExpMatch matches = getAnythingAfterLastSlash.firstMatch(text);
+    RegExpMatch matches = getAnythingAfterLastSlash.firstMatch(text)!;
 
     return matches[0];
   }

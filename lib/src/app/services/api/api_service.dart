@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:injectable/injectable.dart';
@@ -27,15 +26,14 @@ enum FlutterReleasePlatform {
 class ApiService {
   final Logger logger = getLogger('ApiService');
 
-  final String baseUrlForFlutterRelease =
-      'https://storage.googleapis.com/flutter_infra/releases';
+  final String baseUrlForFlutterRelease = 'https://storage.googleapis.com/flutter_infra/releases';
 
   final MyClient myClient = MyClient(http.Client());
 
   Future getAllFlutterReleases(
     FlutterReleasePlatform platform,
   ) async {
-    Response response;
+    late Response response;
     try {
       switch (platform) {
         case FlutterReleasePlatform.windows:
@@ -63,12 +61,12 @@ class ApiService {
     }
   }
 
-  Future<FlutterRelease> getLatestRelease({
-    @required FlutterChannel flutterChannel,
-    @required FlutterReleasePlatform platform,
+  Future<FlutterRelease?> getLatestRelease({
+    required FlutterChannel? flutterChannel,
+    required FlutterReleasePlatform platform,
   }) async {
-    final Releases releases = await getAllFlutterReleases(platform);
-    String hash;
+    final Releases releases = await (getAllFlutterReleases(platform) as FutureOr<Releases>);
+    String? hash;
 
     switch (flutterChannel) {
       case FlutterChannel.beta:
@@ -80,9 +78,11 @@ class ApiService {
       case FlutterChannel.stable:
         hash = releases.currentRelease.stable;
         break;
+      case null:
+        break;
     }
 
-    FlutterRelease latestFlutterRelease;
+    FlutterRelease? latestFlutterRelease;
 
     releases.releases.forEach((FlutterRelease flutterRelease) {
       if (flutterRelease.hash == hash) {
@@ -96,8 +96,7 @@ class ApiService {
   Future<GithubReleaseAsset> getLatestGitForWindowsRelease() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://api.github.com/repos/git-for-windows/git/releases/latest'),
+      Uri.parse('https://api.github.com/repos/git-for-windows/git/releases/latest'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -111,8 +110,7 @@ class ApiService {
   Future<AppRelease> getLatestAndroidStudioRelease() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
+      Uri.parse('https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -127,8 +125,7 @@ class ApiService {
   Future<AppRelease> getLatestVisualStudioCodeRelease() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
+      Uri.parse('https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -143,8 +140,7 @@ class ApiService {
   Future<AppRelease> getLatestIntelliJIDEARelease() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
+      Uri.parse('https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -159,8 +155,7 @@ class ApiService {
   Future<ScriptRelease> getLatestAppendToPathScript() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
+      Uri.parse('https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);
@@ -175,8 +170,7 @@ class ApiService {
   Future<ScriptRelease> getLatestDistScript() async {
     Response response;
     response = await myClient.get(
-      Uri.parse(
-          'https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
+      Uri.parse('https://flutter-installer-api.herokuapp.com/api/v1/latest_release'),
     );
 
     Map<String, dynamic> data = json.decode(response.body);

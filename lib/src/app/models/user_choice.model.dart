@@ -8,7 +8,7 @@ enum FlutterChannel {
   stable,
 }
 
-String convertFlutterChannelEnumToString(FlutterChannel flutterChannel) {
+String convertFlutterChannelEnumToString(FlutterChannel? flutterChannel) {
   switch (flutterChannel) {
     case FlutterChannel.dev:
       return "dev";
@@ -21,7 +21,7 @@ String convertFlutterChannelEnumToString(FlutterChannel flutterChannel) {
   }
 }
 
-FlutterChannel convertStringToFlutterChannelEnum(String flutterChannelString) {
+FlutterChannel convertStringToFlutterChannelEnum(String? flutterChannelString) {
   switch (flutterChannelString) {
     case "dev":
       return FlutterChannel.dev;
@@ -35,20 +35,20 @@ FlutterChannel convertStringToFlutterChannelEnum(String flutterChannelString) {
 }
 
 class UserChoice {
-  final String installationPath;
-  final bool installVisualStudioCode;
-  final bool installAndroidStudio;
-  final bool installIntelliJIDEA;
-  final bool installGit;
-  final FlutterChannel flutterChannel;
+  final String? installationPath;
+  final bool? installVisualStudioCode;
+  final bool? installAndroidStudio;
+  final bool? installIntelliJIDEA;
+  final bool? installGit;
+  final FlutterChannel? flutterChannel;
 
   UserChoice({
-    @required this.installationPath,
-    @required this.installVisualStudioCode,
-    @required this.installAndroidStudio,
-    @required this.installIntelliJIDEA,
-    @required this.installGit,
-    @required this.flutterChannel,
+    required this.installationPath,
+    required this.installVisualStudioCode,
+    required this.installAndroidStudio,
+    required this.installIntelliJIDEA,
+    required this.installGit,
+    required this.flutterChannel,
   });
 
   UserChoice.defaultChoice({
@@ -61,12 +61,12 @@ class UserChoice {
   });
 
   UserChoice copyWith({
-    String installationPath,
-    bool installVisualStudioCode,
-    bool installAndroidStudio,
-    bool installIntelliJIDEA,
-    bool installGit,
-    FlutterChannel flutterChannel,
+    String? installationPath,
+    bool? installVisualStudioCode,
+    bool? installAndroidStudio,
+    bool? installIntelliJIDEA,
+    bool? installGit,
+    FlutterChannel? flutterChannel,
   }) {
     return UserChoice(
       installationPath: installationPath ?? this.installationPath,

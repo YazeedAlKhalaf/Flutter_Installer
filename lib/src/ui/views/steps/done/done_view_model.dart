@@ -4,10 +4,10 @@ import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
 class DoneViewModel extends CustomBaseViewModel {
-  final Utils _utils = locator<Utils>();
+  final Utils? _utils = locator<Utils>();
 
   Future<String> getStringFromFile(String path) async {
-    return await _utils.getStringFromFile(path);
+    return await _utils!.getStringFromFile(path);
   }
 
   Future<void> initialize() async {

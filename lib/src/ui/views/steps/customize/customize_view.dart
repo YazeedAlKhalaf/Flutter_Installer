@@ -11,12 +11,12 @@ import 'package:flutter_installer/src/ui/widgets/text_link.dart';
 import './customize_view_model.dart';
 
 class CustomizeView extends StatelessWidget {
-  final UserChoice userChoice;
+  final UserChoice? userChoice;
   final Function(UserChoice userChoice) onNextPressed;
 
   const CustomizeView({
     this.userChoice,
-    @required this.onNextPressed,
+    required this.onNextPressed,
   });
 
   @override
@@ -31,13 +31,13 @@ class CustomizeView extends StatelessWidget {
       builder: (
         BuildContext context,
         CustomizeViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         _buildCheckBoxTile({
-          @required String logoPath,
-          @required String appName,
-          @required bool value,
-          @required void Function(bool) onChanged,
+          required String logoPath,
+          required String appName,
+          required bool? value,
+          required void Function(bool?) onChanged,
         }) {
           return Expanded(
             child: CheckboxListTile(
@@ -241,7 +241,7 @@ class CustomizeView extends StatelessWidget {
                                                   value: FlutterChannel.stable,
                                                   groupValue:
                                                       model.flutterChannel,
-                                                  onChanged: (FlutterChannel
+                                                  onChanged: (FlutterChannel?
                                                       newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
@@ -269,7 +269,7 @@ class CustomizeView extends StatelessWidget {
                                                   value: FlutterChannel.beta,
                                                   groupValue:
                                                       model.flutterChannel,
-                                                  onChanged: (FlutterChannel
+                                                  onChanged: (FlutterChannel?
                                                       newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
@@ -297,7 +297,7 @@ class CustomizeView extends StatelessWidget {
                                                   value: FlutterChannel.dev,
                                                   groupValue:
                                                       model.flutterChannel,
-                                                  onChanged: (FlutterChannel
+                                                  onChanged: (FlutterChannel?
                                                       newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
@@ -347,7 +347,7 @@ class CustomizeView extends StatelessWidget {
                                 model.installationPath == null ||
                                 model.chooseFolderController.text.trim() ==
                                     '' ||
-                                model.installationPath.trim() == '') {
+                                model.installationPath!.trim() == '') {
                               model.setChooseFolderTextFieldHasError(true);
 
                               model.showSnackBar(

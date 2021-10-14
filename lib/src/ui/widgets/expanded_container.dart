@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ExpandedContainer extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
   const ExpandedContainer({
     this.child,

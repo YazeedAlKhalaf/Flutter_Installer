@@ -16,7 +16,7 @@ class HomeView extends StatelessWidget {
       builder: (
         BuildContext context,
         HomeViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         model.initializeWindowSize();
 

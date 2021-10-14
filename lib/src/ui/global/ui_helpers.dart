@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class _SizeConfig {
-  static MediaQueryData _mediaQueryData;
-  static double screenWidth;
-  static double screenHeight;
-  static double blockSizeHorizontal;
-  static double blockSizeVertical;
+  static late MediaQueryData _mediaQueryData;
+  static double? screenWidth;
+  static double? screenHeight;
+  static double? blockSizeHorizontal;
+  static double? blockSizeVertical;
 
-  static double _safeAreaHorizontal;
-  static double _safeAreaVertical;
+  static late double _safeAreaHorizontal;
+  static late double _safeAreaVertical;
   // ignore: unused_field
-  static double safeBlockHorizontal;
+  static double? safeBlockHorizontal;
   // ignore: unused_field
-  static double safeBlockVertical;
+  static double? safeBlockVertical;
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -23,28 +23,28 @@ class _SizeConfig {
         _mediaQueryData.padding.left + _mediaQueryData.padding.right;
     _safeAreaVertical =
         _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
-    safeBlockHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
-    safeBlockVertical = (screenHeight - _safeAreaVertical) / 100;
+    safeBlockHorizontal = (screenWidth! - _safeAreaHorizontal) / 100;
+    safeBlockVertical = (screenHeight! - _safeAreaVertical) / 100;
 
-    blockSizeHorizontal = (screenWidth - _safeAreaHorizontal) / 100;
-    blockSizeVertical = (screenHeight - _safeAreaVertical) / 100;
+    blockSizeHorizontal = (screenWidth! - _safeAreaHorizontal) / 100;
+    blockSizeVertical = (screenHeight! - _safeAreaVertical) / 100;
   }
 }
 
-double _blockSizeHorizontal(BuildContext context) {
+double? _blockSizeHorizontal(BuildContext context) {
   return _SizeConfig.blockSizeHorizontal;
 }
 
-double _blockSizeVertical(BuildContext context) {
+double? _blockSizeVertical(BuildContext context) {
   return _SizeConfig.blockSizeVertical;
 }
 
-double screenWidth(BuildContext context) {
+double? screenWidth(BuildContext context) {
   _SizeConfig().init(context);
   return _SizeConfig.screenWidth;
 }
 
-double screenHeight(BuildContext context) {
+double? screenHeight(BuildContext context) {
   _SizeConfig().init(context);
   return _SizeConfig.screenHeight;
 }
@@ -52,7 +52,7 @@ double screenHeight(BuildContext context) {
 double blockSize(BuildContext context) {
   _SizeConfig().init(context);
   double blockSize =
-      (_blockSizeVertical(context) + _blockSizeHorizontal(context) / 2);
+      (_blockSizeVertical(context)! + _blockSizeHorizontal(context)! / 2);
   return blockSize;
 }
 

@@ -9,13 +9,13 @@ class Scripts {
   final ScriptRelease dist;
 
   const Scripts({
-    @required this.appendToPath,
-    @required this.dist,
+    required this.appendToPath,
+    required this.dist,
   });
 
   Scripts copyWith({
-    ScriptRelease appendToPath,
-    ScriptRelease dist,
+    ScriptRelease? appendToPath,
+    ScriptRelease? dist,
   }) {
     return Scripts(
       appendToPath: appendToPath ?? this.appendToPath,

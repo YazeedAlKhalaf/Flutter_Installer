@@ -15,15 +15,15 @@ import 'package:flutter_installer/src/app/services/local_storage_service.dart';
 import 'package:flutter_installer/src/app/utils/constants.dart';
 import 'package:flutter_installer/src/app/utils/utils.dart';
 
-final Utils _utils = locator<Utils>();
-final LocalStorageService _localStorageService = locator<LocalStorageService>();
-final ApiService _apiService = locator<ApiService>();
-final SnackbarService _snackbarService = locator<SnackbarService>();
+final Utils? _utils = locator<Utils>();
+final LocalStorageService? _localStorageService = locator<LocalStorageService>();
+final ApiService? _apiService = locator<ApiService>();
+final SnackbarService? _snackbarService = locator<SnackbarService>();
 
-FlutterRelease flutterRelease;
-String archiveName;
-String tempDirName;
-String distroName;
+FlutterRelease? flutterRelease;
+String? archiveName;
+String? tempDirName;
+String? distroName;
 
 String appendToPathScriptName = "append-to-path.sh";
 Duration snackBarDuration = Duration(
@@ -31,12 +31,12 @@ Duration snackBarDuration = Duration(
 );
 
 Future<void> installOnMacOS({
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   logger.i('Install On macOS');
 
@@ -177,36 +177,36 @@ Future<void> installOnMacOS({
 }
 
 Future<void> _initializeVariables({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int seconds}) fakeDelay,
 }) async {
   setCurrentTaskText('Initializing');
   setPercentage(percentage);
 
-  flutterRelease = await _apiService.getLatestRelease(
+  flutterRelease = await _apiService!.getLatestRelease(
     flutterChannel: userChoice.flutterChannel,
     platform: FlutterReleasePlatform.macOS,
   );
 
-  archiveName = _utils.getAnythingAfterLastSlash(flutterRelease.archive);
+  archiveName = _utils!.getAnythingAfterLastSlash(flutterRelease!.archive!);
   logger.i('Archive Name: $archiveName');
-  tempDirName = 'flutter_installer_${_utils.randomString(5)}';
+  tempDirName = 'flutter_installer_${_utils!.randomString(5)}';
   logger.i('Temp Directory Name: $tempDirName');
 }
 
 /// create a `shell`
 Future<void> _createShell({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText('Creating shell');
   setPercentage(percentage);
@@ -216,29 +216,29 @@ Future<void> _createShell({
 
 /// `cd` into Temp directory
 Future<Shell> _cdToTempDirectory({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText('Changing directory to "temp"');
   setPercentage(percentage);
   await fakeDelay();
-  shell = shell.pushd(await _localStorageService.getTempDiretoryPath());
+  shell = shell.pushd(await (_localStorageService!.getTempDiretoryPath() as FutureOr<String>));
   logger.i('Change Directory to Temp');
   return shell;
 }
 
 /// create `flutter_installer` temp directory
 Future<void> _createFlutterInstallerTempDirectory({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText('Creating "$tempDirName" directory');
   setPercentage(percentage);
@@ -251,12 +251,12 @@ Future<void> _createFlutterInstallerTempDirectory({
 
 /// `cd` into `flutter_installer` directory
 Future<Shell> _cdToFlutterInstallerTempDirectory({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText('Changing directory to "$tempDirName"');
   setPercentage(percentage);
@@ -268,12 +268,12 @@ Future<Shell> _cdToFlutterInstallerTempDirectory({
 
 /// download Flutter SDK for macOS using `curl`
 Future<void> _downloadFlutterSdkForMacOSWithCurl({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     'Downloading Flutter SDK for macOS\n(This may take some time)',
@@ -281,25 +281,25 @@ Future<void> _downloadFlutterSdkForMacOSWithCurl({
   setPercentage(percentage);
   await fakeDelay();
   logger.i(
-    'Started Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+    'Started Download of \"$archiveName\" from \"${_apiService!.baseUrlForFlutterRelease}/${flutterRelease!.archive}\"',
   );
   await shell.run('''
-    curl -H \"User-Agent: ${Constants.flutterInstallerUserAgent}\" -o $archiveName \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"
+    curl -H \"User-Agent: ${Constants.flutterInstallerUserAgent}\" -o $archiveName \"${_apiService!.baseUrlForFlutterRelease}/${flutterRelease!.archive}\"
     ''');
   logger.i(
-    'Finished Download of \"$archiveName\" from \"${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}\"',
+    'Finished Download of \"$archiveName\" from \"${_apiService!.baseUrlForFlutterRelease}/${flutterRelease!.archive}\"',
   );
 }
 
 /// use `tar` to unzip the downloaded file
 Future<void> _upzipDownloadedFlutterSdkForMacOS({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     "Unzipping Flutter SDK to installation path\n(This might take some time)",
@@ -310,24 +310,24 @@ Future<void> _upzipDownloadedFlutterSdkForMacOS({
   /// sometimes it breaks of you don't wait
   await fakeDelay(seconds: 6);
   logger.i(
-    "Started Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}",
+    "Started Extracting of $archiveName from ${_apiService!.baseUrlForFlutterRelease}/${flutterRelease!.archive}",
   );
   await shell.run("""
-    tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
+    tar -xvf \"${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/$archiveName\" -C \"${userChoice.installationPath}\"
     """);
   logger.i(
-    "Finished Extracting of $archiveName from ${_apiService.baseUrlForFlutterRelease}/${flutterRelease.archive}",
+    "Finished Extracting of $archiveName from ${_apiService!.baseUrlForFlutterRelease}/${flutterRelease!.archive}",
   );
 }
 
 /// download `append-to-path.sh`
 Future<void> _downloadScriptForAddingFlutterToPath({
-  @required double percentage,
-  @required Logger logger,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     'Downloading Script for adding to PATH',
@@ -335,8 +335,8 @@ Future<void> _downloadScriptForAddingFlutterToPath({
   setPercentage(percentage);
   await fakeDelay();
   ScriptRelease appendToPathScriptRelease =
-      await _apiService.getLatestAppendToPathScript();
-  String appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
+      await _apiService!.getLatestAppendToPathScript();
+  String? appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
   logger.i(
     "Started Downloading of $appendToPathScriptName from $appendToPathScriptLink",
   );
@@ -350,13 +350,13 @@ Future<void> _downloadScriptForAddingFlutterToPath({
 
 /// add `flutter` to the `PATH`
 Future<void> _runAddFlutterToPathScript({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     'Adding Flutter SDK to the PATH',
@@ -365,7 +365,7 @@ Future<void> _runAddFlutterToPathScript({
   await fakeDelay();
   String flutterPath = "${userChoice.installationPath}/flutter/bin";
   await shell.run('''
-  osascript -e \'do shell script "bash ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath" with prompt "Flutter Installer needs administrator privileges to add Flutter to your PATH" with administrator privileges\'
+  osascript -e \'do shell script "bash ${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/$appendToPathScriptName $flutterPath" with prompt "Flutter Installer needs administrator privileges to add Flutter to your PATH" with administrator privileges\'
   ''');
   logger.i(
     "Added Flutter to PATH",
@@ -373,13 +373,13 @@ Future<void> _runAddFlutterToPathScript({
 }
 
 Future<void> _installGit({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   _downloadGit() async {
     /// install `git` for macOS
@@ -400,11 +400,11 @@ Future<void> _installGit({
   }
 
   try {
-    if (userChoice.installGit) {
+    if (userChoice.installGit!) {
       await _downloadGit();
     }
 
-    if (!userChoice.installGit) {
+    if (!userChoice.installGit!) {
       setCurrentTaskText(
         'Skipping Downloading Git for macOS',
       );
@@ -413,31 +413,31 @@ Future<void> _installGit({
     }
   } on ShellException catch (shellException) {
     logger.e(shellException);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: shellException.message,
     );
   } catch (exception) {
     logger.e(exception);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: "Something went wrong!",
     );
   }
 }
 
 Future<void> _installAndroidStudio({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   AppRelease androidStudioRelease =
-      await _apiService.getLatestAndroidStudioRelease();
-  String androidStudioName = _utils
-      .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos);
-  String androidStudioDownloadLink = androidStudioRelease.downloadLinks.macos;
+      await _apiService!.getLatestAndroidStudioRelease();
+  String? androidStudioName = _utils!
+      .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos!);
+  String? androidStudioDownloadLink = androidStudioRelease.downloadLinks.macos;
 
   _downloadAndroidStudio() async {
     /// download `Android Studio` for macOS
@@ -469,7 +469,7 @@ Future<void> _installAndroidStudio({
       'Started Android Studio Latest Version',
     );
     await shell.run('''
-    open \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$androidStudioName\"
+    open \"${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/$androidStudioName\"
     ''');
     logger.i(
       'Finished Android Studio Latest Version',
@@ -477,12 +477,12 @@ Future<void> _installAndroidStudio({
   }
 
   try {
-    if (userChoice.installAndroidStudio) {
+    if (userChoice.installAndroidStudio!) {
       await _downloadAndroidStudio();
       await _startAndroidStudio();
     }
 
-    if (!userChoice.installAndroidStudio) {
+    if (!userChoice.installAndroidStudio!) {
       setCurrentTaskText(
         'Skipping Downloading Android Studio Latest Version for macOS',
       );
@@ -491,31 +491,31 @@ Future<void> _installAndroidStudio({
     }
   } on ShellException catch (shellException) {
     logger.e(shellException);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: shellException.message,
     );
   } catch (exception) {
     logger.e(exception);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: "Something went wrong!",
     );
   }
 }
 
 Future<void> _installIntelliJIDEA({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   AppRelease intelliJIDEARelease =
-      await _apiService.getLatestIntelliJIDEARelease();
-  String intelliJIDEAName =
-      _utils.getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos);
-  String intelliJIDEADownloadLink = intelliJIDEARelease.downloadLinks.macos;
+      await _apiService!.getLatestIntelliJIDEARelease();
+  String? intelliJIDEAName =
+      _utils!.getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos!);
+  String? intelliJIDEADownloadLink = intelliJIDEARelease.downloadLinks.macos;
 
   _downloadIntelliJIDEA() async {
     /// download `IntelliJ IDEA` for macOS
@@ -547,7 +547,7 @@ Future<void> _installIntelliJIDEA({
       'Started IntelliJIDEA Latest Version',
     );
     await shell.run('''
-    open \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\"
+    open \"${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/$intelliJIDEAName\"
     ''');
     logger.i(
       'Finished IntelliJIDEA Latest Version',
@@ -555,12 +555,12 @@ Future<void> _installIntelliJIDEA({
   }
 
   try {
-    if (userChoice.installIntelliJIDEA) {
+    if (userChoice.installIntelliJIDEA!) {
       await _downloadIntelliJIDEA();
       await _startIntelliJIDEA();
     }
 
-    if (!userChoice.installIntelliJIDEA) {
+    if (!userChoice.installIntelliJIDEA!) {
       setCurrentTaskText(
         'Skipping Downloading IntelliJ IDEA Latest Version for macOS',
       );
@@ -569,29 +569,29 @@ Future<void> _installIntelliJIDEA({
     }
   } on ShellException catch (shellException) {
     logger.e(shellException);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: shellException.message,
     );
   } catch (exception) {
     logger.e(exception);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: "Something went wrong!",
     );
   }
 }
 
 Future<void> _installVisualStudioCode({
-  @required double percentage,
-  @required Logger logger,
-  @required UserChoice userChoice,
-  @required Shell shell,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required UserChoice userChoice,
+  required Shell shell,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   AppRelease visualStudioCodeRelease =
-      await _apiService.getLatestVisualStudioCodeRelease();
-  String visualStudioCodeDownloadLink =
+      await _apiService!.getLatestVisualStudioCodeRelease();
+  String? visualStudioCodeDownloadLink =
       visualStudioCodeRelease.downloadLinks.macos;
   String visualStudioCodeName = "code-stable-darwin.zip";
 
@@ -624,7 +624,7 @@ Future<void> _installVisualStudioCode({
       'Started Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
     );
     await shell.run('''
-      tar -xvf \"${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/$visualStudioCodeName\"
+      tar -xvf \"${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/vscode/$visualStudioCodeName\"
       ''');
     logger.i(
       'Finished Extracting of \"$visualStudioCodeName\" from \"$visualStudioCodeDownloadLink\"',
@@ -642,7 +642,7 @@ Future<void> _installVisualStudioCode({
       'Started Moving Visual Studio Code Latest Version',
     );
     await shell.run('''
-      osascript -e 'do shell script "cp -r ${await _localStorageService.getTempDiretoryPath()}/$tempDirName/vscode/.  ~/Applications" with prompt "Flutter Installer needs administrator privileges to be able to copy Visual Studio Code to Applications folder" with administrator privileges'
+      osascript -e 'do shell script "cp -r ${await _localStorageService!.getTempDiretoryPath()}/$tempDirName/vscode/.  ~/Applications" with prompt "Flutter Installer needs administrator privileges to be able to copy Visual Studio Code to Applications folder" with administrator privileges'
       ''');
     logger.i(
       'Finished Moving Visual Studio Code Latest Version',
@@ -650,13 +650,13 @@ Future<void> _installVisualStudioCode({
   }
 
   try {
-    if (userChoice.installVisualStudioCode) {
+    if (userChoice.installVisualStudioCode!) {
       await _downloadVisualStudioCode();
       await _unzipVisualStudioCode();
       await _moveVisualStudioCode();
     }
 
-    if (!userChoice.installVisualStudioCode) {
+    if (!userChoice.installVisualStudioCode!) {
       setCurrentTaskText(
         'Skipping Downloading Visual Studio Code Latest Version for macOS',
       );
@@ -666,7 +666,7 @@ Future<void> _installVisualStudioCode({
   } on ShellException catch (shellExecption) {
     if (shellExecption.message
         .contains("osascript -e \'do shell script \"cp -r /Users")) {
-      _snackbarService.showSnackbar(
+      _snackbarService!.showSnackbar(
         duration: snackBarDuration,
         message:
             'We couldn\'t get administrator privileges, copying Visual Studio Code to Applications folder failed!',
@@ -674,7 +674,7 @@ Future<void> _installVisualStudioCode({
     }
   } catch (exception) {
     logger.e(exception);
-    _snackbarService.showSnackbar(
+    _snackbarService!.showSnackbar(
       message: "Something went wrong!",
     );
   }
@@ -682,11 +682,11 @@ Future<void> _installVisualStudioCode({
 
 /// cleaning up
 Future<void> _cleanup({
-  @required double percentage,
-  @required Logger logger,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     'Cleaning Up!',
@@ -700,11 +700,11 @@ Future<void> _cleanup({
 
 /// Done 🚀😎
 Future<void> _runDone({
-  @required double percentage,
-  @required Logger logger,
-  @required Function(String taskText) setCurrentTaskText,
-  @required Function(double newPercentage) setPercentage,
-  @required Future<void> Function({int seconds}) fakeDelay,
+  required double percentage,
+  required Logger logger,
+  required Function(String taskText) setCurrentTaskText,
+  required Function(double newPercentage) setPercentage,
+  required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
   setCurrentTaskText(
     'You\'re Done! 🚀😎',

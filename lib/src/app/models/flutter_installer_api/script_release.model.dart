@@ -5,17 +5,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/download_links.model.dart';
 
 class ScriptRelease {
-  final String name;
+  final String? name;
   final DownloadLinks downloadLinks;
 
   const ScriptRelease({
-    @required this.name,
-    @required this.downloadLinks,
+    required this.name,
+    required this.downloadLinks,
   });
 
   ScriptRelease copyWith({
-    String name,
-    DownloadLinks downloadLinks,
+    String? name,
+    DownloadLinks? downloadLinks,
   }) {
     return ScriptRelease(
       name: name ?? this.name,

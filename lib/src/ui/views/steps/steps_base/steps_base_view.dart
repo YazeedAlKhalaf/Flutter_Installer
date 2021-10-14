@@ -21,7 +21,7 @@ class StepsBaseView extends StatelessWidget {
       builder: (
         BuildContext context,
         StepsBaseViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         _buildChangeThemeButtons() {
           return Row(

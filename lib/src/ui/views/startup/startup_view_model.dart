@@ -6,7 +6,7 @@ import 'package:flutter_installer/src/app/services/router_service.dart';
 import 'package:flutter_installer/src/ui/global/custom_base_view_model.dart';
 
 class StartupViewModel extends CustomBaseViewModel {
-  final RouterService _routerService = locator<RouterService>();
+  final RouterService? _routerService = locator<RouterService>();
 
   Future<void> handleStartup() async {
     Timer(
@@ -20,7 +20,7 @@ class StartupViewModel extends CustomBaseViewModel {
   }
 
   Future<void> navigateToHomeView() async {
-    await _routerService.router.pushAndPopUntil(
+    await _routerService!.router.pushAndPopUntil(
       HomeRoute(),
       predicate: (_) => false,
     );

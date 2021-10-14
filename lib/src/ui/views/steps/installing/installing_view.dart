@@ -15,12 +15,12 @@ import './installing_view_model.dart';
 class InstallingView extends StatelessWidget {
   final Function() onNextPressed;
   final Function() onCancelPressed;
-  final UserChoice userChoice;
+  final UserChoice? userChoice;
 
   const InstallingView({
-    @required this.onNextPressed,
-    @required this.onCancelPressed,
-    @required this.userChoice,
+    required this.onNextPressed,
+    required this.onCancelPressed,
+    required this.userChoice,
   });
 
   @override
@@ -44,7 +44,7 @@ class InstallingView extends StatelessWidget {
       builder: (
         BuildContext context,
         InstallingViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         return Scaffold(
           body: SafeArea(
@@ -72,14 +72,14 @@ class InstallingView extends StatelessWidget {
                       padding: EdgeInsets.all(blockSize(context) * 2),
                       child: LinearPercentIndicator(
                         lineHeight: 35,
-                        percent: model.percentage,
+                        percent: model.percentage!,
                         center: Text(
-                          "${(model.percentage * 100).toInt()}%",
+                          "${(model.percentage! * 100).toInt()}%",
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold,
                             fontSize: blockSize(context) * 2,
-                            color: model.percentage >= 0.5
+                            color: model.percentage! >= 0.5
                                 ? textColorWhite
                                 : textColorBlack,
                           ),
@@ -111,7 +111,7 @@ class InstallingView extends StatelessWidget {
                               }
 
                               List<Widget> getLines() {
-                                return snapshot.data.map(
+                                return snapshot.data!.map(
                                   (Line line) {
                                     return Text(
                                       line.text ?? '',
@@ -195,7 +195,7 @@ class InstallingView extends StatelessWidget {
                               }
                             },
                             isButtonDisabled:
-                                model.percentage >= 1.0 ? true : false,
+                                model.percentage! >= 1.0 ? true : false,
                           ),
                           !model.showLog
                               ? CustomButton(
@@ -213,7 +213,7 @@ class InstallingView extends StatelessWidget {
                                     }
                                   },
                                   isButtonDisabled:
-                                      model.percentage >= 1.0 ? true : false,
+                                      model.percentage! >= 1.0 ? true : false,
                                 )
                               : Container(),
                           CustomButton(
@@ -229,7 +229,7 @@ class InstallingView extends StatelessWidget {
                               onNextPressed();
                             },
                             isButtonDisabled:
-                                model.percentage >= 1.0 ? false : true,
+                                model.percentage! >= 1.0 ? false : true,
                           ),
                         ],
                       ),

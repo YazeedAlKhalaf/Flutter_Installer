@@ -16,7 +16,7 @@ class DoneView extends StatelessWidget {
   final Function onFinishPressed;
 
   const DoneView({
-    @required this.onFinishPressed,
+    required this.onFinishPressed,
   });
 
   @override
@@ -29,7 +29,7 @@ class DoneView extends StatelessWidget {
       builder: (
         BuildContext context,
         DoneViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         return Scaffold(
           body: SafeArea(
@@ -90,7 +90,7 @@ class DoneView extends StatelessWidget {
                               fontSize: blockSize(context) * 1.5,
                             ),
                           ),
-                          onTapLink: (String new1, String link, String new2) {
+                          onTapLink: (String new1, String? link, String new2) {
                             print(new1);
                             print(new2);
                             model.launchUrl(link);

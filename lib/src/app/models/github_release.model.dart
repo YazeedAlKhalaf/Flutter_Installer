@@ -5,54 +5,54 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_installer/src/app/models/github_release_asset.model.dart';
 
 class GithubRelease {
-  final String url;
-  final String assetsUrl;
-  final String uploadUrl;
-  final String htmlUrl;
-  final int id;
-  final String nodeId;
-  final String tagName;
-  final String targetCommitish;
-  final String name;
-  final bool draft;
+  final String? url;
+  final String? assetsUrl;
+  final String? uploadUrl;
+  final String? htmlUrl;
+  final int? id;
+  final String? nodeId;
+  final String? tagName;
+  final String? targetCommitish;
+  final String? name;
+  final bool? draft;
   // author
-  final bool prerelease;
-  final String createdAt;
-  final String publishedAt;
+  final bool? prerelease;
+  final String? createdAt;
+  final String? publishedAt;
   final List<GithubReleaseAsset> assets;
 
   const GithubRelease({
-    @required this.url,
-    @required this.assetsUrl,
-    @required this.uploadUrl,
-    @required this.htmlUrl,
-    @required this.id,
-    @required this.nodeId,
-    @required this.tagName,
-    @required this.targetCommitish,
-    @required this.name,
-    @required this.draft,
-    @required this.prerelease,
-    @required this.createdAt,
-    @required this.publishedAt,
-    @required this.assets,
+    required this.url,
+    required this.assetsUrl,
+    required this.uploadUrl,
+    required this.htmlUrl,
+    required this.id,
+    required this.nodeId,
+    required this.tagName,
+    required this.targetCommitish,
+    required this.name,
+    required this.draft,
+    required this.prerelease,
+    required this.createdAt,
+    required this.publishedAt,
+    required this.assets,
   });
 
   GithubRelease copyWith({
-    String url,
-    String assetsUrl,
-    String uploadUrl,
-    String htmlUrl,
-    int id,
-    String nodeId,
-    String tagName,
-    String targetCommitish,
-    String name,
-    bool draft,
-    bool prerelease,
-    String createdAt,
-    String publishedAt,
-    List<GithubReleaseAsset> assets,
+    String? url,
+    String? assetsUrl,
+    String? uploadUrl,
+    String? htmlUrl,
+    int? id,
+    String? nodeId,
+    String? tagName,
+    String? targetCommitish,
+    String? name,
+    bool? draft,
+    bool? prerelease,
+    String? createdAt,
+    String? publishedAt,
+    List<GithubReleaseAsset>? assets,
   }) {
     return GithubRelease(
       url: url ?? this.url,

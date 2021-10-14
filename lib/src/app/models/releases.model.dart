@@ -6,20 +6,20 @@ import 'package:flutter_installer/src/app/models/current_release.model.dart';
 import 'package:flutter_installer/src/app/models/flutter_release.model.dart';
 
 class Releases {
-  final String baseUrl;
+  final String? baseUrl;
   final CurrentRelease currentRelease;
   final List<FlutterRelease> releases;
 
   const Releases({
-    @required this.baseUrl,
-    @required this.currentRelease,
-    @required this.releases,
+    required this.baseUrl,
+    required this.currentRelease,
+    required this.releases,
   });
 
   Releases copyWith({
-    String baseUrl,
-    CurrentRelease currentRelease,
-    List<FlutterRelease> releases,
+    String? baseUrl,
+    CurrentRelease? currentRelease,
+    List<FlutterRelease>? releases,
   }) {
     return Releases(
       baseUrl: baseUrl ?? this.baseUrl,

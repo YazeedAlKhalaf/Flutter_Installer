@@ -14,8 +14,8 @@ class StepWidget extends StatelessWidget {
   final StepWidgetState stepState;
 
   const StepWidget({
-    @required this.stepName,
-    @required this.stepState,
+    required this.stepName,
+    required this.stepState,
   });
 
   @override

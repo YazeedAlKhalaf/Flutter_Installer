@@ -3,20 +3,20 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class CurrentRelease {
-  final String beta;
-  final String dev;
-  final String stable;
+  final String? beta;
+  final String? dev;
+  final String? stable;
 
   const CurrentRelease({
-    @required this.beta,
-    @required this.dev,
-    @required this.stable,
+    required this.beta,
+    required this.dev,
+    required this.stable,
   });
 
   CurrentRelease copyWith({
-    String beta,
-    String dev,
-    String stable,
+    String? beta,
+    String? dev,
+    String? stable,
   }) {
     return CurrentRelease(
       beta: beta ?? this.beta,

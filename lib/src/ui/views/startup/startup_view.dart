@@ -20,7 +20,7 @@ class _StartupViewState extends State<StartupView> {
       builder: (
         BuildContext context,
         StartupViewModel model,
-        Widget child,
+        Widget? child,
       ) {
         model.initializeWindowSize();
 

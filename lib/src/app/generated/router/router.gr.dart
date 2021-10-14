@@ -14,7 +14,7 @@ import 'package:flutter_installer/src/ui/views/steps/steps_base/steps_base_view.
     as _i6;
 
 class AppRouter extends _i1.RootStackRouter {
-  AppRouter([_i2.GlobalKey<_i2.NavigatorState> navigatorKey])
+  AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -62,7 +62,7 @@ class HomeRoute extends _i1.PageRouteInfo {
 }
 
 class FaqRoute extends _i1.PageRouteInfo<FaqRouteArgs> {
-  FaqRoute({dynamic Function() onBackPressed})
+  FaqRoute({dynamic Function()? onBackPressed})
       : super(name,
             path: '/faq', args: FaqRouteArgs(onBackPressed: onBackPressed));
 
@@ -72,7 +72,7 @@ class FaqRoute extends _i1.PageRouteInfo<FaqRouteArgs> {
 class FaqRouteArgs {
   const FaqRouteArgs({this.onBackPressed});
 
-  final dynamic Function() onBackPressed;
+  final dynamic Function()? onBackPressed;
 }
 
 class StepsBaseRoute extends _i1.PageRouteInfo {

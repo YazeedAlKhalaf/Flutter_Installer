@@ -10,7 +10,7 @@ import 'package:flutter_installer/src/ui/views/steps/summary/summary_view.dart';
 import 'package:flutter_installer/src/ui/widgets/step_widget.dart';
 
 class StepsBaseViewModel extends CustomBaseViewModel {
-  final RouterService _routerService = locator<RouterService>();
+  final RouterService? _routerService = locator<RouterService>();
 
   bool _showFAQView = false;
   bool get showFAQView => _showFAQView;
@@ -19,11 +19,11 @@ class StepsBaseViewModel extends CustomBaseViewModel {
     notifyListeners();
   }
 
-  UserChoice _userChoice;
-  UserChoice get userChoice => _userChoice;
+  UserChoice? _userChoice;
+  UserChoice? get userChoice => _userChoice;
 
-  int _currentIndex;
-  int get currentIndex => _currentIndex;
+  int? _currentIndex;
+  int? get currentIndex => _currentIndex;
   void setUserChoice(UserChoice newValue) {
     _userChoice = newValue;
     notifyListeners();
@@ -49,7 +49,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
       return StepWidgetState.Doing;
     }
 
-    if (_currentIndex > stepIndex) {
+    if (_currentIndex! > stepIndex) {
       return StepWidgetState.Done;
     }
 
@@ -99,7 +99,7 @@ class StepsBaseViewModel extends CustomBaseViewModel {
   }
 
   Future<void> navigateToHomeView() async {
-    await _routerService.router.pushAndPopUntil(
+    await _routerService!.router.pushAndPopUntil(
       HomeRoute(),
       predicate: (_) => false,
     );

@@ -44,12 +44,8 @@ dependencies:
   file_selector_windows: ^0.0.2+1
   file_selector_macos: ^0.0.4+1
   file_selector_linux: ^0.0.2+1
-  window_size:
-    git:
-      url: git://github.com/google/flutter-desktop-embedding.git
-      path: plugins/window_size
-      ref: 85dde09b702a0cb1f5e1392d2f030bdc3d4e5be3
   async: ^2.8.1
+  bitsdojo_window: ^0.1.1+1
 
 dev_dependencies:
   flutter_test:

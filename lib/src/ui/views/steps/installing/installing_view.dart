@@ -82,7 +82,7 @@ class InstallingView extends StatelessWidget {
                             color: model.percentage! >= 0.5 ? textColorWhite : textColorBlack,
                           ),
                         ),
-                        progressColor: Theme.of(context).accentColor,
+                        progressColor: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     Container(

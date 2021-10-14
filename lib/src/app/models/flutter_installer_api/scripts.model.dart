@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter_installer/src/app/models/flutter_installer_api/script_release.model.dart';
 
 class Scripts {
@@ -39,8 +37,7 @@ class Scripts {
 
   String toJson() => json.encode(toMap());
 
-  factory Scripts.fromJson(String source) =>
-      Scripts.fromMap(json.decode(source));
+  factory Scripts.fromJson(String source) => Scripts.fromMap(json.decode(source));
 
   @override
   String toString() => 'Scripts(appendToPath: $appendToPath, dist: $dist)';
@@ -49,9 +46,7 @@ class Scripts {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Scripts &&
-        other.appendToPath == appendToPath &&
-        other.dist == dist;
+    return other is Scripts && other.appendToPath == appendToPath && other.dist == dist;
   }
 
   @override

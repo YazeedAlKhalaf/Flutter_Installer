@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -88,15 +87,13 @@ class SummaryView extends StatelessWidget {
                                     left: blockSize(context) * 5,
                                   ),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[
                                       Text(
                                         userChoice!.installationPath != null
                                             ? '• Path: ' +
-                                                locator<Utils>()
-                                                    .clipTextFromMiddle(
+                                                locator<Utils>().clipTextFromMiddle(
                                                   userChoice!.installationPath!,
                                                 )
                                             : '• Path: Not Specified',

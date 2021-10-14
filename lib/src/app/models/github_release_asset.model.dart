@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class GithubReleaseAsset {
   final String? url;
   final int? id;
@@ -92,8 +90,7 @@ class GithubReleaseAsset {
 
   String toJson() => json.encode(toMap());
 
-  factory GithubReleaseAsset.fromJson(String source) =>
-      GithubReleaseAsset.fromMap(json.decode(source));
+  factory GithubReleaseAsset.fromJson(String source) => GithubReleaseAsset.fromMap(json.decode(source));
 
   @override
   String toString() {

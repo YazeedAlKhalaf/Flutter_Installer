@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter_installer/src/app/models/flutter_installer_api/app_release.mode.dart';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/scripts.model.dart';
 
@@ -72,9 +70,6 @@ class Latest {
 
   @override
   int get hashCode {
-    return androidStudio.hashCode ^
-        visualStudioCode.hashCode ^
-        intellijIdea.hashCode ^
-        scripts.hashCode;
+    return androidStudio.hashCode ^ visualStudioCode.hashCode ^ intellijIdea.hashCode ^ scripts.hashCode;
   }
 }

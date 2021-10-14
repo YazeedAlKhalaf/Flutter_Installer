@@ -26,20 +26,17 @@ class StepWidget extends StatelessWidget {
           return Icon(
             Icons.done,
             size: blockSize(context) * 3,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
           );
-          break;
         case StepWidgetState.Doing:
           return Icon(
             Icons.fiber_manual_record,
             size: blockSize(context) * 3,
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).colorScheme.secondary,
           );
-          break;
         case StepWidgetState.NotDone:
         default:
           return Container();
-          break;
       }
     }
 

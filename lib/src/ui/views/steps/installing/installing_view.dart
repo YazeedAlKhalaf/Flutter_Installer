@@ -79,9 +79,7 @@ class InstallingView extends StatelessWidget {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold,
                             fontSize: blockSize(context) * 2,
-                            color: model.percentage! >= 0.5
-                                ? textColorWhite
-                                : textColorBlack,
+                            color: model.percentage! >= 0.5 ? textColorWhite : textColorBlack,
                           ),
                         ),
                         progressColor: Theme.of(context).accentColor,
@@ -114,18 +112,16 @@ class InstallingView extends StatelessWidget {
                                 return snapshot.data!.map(
                                   (Line line) {
                                     return Text(
-                                      line.text ?? '',
+                                      line.text,
                                       style: line is ErrLine
                                           ? TextStyle(
                                               color: dangerColor,
-                                              fontSize:
-                                                  blockSize(context) * 1.3,
+                                              fontSize: blockSize(context) * 1.3,
                                               fontWeight: FontWeight.bold,
                                             )
                                           : TextStyle(
                                               color: textColorWhite,
-                                              fontSize:
-                                                  blockSize(context) * 1.3,
+                                              fontSize: blockSize(context) * 1.3,
                                             ),
                                     );
                                   },
@@ -149,15 +145,14 @@ class InstallingView extends StatelessWidget {
                                   ),
                                   child: ListView.builder(
                                     controller: model.scrollController,
-                                    itemCount: getLines().length ?? 0,
+                                    itemCount: getLines().length,
                                     itemBuilder: (
                                       BuildContext context,
                                       int index,
                                     ) {
                                       if (index != 0) {
                                         model.scrollController.animateTo(
-                                          model.scrollController.position
-                                              .maxScrollExtent,
+                                          model.scrollController.position.maxScrollExtent,
                                           duration: Duration(
                                             milliseconds: 200,
                                           ),
@@ -188,14 +183,12 @@ class InstallingView extends StatelessWidget {
                             buttonColor: dangerColor,
                             width: blockSize(context) * 15,
                             onPressed: () async {
-                              bool isSure =
-                                  await model.showCancelConfirmationDialog();
+                              bool isSure = await model.showCancelConfirmationDialog();
                               if (isSure) {
                                 await model.cancelableOperation.cancel();
                               }
                             },
-                            isButtonDisabled:
-                                model.percentage! >= 1.0 ? true : false,
+                            isButtonDisabled: model.percentage! >= 1.0 ? true : false,
                           ),
                           !model.showLog
                               ? CustomButton(
@@ -212,8 +205,7 @@ class InstallingView extends StatelessWidget {
                                       model.setShowLog(true);
                                     }
                                   },
-                                  isButtonDisabled:
-                                      model.percentage! >= 1.0 ? true : false,
+                                  isButtonDisabled: model.percentage! >= 1.0 ? true : false,
                                 )
                               : Container(),
                           CustomButton(
@@ -228,8 +220,7 @@ class InstallingView extends StatelessWidget {
                             onPressed: () {
                               onNextPressed();
                             },
-                            isButtonDisabled:
-                                model.percentage! >= 1.0 ? false : true,
+                            isButtonDisabled: model.percentage! >= 1.0 ? false : true,
                           ),
                         ],
                       ),

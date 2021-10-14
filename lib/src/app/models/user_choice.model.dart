@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 enum FlutterChannel {
   dev,
   beta,
@@ -70,8 +68,7 @@ class UserChoice {
   }) {
     return UserChoice(
       installationPath: installationPath ?? this.installationPath,
-      installVisualStudioCode:
-          installVisualStudioCode ?? this.installVisualStudioCode,
+      installVisualStudioCode: installVisualStudioCode ?? this.installVisualStudioCode,
       installAndroidStudio: installAndroidStudio ?? this.installAndroidStudio,
       installIntelliJIDEA: installIntelliJIDEA ?? this.installIntelliJIDEA,
       installGit: installGit ?? this.installGit,
@@ -103,8 +100,7 @@ class UserChoice {
 
   String toJson() => json.encode(toMap());
 
-  factory UserChoice.fromJson(String source) =>
-      UserChoice.fromMap(json.decode(source));
+  factory UserChoice.fromJson(String source) => UserChoice.fromMap(json.decode(source));
 
   @override
   String toString() {

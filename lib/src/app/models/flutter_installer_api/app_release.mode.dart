@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter_installer/src/app/models/flutter_installer_api/download_links.model.dart';
 
 class AppRelease {
@@ -45,12 +43,10 @@ class AppRelease {
 
   String toJson() => json.encode(toMap());
 
-  factory AppRelease.fromJson(String source) =>
-      AppRelease.fromMap(json.decode(source));
+  factory AppRelease.fromJson(String source) => AppRelease.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'AppRelease(name: $name, version: $version, downloadLinks: $downloadLinks)';
+  String toString() => 'AppRelease(name: $name, version: $version, downloadLinks: $downloadLinks)';
 
   @override
   bool operator ==(Object other) {

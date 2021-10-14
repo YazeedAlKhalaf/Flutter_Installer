@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 import 'package:process_run/shell.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -334,8 +332,7 @@ Future<void> _downloadScriptForAddingFlutterToPath({
   );
   setPercentage(percentage);
   await fakeDelay();
-  ScriptRelease appendToPathScriptRelease =
-      await _apiService!.getLatestAppendToPathScript();
+  ScriptRelease appendToPathScriptRelease = await _apiService!.getLatestAppendToPathScript();
   String? appendToPathScriptLink = appendToPathScriptRelease.downloadLinks.macos;
   logger.i(
     "Started Downloading of $appendToPathScriptName from $appendToPathScriptLink",
@@ -433,10 +430,8 @@ Future<void> _installAndroidStudio({
   required Function(double newPercentage) setPercentage,
   required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
-  AppRelease androidStudioRelease =
-      await _apiService!.getLatestAndroidStudioRelease();
-  String? androidStudioName = _utils!
-      .getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos!);
+  AppRelease androidStudioRelease = await _apiService!.getLatestAndroidStudioRelease();
+  String? androidStudioName = _utils!.getAnythingAfterLastSlash(androidStudioRelease.downloadLinks.macos!);
   String? androidStudioDownloadLink = androidStudioRelease.downloadLinks.macos;
 
   _downloadAndroidStudio() async {
@@ -511,10 +506,8 @@ Future<void> _installIntelliJIDEA({
   required Function(double newPercentage) setPercentage,
   required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
-  AppRelease intelliJIDEARelease =
-      await _apiService!.getLatestIntelliJIDEARelease();
-  String? intelliJIDEAName =
-      _utils!.getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos!);
+  AppRelease intelliJIDEARelease = await _apiService!.getLatestIntelliJIDEARelease();
+  String? intelliJIDEAName = _utils!.getAnythingAfterLastSlash(intelliJIDEARelease.downloadLinks.macos!);
   String? intelliJIDEADownloadLink = intelliJIDEARelease.downloadLinks.macos;
 
   _downloadIntelliJIDEA() async {
@@ -589,10 +582,8 @@ Future<void> _installVisualStudioCode({
   required Function(double newPercentage) setPercentage,
   required Future<void> Function({int? seconds}) fakeDelay,
 }) async {
-  AppRelease visualStudioCodeRelease =
-      await _apiService!.getLatestVisualStudioCodeRelease();
-  String? visualStudioCodeDownloadLink =
-      visualStudioCodeRelease.downloadLinks.macos;
+  AppRelease visualStudioCodeRelease = await _apiService!.getLatestVisualStudioCodeRelease();
+  String? visualStudioCodeDownloadLink = visualStudioCodeRelease.downloadLinks.macos;
   String visualStudioCodeName = "code-stable-darwin.zip";
 
   _downloadVisualStudioCode() async {
@@ -616,8 +607,7 @@ Future<void> _installVisualStudioCode({
 
   _unzipVisualStudioCode() async {
     /// use `tar` to unzip the downloaded file
-    setCurrentTaskText(
-        'Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
+    setCurrentTaskText('Unzipping Visual Studio Code Latest Version to installation path\n(This might take some time)');
     setPercentage(percentage + 0.01);
     await fakeDelay();
     logger.i(
@@ -664,12 +654,10 @@ Future<void> _installVisualStudioCode({
       await fakeDelay();
     }
   } on ShellException catch (shellExecption) {
-    if (shellExecption.message
-        .contains("osascript -e \'do shell script \"cp -r /Users")) {
+    if (shellExecption.message.contains("osascript -e \'do shell script \"cp -r /Users")) {
       _snackbarService!.showSnackbar(
         duration: snackBarDuration,
-        message:
-            'We couldn\'t get administrator privileges, copying Visual Studio Code to Applications folder failed!',
+        message: 'We couldn\'t get administrator privileges, copying Visual Studio Code to Applications folder failed!',
       );
     }
   } catch (exception) {

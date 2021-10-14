@@ -37,7 +37,7 @@ class _StartupViewState extends State<StartupView> {
                 verticalSpaceLarge(context),
                 CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation(
-                    Theme.of(context).accentColor,
+                    Theme.of(context).colorScheme.secondary,
                   ),
                 ),
               ],

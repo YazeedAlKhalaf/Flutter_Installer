@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class CurrentRelease {
   final String? beta;
   final String? dev;
@@ -43,21 +41,16 @@ class CurrentRelease {
 
   String toJson() => json.encode(toMap());
 
-  factory CurrentRelease.fromJson(String source) =>
-      CurrentRelease.fromMap(json.decode(source));
+  factory CurrentRelease.fromJson(String source) => CurrentRelease.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'CurrentRelease(beta: $beta, dev: $dev, stable: $stable)';
+  String toString() => 'CurrentRelease(beta: $beta, dev: $dev, stable: $stable)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is CurrentRelease &&
-        other.beta == beta &&
-        other.dev == dev &&
-        other.stable == stable;
+    return other is CurrentRelease && other.beta == beta && other.dev == dev && other.stable == stable;
   }
 
   @override

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 import 'package:flutter_installer/src/app/models/flutter_installer_api/latest.model.dart';
 
 class LatestRelease {
@@ -33,8 +31,7 @@ class LatestRelease {
 
   String toJson() => json.encode(toMap());
 
-  factory LatestRelease.fromJson(String source) =>
-      LatestRelease.fromMap(json.decode(source));
+  factory LatestRelease.fromJson(String source) => LatestRelease.fromMap(json.decode(source));
 
   @override
   String toString() => 'LatestRelease(latest: $latest)';

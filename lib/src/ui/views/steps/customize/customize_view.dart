@@ -41,7 +41,7 @@ class CustomizeView extends StatelessWidget {
         }) {
           return Expanded(
             child: CheckboxListTile(
-              activeColor: Theme.of(context).accentColor,
+              activeColor: Theme.of(context).colorScheme.secondary,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -108,18 +108,14 @@ class CustomizeView extends StatelessWidget {
                                 fontFamily: 'RobotoMono',
                                 fontSize: blockSize(context) * 1.5,
                                 fontWeight: FontWeight.bold,
-                                color: model.chooseFolderTextFieldHasError
-                                    ? dangerColor
-                                    : null,
+                                color: model.chooseFolderTextFieldHasError ? dangerColor : null,
                               ),
                             ),
                             style: TextStyle(
                               fontFamily: 'RobotoMono',
                               fontSize: blockSize(context) * 1.5,
                               fontWeight: FontWeight.bold,
-                              color: model.chooseFolderTextFieldHasError
-                                  ? dangerColor
-                                  : null,
+                              color: model.chooseFolderTextFieldHasError ? dangerColor : null,
                             ),
                             enabled: false,
                           ),
@@ -172,16 +168,13 @@ class CustomizeView extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     _buildCheckBoxTile(
-                                      logoPath:
-                                          'assets/images/app_logos/visual_studio_code_logo.png',
+                                      logoPath: 'assets/images/app_logos/visual_studio_code_logo.png',
                                       appName: 'VS Code',
                                       value: model.installVisualStudioCode,
-                                      onChanged:
-                                          model.setInstallVisualStudioCode,
+                                      onChanged: model.setInstallVisualStudioCode,
                                     ),
                                     _buildCheckBoxTile(
-                                      logoPath:
-                                          'assets/images/app_logos/android_studio_logo.png',
+                                      logoPath: 'assets/images/app_logos/android_studio_logo.png',
                                       appName: 'Android Studio',
                                       value: model.installAndroidStudio,
                                       onChanged: model.setInstallAndroidStudio,
@@ -191,15 +184,13 @@ class CustomizeView extends StatelessWidget {
                                 Row(
                                   children: <Widget>[
                                     _buildCheckBoxTile(
-                                      logoPath:
-                                          'assets/images/app_logos/intellij_idea_logo.png',
+                                      logoPath: 'assets/images/app_logos/intellij_idea_logo.png',
                                       appName: 'IntelliJ IDEA',
                                       value: model.installIntelliJIDEA,
                                       onChanged: model.setInstallIntelliJIDEA,
                                     ),
                                     _buildCheckBoxTile(
-                                      logoPath:
-                                          'assets/images/app_logos/git_logo.png',
+                                      logoPath: 'assets/images/app_logos/git_logo.png',
                                       appName: 'Git',
                                       value: model.installGit,
                                       onChanged: model.setInstallGit,
@@ -222,27 +213,20 @@ class CustomizeView extends StatelessWidget {
                                           Row(
                                             children: <Widget>[
                                               Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
+                                                child: RadioListTile<FlutterChannel>(
+                                                  activeColor: Theme.of(context).colorScheme.secondary,
                                                   title: Text(
                                                     'Stable',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontSize: blockSize(context) * 1.5,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                   value: FlutterChannel.stable,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel?
-                                                      newValue) {
+                                                  groupValue: model.flutterChannel,
+                                                  onChanged: (FlutterChannel? newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
                                                     );
@@ -250,27 +234,20 @@ class CustomizeView extends StatelessWidget {
                                                 ),
                                               ),
                                               Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
+                                                child: RadioListTile<FlutterChannel>(
+                                                  activeColor: Theme.of(context).colorScheme.secondary,
                                                   title: Text(
                                                     'Beta',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontSize: blockSize(context) * 1.5,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                   value: FlutterChannel.beta,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel?
-                                                      newValue) {
+                                                  groupValue: model.flutterChannel,
+                                                  onChanged: (FlutterChannel? newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
                                                     );
@@ -278,27 +255,20 @@ class CustomizeView extends StatelessWidget {
                                                 ),
                                               ),
                                               Expanded(
-                                                child: RadioListTile<
-                                                    FlutterChannel>(
-                                                  activeColor: Theme.of(context)
-                                                      .accentColor,
+                                                child: RadioListTile<FlutterChannel>(
+                                                  activeColor: Theme.of(context).colorScheme.secondary,
                                                   title: Text(
                                                     'Dev',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontFamily: 'RobotoMono',
-                                                      fontSize:
-                                                          blockSize(context) *
-                                                              1.5,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontSize: blockSize(context) * 1.5,
+                                                      fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
                                                   value: FlutterChannel.dev,
-                                                  groupValue:
-                                                      model.flutterChannel,
-                                                  onChanged: (FlutterChannel?
-                                                      newValue) {
+                                                  groupValue: model.flutterChannel,
+                                                  onChanged: (FlutterChannel? newValue) {
                                                     model.setFlutterChannel(
                                                       newValue,
                                                     );
@@ -311,9 +281,7 @@ class CustomizeView extends StatelessWidget {
                                       )
                                     : Container(),
                                 TextLink(
-                                  model.showAdvanced
-                                      ? 'Hide Advanced'
-                                      : 'Show Advanced',
+                                  model.showAdvanced ? 'Hide Advanced' : 'Show Advanced',
                                   style: TextStyle(
                                     color: textColorLink,
                                     fontFamily: 'RobotoMono',
@@ -343,17 +311,14 @@ class CustomizeView extends StatelessWidget {
                           ),
                           width: blockSize(context) * 15,
                           onPressed: () {
-                            if (model.chooseFolderController.text == null ||
-                                model.installationPath == null ||
-                                model.chooseFolderController.text.trim() ==
-                                    '' ||
+                            if (model.installationPath == null ||
+                                model.chooseFolderController.text.trim() == '' ||
                                 model.installationPath!.trim() == '') {
                               model.setChooseFolderTextFieldHasError(true);
 
                               model.showSnackBar(
                                 title: 'Error Occured',
-                                message:
-                                    'You have to choose an installation path!',
+                                message: 'You have to choose an installation path!',
                               );
 
                               return;
@@ -363,10 +328,8 @@ class CustomizeView extends StatelessWidget {
                             onNextPressed(
                               UserChoice(
                                 installationPath: model.installationPath,
-                                installVisualStudioCode:
-                                    model.installVisualStudioCode,
-                                installAndroidStudio:
-                                    model.installAndroidStudio,
+                                installVisualStudioCode: model.installVisualStudioCode,
+                                installAndroidStudio: model.installAndroidStudio,
                                 installIntelliJIDEA: model.installIntelliJIDEA,
                                 installGit: model.installGit,
                                 flutterChannel: model.flutterChannel,

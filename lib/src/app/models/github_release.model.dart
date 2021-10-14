@@ -87,7 +87,7 @@ class GithubRelease {
       'prerelease': prerelease,
       'created_at': createdAt,
       'published_at': publishedAt,
-      'assets': assets?.map((x) => x.toMap())?.toList(),
+      'assets': assets.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -106,15 +106,13 @@ class GithubRelease {
       prerelease: map['prerelease'],
       createdAt: map['created_at'],
       publishedAt: map['published_at'],
-      assets: List<GithubReleaseAsset>.from(
-          map['assets']?.map((x) => GithubReleaseAsset.fromMap(x))),
+      assets: List<GithubReleaseAsset>.from(map['assets']?.map((x) => GithubReleaseAsset.fromMap(x))),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory GithubRelease.fromJson(String source) =>
-      GithubRelease.fromMap(json.decode(source));
+  factory GithubRelease.fromJson(String source) => GithubRelease.fromMap(json.decode(source));
 
   @override
   String toString() {

@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class DownloadLinks {
   final String? windows;
   final String? linux;
@@ -43,21 +41,16 @@ class DownloadLinks {
 
   String toJson() => json.encode(toMap());
 
-  factory DownloadLinks.fromJson(String source) =>
-      DownloadLinks.fromMap(json.decode(source));
+  factory DownloadLinks.fromJson(String source) => DownloadLinks.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'DownloadLinks(windows: $windows, linux: $linux, macos: $macos)';
+  String toString() => 'DownloadLinks(windows: $windows, linux: $linux, macos: $macos)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is DownloadLinks &&
-        other.windows == windows &&
-        other.linux == linux &&
-        other.macos == macos;
+    return other is DownloadLinks && other.windows == windows && other.linux == linux && other.macos == macos;
   }
 
   @override

@@ -66,7 +66,6 @@ class StepsBaseViewModel extends CustomBaseViewModel {
             setUserChoice(userChoice);
           },
         );
-        break;
       case 1:
         return SummaryView(
           onBackPressed: () {
@@ -77,7 +76,6 @@ class StepsBaseViewModel extends CustomBaseViewModel {
           },
           userChoice: _userChoice,
         );
-        break;
       case 2:
         return InstallingView(
           onNextPressed: () {
@@ -88,12 +86,10 @@ class StepsBaseViewModel extends CustomBaseViewModel {
           },
           userChoice: _userChoice,
         );
-        break;
       case 3:
         return DoneView(
           onFinishPressed: () {},
         );
-        break;
       default:
     }
   }

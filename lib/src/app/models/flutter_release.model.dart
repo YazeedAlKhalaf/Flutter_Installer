@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-
 class FlutterRelease {
   final String? hash;
   final String? channel;
@@ -61,8 +59,7 @@ class FlutterRelease {
 
   String toJson() => json.encode(toMap());
 
-  factory FlutterRelease.fromJson(String source) =>
-      FlutterRelease.fromMap(json.decode(source));
+  factory FlutterRelease.fromJson(String source) => FlutterRelease.fromMap(json.decode(source));
 
   @override
   String toString() {

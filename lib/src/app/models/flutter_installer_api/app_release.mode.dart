@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_installer/src/app/models/flutter_installer_api/download_links.model.dart';
 
 class AppRelease {
-  final String? name;
-  final String? version;
+  final String name;
+  final String version;
   final DownloadLinks downloadLinks;
 
   const AppRelease({

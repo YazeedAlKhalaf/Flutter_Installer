@@ -10,9 +10,14 @@ dependencies:
   flutter:
     sdk: flutter
 
+  bloc: ^7.2.1
+  flutter_bloc: ^7.3.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  bloc_test: ^8.4.0
 
   flutter_lints: ^1.0.4
 

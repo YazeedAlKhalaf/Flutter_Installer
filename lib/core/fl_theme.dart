@@ -8,6 +8,9 @@ class FLTheme {
     subtitle2: TextStyle(
       fontFamily: "RobotoMono",
     ),
+    button: TextStyle(
+      color: Colors.white,
+    ),
   );
 
   static final ThemeData lightTheme = ThemeData(

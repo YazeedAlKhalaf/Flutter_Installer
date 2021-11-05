@@ -12,8 +12,11 @@ dependencies:
 
   bloc: ^7.2.1
   flutter_bloc: ^7.3.2
+  provider: ^6.0.1
 
   bitsdojo_window: ^0.1.1+1
+
+  auto_route: ^3.0.4
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +25,9 @@ dev_dependencies:
   bloc_test: ^8.4.0
 
   flutter_lints: ^1.0.4
+
+  build_runner: ^2.1.4
+  auto_route_generator: ^3.0.1
 
 flutter:
   uses-material-design: true

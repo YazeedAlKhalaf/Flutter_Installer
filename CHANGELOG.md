@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `subDir` when initializing Theme Mode Builder.
 - Started using `bloc` and `flutter_bloc` for state management.
 - `bitsdojo_window` for window management and making sure the size of the window does not change at all.
+- `auto_route` for routing.
+- `provider` for some injection, specifically the auto route generated class used for navigation.
 
 ### Removed
 

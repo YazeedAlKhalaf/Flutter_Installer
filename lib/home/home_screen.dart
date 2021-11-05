@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter_installer/core/fl_constants.dart';
+import 'package:flutter_installer/core/router/fi_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,6 +26,24 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              // const SizedBox(height: FLConstants.unit),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.end,
+              //   children: <Widget>[
+              //     TextButton.icon(
+              //       onPressed: () async {
+              //         await context.read<FIRouter>().push(const FaqRoute());
+              //       },
+              //       icon: const Icon(Icons.help_outline_rounded),
+              //       label: Text(
+              //         "FAQ",
+              //         style: Theme.of(context).textTheme.button?.copyWith(
+              //               color: Colors.black,
+              //             ),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const Spacer(),
               Image.asset(
                 'assets/images/flutter_installer_logo.png',
@@ -47,6 +68,17 @@ class HomeScreen extends StatelessWidget {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       ),
+                ),
+              ),
+              const SizedBox(height: FLConstants.unit),
+              TextButton.icon(
+                onPressed: () async {
+                  await context.read<FIRouter>().push(const FaqRoute());
+                },
+                icon: const Icon(Icons.help_outline_rounded),
+                label: Text(
+                  "FAQ",
+                  style: Theme.of(context).textTheme.button,
                 ),
               ),
               const Spacer(),

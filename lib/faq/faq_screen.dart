@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:flutter_installer/core/fl_constants.dart';
 import 'package:flutter_installer/core/models/models.dart';
+import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/faq/widgets/question_answer_tile.dart';
 
 class FaqScreen extends StatelessWidget {
@@ -31,7 +34,7 @@ class FaqScreen extends StatelessWidget {
                 ),
                 TextButton.icon(
                   onPressed: () async {
-                    // TODO(yazeedalkhalaf): navigate back with pop until with name.
+                    await context.read<FIRouter>().pop();
                   },
                   icon: const Icon(
                     Icons.arrow_back_rounded,
@@ -39,7 +42,9 @@ class FaqScreen extends StatelessWidget {
                   ),
                   label: Text(
                     "Back",
-                    style: Theme.of(context).textTheme.button,
+                    style: Theme.of(context).textTheme.button?.copyWith(
+                          color: Colors.white,
+                        ),
                   ),
                 ),
               ],

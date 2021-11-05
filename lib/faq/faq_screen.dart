@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_installer/core/fl_constants.dart';
+import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/models/models.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/faq/widgets/question_answer_tile.dart';
@@ -16,7 +16,7 @@ class FaqScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width / 5,
-            padding: const EdgeInsets.all(FLConstants.unit),
+            padding: const EdgeInsets.all(FIConstants.unit),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark,
             ),
@@ -52,10 +52,10 @@ class FaqScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: FLConstants.faqQuestionAnswerList.length,
+              itemCount: FIConstants.faqQuestionAnswerList.length,
               itemBuilder: (BuildContext context, int index) {
                 final FaqQuestionAnswer faqQuestionAnswer =
-                    FLConstants.faqQuestionAnswerList[index];
+                    FIConstants.faqQuestionAnswerList[index];
 
                 return QuestionAnswerTile(
                   question: faqQuestionAnswer.question,

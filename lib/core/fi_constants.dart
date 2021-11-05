@@ -1,6 +1,6 @@
 import 'package:flutter_installer/core/models/models.dart';
 
-class FLConstants {
+class FIConstants {
   static const double unit = 15;
 
   static const List<FaqQuestionAnswer> faqQuestionAnswerList =

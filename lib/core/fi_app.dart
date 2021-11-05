@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:flutter_installer/core/fi_window_border.dart';
-import 'package:flutter_installer/core/fl_theme.dart';
+import 'package:flutter_installer/core/fi_theme.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 
 class FIApp extends StatefulWidget {
@@ -28,7 +28,7 @@ class _FIAppState extends State<FIApp> {
       routerDelegate: _fiRouter.delegate(),
       routeInformationParser: _fiRouter.defaultRouteParser(),
       routeInformationProvider: _fiRouter.routeInfoProvider(),
-      theme: FLTheme.lightTheme,
+      theme: FITheme.lightTheme,
       builder: (BuildContext context, Widget? child) {
         return FLWindowBorder(
           child: MultiProvider(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_installer/core/fl_constants.dart';
+import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -54,10 +54,10 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: FLConstants.unit),
+              const SizedBox(height: FIConstants.unit),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(FLConstants.unit),
+                  padding: const EdgeInsets.all(FIConstants.unit),
                 ),
                 onPressed: () {
                   // TODO(yazeedalkhalaf): navigate to customization screen.
@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                 ),
               ),
-              const SizedBox(height: FLConstants.unit),
+              const SizedBox(height: FIConstants.unit),
               TextButton.icon(
                 onPressed: () async {
                   await context.read<FIRouter>().push(const FaqRoute());
@@ -92,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle2,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: FLConstants.unit),
+              const SizedBox(height: FIConstants.unit),
             ],
           ),
         ],

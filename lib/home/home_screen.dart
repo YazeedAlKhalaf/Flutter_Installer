@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                "Made With Flutter 💙",
+                "Made using Flutter 💙",
                 style: Theme.of(context).textTheme.subtitle2,
                 textAlign: TextAlign.center,
               ),

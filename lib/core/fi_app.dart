@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_installer/core/fi_window_border.dart';
 import 'package:flutter_installer/home/home_screen.dart';
 
 class FIApp extends StatelessWidget {
@@ -6,8 +7,11 @@ class FIApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
+    return MaterialApp(
+      home: const HomeScreen(),
+      builder: (BuildContext context, Widget? child) {
+        return FLWindowBorder(child: child!);
+      },
     );
   }
 }

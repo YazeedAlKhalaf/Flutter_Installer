@@ -13,6 +13,8 @@ dependencies:
   bloc: ^7.2.1
   flutter_bloc: ^7.3.2
 
+  bitsdojo_window: ^0.1.1+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

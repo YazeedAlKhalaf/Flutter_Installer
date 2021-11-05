@@ -7,6 +7,10 @@ import 'package:flutter_installer/core/router/fi_router.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  static Key flutterLogoKey = UniqueKey();
+  static Key flutterInstallerLogoKey = UniqueKey();
+  static Key faqButtonKey = UniqueKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +23,7 @@ class HomeScreen extends StatelessWidget {
               opacity: 0.15,
               child: Image.asset(
                 'assets/images/logo_flutter_1080px_clr.png',
+                key: HomeScreen.flutterLogoKey,
               ),
             ),
           ),
@@ -26,28 +31,11 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              // const SizedBox(height: FLConstants.unit),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.end,
-              //   children: <Widget>[
-              //     TextButton.icon(
-              //       onPressed: () async {
-              //         await context.read<FIRouter>().push(const FaqRoute());
-              //       },
-              //       icon: const Icon(Icons.help_outline_rounded),
-              //       label: Text(
-              //         "FAQ",
-              //         style: Theme.of(context).textTheme.button?.copyWith(
-              //               color: Colors.black,
-              //             ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               const Spacer(),
               Image.asset(
                 'assets/images/flutter_installer_logo.png',
                 width: 100,
+                key: HomeScreen.flutterInstallerLogoKey,
               ),
               Text(
                 "Flutter Installer",
@@ -72,6 +60,7 @@ class HomeScreen extends StatelessWidget {
               ),
               const SizedBox(height: FIConstants.unit),
               TextButton.icon(
+                key: faqButtonKey,
                 onPressed: () async {
                   await context.read<FIRouter>().push(const FaqRoute());
                 },

@@ -47,8 +47,10 @@ class HomeScreen extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(FIConstants.unit),
                 ),
-                onPressed: () {
-                  // TODO(yazeedalkhalaf): navigate to customization screen.
+                onPressed: () async {
+                  await context.read<FIRouter>().push(
+                        const CustomizeRoute(),
+                      );
                 },
                 child: Text(
                   "Get Started",

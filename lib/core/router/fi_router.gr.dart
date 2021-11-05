@@ -10,8 +10,8 @@
 
 part of 'fi_router.dart';
 
-class _$_FIRouter extends RootStackRouter {
-  _$_FIRouter([GlobalKey<NavigatorState>? navigatorKey]) : super(navigatorKey);
+class _$FIRouter extends RootStackRouter {
+  _$FIRouter([GlobalKey<NavigatorState>? navigatorKey]) : super(navigatorKey);
 
   @override
   final Map<String, PageFactory> pagesMap = {
@@ -22,13 +22,18 @@ class _$_FIRouter extends RootStackRouter {
     FaqRoute.name: (routeData) {
       return AdaptivePage<dynamic>(
           routeData: routeData, child: const FaqScreen());
+    },
+    CustomizeRoute.name: (routeData) {
+      return AdaptivePage<dynamic>(
+          routeData: routeData, child: const CustomizeScreen());
     }
   };
 
   @override
   List<RouteConfig> get routes => [
         RouteConfig(HomeRoute.name, path: '/'),
-        RouteConfig(FaqRoute.name, path: '/faq')
+        RouteConfig(FaqRoute.name, path: '/faq'),
+        RouteConfig(CustomizeRoute.name, path: '/customize')
       ];
 }
 
@@ -44,4 +49,11 @@ class FaqRoute extends PageRouteInfo<void> {
   const FaqRoute() : super(name, path: '/faq');
 
   static const String name = 'FaqRoute';
+}
+
+/// generated route for [CustomizeScreen]
+class CustomizeRoute extends PageRouteInfo<void> {
+  const CustomizeRoute() : super(name, path: '/customize');
+
+  static const String name = 'CustomizeRoute';
 }

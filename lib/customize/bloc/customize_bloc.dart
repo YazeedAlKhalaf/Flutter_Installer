@@ -22,6 +22,10 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
   ) {
     emit(const CustomizeState.unknown().copyWith(
       status: CustomizeStatus.initialized,
+      isVsCodeSelected: false,
+      isGitSelected: true,
+      isIntellijIdeaSelected: false,
+      isAndroidStudioSelected: false,
     ));
   }
 
@@ -58,6 +62,8 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
               event.isIntellijIdeaSelected ?? state.isIntellijIdeaSelected,
           isAndroidStudioSelected:
               event.isAndroidStudioSelected ?? state.isAndroidStudioSelected,
+          installationPath: state.installationPath,
+          installationPathError: state.installationPathError,
         ),
       );
     }

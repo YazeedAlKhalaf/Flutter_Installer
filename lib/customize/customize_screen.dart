@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
+import 'package:flutter_installer/core/router/fi_router.dart';
+import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:flutter_installer/customize/widgets/app_checkbox_tile.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +43,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             ),
             const SizedBox(height: FIConstants.unit),
             Text(
-              "Choose the installation path:",
+              "Choose the installation path: (required)",
               style: Theme.of(context).textTheme.headline6,
             ),
             Row(
@@ -90,7 +92,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
             ),
             const SizedBox(height: FIConstants.unit),
             Text(
-              "Choose apps you need:",
+              "Choose apps you need: (optional)",
               style: Theme.of(context).textTheme.headline6,
             ),
             BlocBuilder<CustomizeBloc, CustomizeState>(
@@ -98,7 +100,8 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                 CustomizeState oldState,
                 CustomizeState newState,
               ) {
-                return newState.status == CustomizeStatus.appClicked;
+                return newState.status == CustomizeStatus.appClicked ||
+                    newState.status == CustomizeStatus.initialized;
               },
               builder: (BuildContext context, CustomizeState state) {
                 return Row(
@@ -156,6 +159,22 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                       ),
                     ),
                   ],
+                );
+              },
+            ),
+            const Spacer(),
+            BlocBuilder<CustomizeBloc, CustomizeState>(
+              builder: (BuildContext context, CustomizeState state) {
+                return FIBackNextButtons(
+                  onBackPressed: () async {
+                    await context.read<FIRouter>().pop();
+                  },
+                  onNextPressed: state.installationPath == null
+                      ? null
+                      : () async {
+                          // TODO(yazeedalkhalaf): navigate to verify screen.
+                          // await context.read<FIRouter>().push();
+                        },
                 );
               },
             ),

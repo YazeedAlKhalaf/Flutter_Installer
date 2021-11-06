@@ -15,4 +15,16 @@ class CustomizeBrowseEvent extends CustomizeEvent {
   const CustomizeBrowseEvent();
 }
 
-class CustomizeAppClickedEvent extends CustomizeEvent {}
+class CustomizeAppClickedEvent extends CustomizeEvent {
+  const CustomizeAppClickedEvent({
+    this.isVsCodeSelected,
+    this.isGitSelected,
+    this.isIntellijIdeaSelected,
+    this.isAndroidStudioSelected,
+  });
+
+  final bool? isVsCodeSelected;
+  final bool? isGitSelected;
+  final bool? isIntellijIdeaSelected;
+  final bool? isAndroidStudioSelected;
+}

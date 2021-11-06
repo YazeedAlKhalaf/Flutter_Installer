@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:flutter_installer/customize/widgets/app_checkbox_tile.dart';
@@ -27,42 +28,137 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
       body: Padding(
         padding: const EdgeInsets.all(FIConstants.unit),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Customize",
+                  style: Theme.of(context).textTheme.headline3,
+                ),
+              ],
+            ),
+            const SizedBox(height: FIConstants.unit),
             Text(
-              "Customize",
-              style: Theme.of(context).textTheme.headline3,
+              "Choose the installation path:",
+              style: Theme.of(context).textTheme.headline6,
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                  child: AppCheckboxTile(
-                    title: "VS Code",
-                    value: true,
-                    onChanged: (_) {},
+                  flex: 5,
+                  child: BlocBuilder<CustomizeBloc, CustomizeState>(
+                    buildWhen: (
+                      CustomizeState oldState,
+                      CustomizeState newState,
+                    ) {
+                      return oldState.installationPath !=
+                          newState.installationPath;
+                    },
+                    builder: (BuildContext context, CustomizeState state) {
+                      return Text(
+                        state.installationPath ??
+                            "e.g. my_awesome_path/for/fluter",
+                        style: Theme.of(context).textTheme.subtitle1,
+                        overflow: TextOverflow.ellipsis,
+                      );
+                    },
                   ),
                 ),
                 Expanded(
-                  child: AppCheckboxTile(
-                    title: "Git",
-                    value: true,
-                    onChanged: (_) {},
-                  ),
-                ),
-                Expanded(
-                  child: AppCheckboxTile(
-                    title: "IntelliJ IDEA",
-                    value: true,
-                    onChanged: (_) {},
-                  ),
-                ),
-                Expanded(
-                  child: AppCheckboxTile(
-                    title: "Android Studio",
-                    value: true,
-                    onChanged: (_) {},
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<CustomizeBloc>().add(
+                            const CustomizeBrowseEvent(),
+                          );
+                    },
+                    child: Text(
+                      "Browse",
+                      style: Theme.of(context).textTheme.button?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: FIConstants.unit),
+            Text(
+              "Choose apps you need:",
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            BlocBuilder<CustomizeBloc, CustomizeState>(
+              buildWhen: (
+                CustomizeState oldState,
+                CustomizeState newState,
+              ) {
+                return oldState.isVsCodeSelected != newState.isVsCodeSelected ||
+                    oldState.isGitSelected != newState.isGitSelected ||
+                    oldState.isIntellijIdeaSelected !=
+                        newState.isIntellijIdeaSelected ||
+                    oldState.isAndroidStudioSelected !=
+                        newState.isAndroidStudioSelected;
+              },
+              builder: (BuildContext context, CustomizeState state) {
+                return Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: AppCheckboxTile(
+                        title: "VS Code",
+                        value: state.isVsCodeSelected ?? false,
+                        onChanged: (bool? newValue) {
+                          context.read<CustomizeBloc>().add(
+                                CustomizeAppClickedEvent(
+                                  isVsCodeSelected: newValue,
+                                ),
+                              );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: AppCheckboxTile(
+                        title: "Git",
+                        value: state.isGitSelected ?? false,
+                        onChanged: (bool? newValue) {
+                          context.read<CustomizeBloc>().add(
+                                CustomizeAppClickedEvent(
+                                  isGitSelected: newValue,
+                                ),
+                              );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: AppCheckboxTile(
+                        title: "IntelliJ IDEA",
+                        value: state.isIntellijIdeaSelected ?? false,
+                        onChanged: (bool? newValue) {
+                          context.read<CustomizeBloc>().add(
+                                CustomizeAppClickedEvent(
+                                  isIntellijIdeaSelected: newValue,
+                                ),
+                              );
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: AppCheckboxTile(
+                        title: "Android Studio",
+                        value: state.isAndroidStudioSelected ?? false,
+                        onChanged: (bool? newValue) {
+                          context.read<CustomizeBloc>().add(
+                                CustomizeAppClickedEvent(
+                                  isAndroidStudioSelected: newValue,
+                                ),
+                              );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),

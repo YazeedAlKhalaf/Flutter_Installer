@@ -3,6 +3,8 @@ part of 'customize_bloc.dart';
 enum CustomizeStatus {
   unknown,
   initialized,
+  appClicked,
+  browseClicked,
 }
 
 class CustomizeState extends Equatable {
@@ -13,6 +15,7 @@ class CustomizeState extends Equatable {
     this.isIntellijIdeaSelected,
     this.isAndroidStudioSelected,
     this.showAdvanced,
+    this.installationPath,
   });
 
   const CustomizeState.unknown()
@@ -28,6 +31,24 @@ class CustomizeState extends Equatable {
           isAndroidStudioSelected: false,
           showAdvanced: false,
         );
+  const CustomizeState.appClicked({
+    bool? isVsCodeSelected,
+    bool? isGitSelected,
+    bool? isIntellijIdeaSelected,
+    bool? isAndroidStudioSelected,
+  }) : this._(
+          status: CustomizeStatus.appClicked,
+          isVsCodeSelected: isVsCodeSelected,
+          isGitSelected: isGitSelected,
+          isIntellijIdeaSelected: isIntellijIdeaSelected,
+          isAndroidStudioSelected: isAndroidStudioSelected,
+        );
+  const CustomizeState.browseClicked({
+    required String installationPath,
+  }) : this._(
+          status: CustomizeStatus.browseClicked,
+          installationPath: installationPath,
+        );
 
   final CustomizeStatus status;
   final bool? isVsCodeSelected;
@@ -35,6 +56,7 @@ class CustomizeState extends Equatable {
   final bool? isIntellijIdeaSelected;
   final bool? isAndroidStudioSelected;
   final bool? showAdvanced;
+  final String? installationPath;
 
   @override
   List<Object?> get props => <Object?>[
@@ -44,5 +66,6 @@ class CustomizeState extends Equatable {
         isIntellijIdeaSelected,
         isAndroidStudioSelected,
         showAdvanced,
+        installationPath,
       ];
 }

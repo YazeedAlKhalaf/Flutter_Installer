@@ -172,8 +172,17 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                   onNextPressed: state.installationPath == null
                       ? null
                       : () async {
-                          // TODO(yazeedalkhalaf): navigate to verify screen.
-                          // await context.read<FIRouter>().push();
+                          await context.read<FIRouter>().push(
+                                VerifyRoute(
+                                  installationPath: state.installationPath!,
+                                  isVsCodeSelected: state.isVsCodeSelected!,
+                                  isGitSelected: state.isGitSelected!,
+                                  isIntellijIdeaSelected:
+                                      state.isIntellijIdeaSelected!,
+                                  isAndroidStudioSelected:
+                                      state.isAndroidStudioSelected!,
+                                ),
+                              );
                         },
                 );
               },

@@ -1,11 +1,16 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_installer/core/repository/file_system_repository.dart';
 
 part 'customize_event.dart';
 part 'customize_state.dart';
 
 class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
-  CustomizeBloc() : super(const CustomizeState.unknown()) {
+  final FileSystemRepository fileSystemRepository;
+
+  CustomizeBloc({
+    required this.fileSystemRepository,
+  }) : super(const CustomizeState.unknown()) {
     on<CustomizeInitializeEvent>(_onCustomizeInitializeEvent);
     on<CustomizeBrowseEvent>(_onCustomizeBrowseEvent);
     on<CustomizeAppClickedEvent>(_onCustomizeAppClickedEvent);
@@ -15,16 +20,24 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
     CustomizeInitializeEvent event,
     Emitter<CustomizeState> emit,
   ) {
-    emit(const CustomizeState.initialized());
+    emit(const CustomizeState.unknown().copyWith(
+      status: CustomizeStatus.initialized,
+    ));
   }
 
   void _onCustomizeBrowseEvent(
     CustomizeBrowseEvent event,
     Emitter<CustomizeState> emit,
-  ) {
-    // TODO: call browse from
-    emit(const CustomizeState.browseClicked(
-      installationPath: "the best installation path ever for flutter",
+  ) async {
+    final String? chosenPath = await fileSystemRepository.getDirectoryPath();
+
+    emit(state.copyWith(
+      status: CustomizeStatus.browseClicked,
+      installationPath: chosenPath ?? state.installationPath,
+      installationPathError:
+          chosenPath == null && state.installationPath == null
+              ? "You must choose an installation path!"
+              : null,
     ));
   }
 
@@ -37,7 +50,8 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
         event.isIntellijIdeaSelected != null ||
         event.isAndroidStudioSelected != null) {
       emit(
-        CustomizeState.appClicked(
+        state.copyWith(
+          status: CustomizeStatus.appClicked,
           isVsCodeSelected: event.isVsCodeSelected ?? state.isVsCodeSelected,
           isGitSelected: event.isGitSelected ?? state.isGitSelected,
           isIntellijIdeaSelected:

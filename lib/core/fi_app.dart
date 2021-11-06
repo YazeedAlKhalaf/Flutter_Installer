@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:provider/provider.dart';
 
-import 'package:flutter_installer/core/fi_window_border.dart';
 import 'package:flutter_installer/core/fi_theme.dart';
+import 'package:flutter_installer/core/fi_window_border.dart';
+import 'package:flutter_installer/core/repository/repository.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
+import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 
 class FIApp extends StatefulWidget {
   const FIApp({Key? key}) : super(key: key);
@@ -37,17 +38,23 @@ class _FIAppState extends State<FIApp> {
             providers: [
               ChangeNotifierProvider<FIRouter>.value(value: _fiRouter),
             ],
-            child: MultiBlocProvider(
-              providers: [
-                BlocProvider<CustomizeBloc>(
-                  create: (BuildContext context) {
-                    final CustomizeBloc customizeBloc = CustomizeBloc();
-                    customizeBloc.add(const CustomizeInitializeEvent());
-                    return customizeBloc;
-                  },
-                ),
-              ],
-              child: child!,
+            child: RepositoryProvider<FileSystemRepository>(
+              create: (BuildContext context) => FileSystemRepository(),
+              child: MultiBlocProvider(
+                providers: [
+                  BlocProvider<CustomizeBloc>(
+                    create: (BuildContext context) {
+                      final CustomizeBloc customizeBloc = CustomizeBloc(
+                        fileSystemRepository:
+                            context.read<FileSystemRepository>(),
+                      );
+                      customizeBloc.add(const CustomizeInitializeEvent());
+                      return customizeBloc;
+                    },
+                  ),
+                ],
+                child: child!,
+              ),
             ),
           ),
         );

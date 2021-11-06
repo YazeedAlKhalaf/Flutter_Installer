@@ -53,14 +53,18 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                       CustomizeState oldState,
                       CustomizeState newState,
                     ) {
-                      return oldState.installationPath !=
-                          newState.installationPath;
+                      return newState.status == CustomizeStatus.browseClicked;
                     },
                     builder: (BuildContext context, CustomizeState state) {
                       return Text(
-                        state.installationPath ??
+                        state.installationPathError ??
+                            state.installationPath ??
                             "e.g. my_awesome_path/for/fluter",
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                              color: state.installationPathError != null
+                                  ? Colors.red
+                                  : null,
+                            ),
                         overflow: TextOverflow.ellipsis,
                       );
                     },
@@ -94,12 +98,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                 CustomizeState oldState,
                 CustomizeState newState,
               ) {
-                return oldState.isVsCodeSelected != newState.isVsCodeSelected ||
-                    oldState.isGitSelected != newState.isGitSelected ||
-                    oldState.isIntellijIdeaSelected !=
-                        newState.isIntellijIdeaSelected ||
-                    oldState.isAndroidStudioSelected !=
-                        newState.isAndroidStudioSelected;
+                return newState.status == CustomizeStatus.appClicked;
               },
               builder: (BuildContext context, CustomizeState state) {
                 return Row(

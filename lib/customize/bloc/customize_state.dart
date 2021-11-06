@@ -20,35 +20,6 @@ class CustomizeState extends Equatable {
   });
 
   const CustomizeState.unknown() : this._(status: CustomizeStatus.unknown);
-  // const CustomizeState.initialized()
-  //     : this._(
-  //         status: CustomizeStatus.initialized,
-  //         isVsCodeSelected: false,
-  //         isGitSelected: false,
-  //         isIntellijIdeaSelected: false,
-  //         isAndroidStudioSelected: false,
-  //         showAdvanced: false,
-  //       );
-  // const CustomizeState.appClicked({
-  //   bool? isVsCodeSelected,
-  //   bool? isGitSelected,
-  //   bool? isIntellijIdeaSelected,
-  //   bool? isAndroidStudioSelected,
-  // }) : this._(
-  //         status: CustomizeStatus.appClicked,
-  //         isVsCodeSelected: isVsCodeSelected,
-  //         isGitSelected: isGitSelected,
-  //         isIntellijIdeaSelected: isIntellijIdeaSelected,
-  //         isAndroidStudioSelected: isAndroidStudioSelected,
-  //       );
-  // const CustomizeState.browseClicked({
-  //   String? installationPath,
-  //   String? installationPathError,
-  // }) : this._(
-  //         status: CustomizeStatus.browseClicked,
-  //         installationPath: installationPath,
-  //         installationPathError: installationPathError,
-  //       );
 
   final CustomizeStatus status;
   final bool? isVsCodeSelected;

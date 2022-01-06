@@ -16,7 +16,7 @@ class FaqScreen extends StatelessWidget {
         children: <Widget>[
           Container(
             width: MediaQuery.of(context).size.width / 5,
-            padding: const EdgeInsets.all(FIConstants.unit),
+            padding: const EdgeInsets.all(FiConstants.unit),
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColorDark,
             ),
@@ -52,10 +52,10 @@ class FaqScreen extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemCount: FIConstants.faqQuestionAnswerList.length,
+              itemCount: FiConstants.faqQuestionAnswerList.length,
               itemBuilder: (BuildContext context, int index) {
                 final FaqQuestionAnswer faqQuestionAnswer =
-                    FIConstants.faqQuestionAnswerList[index];
+                    FiConstants.faqQuestionAnswerList[index];
 
                 return QuestionAnswerTile(
                   question: faqQuestionAnswer.question,

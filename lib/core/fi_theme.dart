@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FITheme {
+class FiTheme {
   static const TextTheme _textTheme = TextTheme(
     subtitle1: TextStyle(
       fontFamily: "RobotoMono",

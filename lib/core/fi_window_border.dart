@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart' as bitsdojo_window;
 import 'package:flutter/material.dart';
 
-class FLWindowBorder extends StatelessWidget {
-  const FLWindowBorder({
+class FiWindowBorder extends StatelessWidget {
+  const FiWindowBorder({
     Key? key,
     required this.child,
   }) : super(key: key);

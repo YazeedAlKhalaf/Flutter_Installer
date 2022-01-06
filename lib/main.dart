@@ -4,7 +4,7 @@ import 'package:flutter_installer/core/fi_app.dart';
 
 void main() {
   runApp(
-    const FIApp(),
+    const FiApp(),
   );
 
   bitsdojo_window.doWhenWindowReady(() {

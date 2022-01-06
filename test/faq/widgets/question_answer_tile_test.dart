@@ -14,36 +14,41 @@ void main() {
     );
   }
 
-  testWidgets(
-    "should render correctly.",
-    (WidgetTester tester) async {
-      await tester.pumpWidget(buildQuestionAnswerTile());
+  group(
+    "QuestionAnswerTile |",
+    () {
+      testWidgets(
+        "should render correctly.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildQuestionAnswerTile());
 
-      expect(find.byType(QuestionAnswerTile), findsOneWidget);
-    },
-  );
-
-  testWidgets(
-    "should find question text.",
-    (WidgetTester tester) async {
-      await tester.pumpWidget(buildQuestionAnswerTile());
-
-      final Finder questionTextFinder = find.text(
-        "Q: question",
+          expect(find.byType(QuestionAnswerTile), findsOneWidget);
+        },
       );
-      expect(questionTextFinder, findsOneWidget);
-    },
-  );
 
-  testWidgets(
-    "should find answer text.",
-    (WidgetTester tester) async {
-      await tester.pumpWidget(buildQuestionAnswerTile());
+      testWidgets(
+        "should find question text.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildQuestionAnswerTile());
 
-      final Finder answerTextFinder = find.text(
-        "A: answer",
+          final Finder questionTextFinder = find.text(
+            "Q: question",
+          );
+          expect(questionTextFinder, findsOneWidget);
+        },
       );
-      expect(answerTextFinder, findsOneWidget);
+
+      testWidgets(
+        "should find answer text.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildQuestionAnswerTile());
+
+          final Finder answerTextFinder = find.text(
+            "A: answer",
+          );
+          expect(answerTextFinder, findsOneWidget);
+        },
+      );
     },
   );
 }

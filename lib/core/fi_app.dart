@@ -8,14 +8,14 @@ import 'package:flutter_installer/core/repository/repository.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 
-class FIApp extends StatefulWidget {
-  const FIApp({Key? key}) : super(key: key);
+class FiApp extends StatefulWidget {
+  const FiApp({Key? key}) : super(key: key);
 
   @override
-  State<FIApp> createState() => _FIAppState();
+  State<FiApp> createState() => _FiAppState();
 }
 
-class _FIAppState extends State<FIApp> {
+class _FiAppState extends State<FiApp> {
   late FIRouter _fiRouter;
 
   @override
@@ -31,9 +31,9 @@ class _FIAppState extends State<FIApp> {
       routerDelegate: _fiRouter.delegate(),
       routeInformationParser: _fiRouter.defaultRouteParser(),
       routeInformationProvider: _fiRouter.routeInfoProvider(),
-      theme: FITheme.lightTheme,
+      theme: FiTheme.lightTheme,
       builder: (BuildContext context, Widget? child) {
-        return FLWindowBorder(
+        return FiWindowBorder(
           child: MultiProvider(
             providers: [
               ChangeNotifierProvider<FIRouter>.value(value: _fiRouter),

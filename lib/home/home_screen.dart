@@ -42,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline4,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: FIConstants.unit),
+              const SizedBox(height: FiConstants.unit),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(FIConstants.unit),
+                  padding: const EdgeInsets.all(FiConstants.unit),
                 ),
                 onPressed: () async {
                   await context.read<FIRouter>().push(
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                 ),
               ),
-              const SizedBox(height: FIConstants.unit),
+              const SizedBox(height: FiConstants.unit),
               TextButton.icon(
                 key: faqButtonKey,
                 onPressed: () async {
@@ -83,7 +83,7 @@ class HomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.subtitle2,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: FIConstants.unit),
+              const SizedBox(height: FiConstants.unit),
             ],
           ),
         ],

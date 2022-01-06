@@ -5,7 +5,6 @@ import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:flutter_installer/customize/widgets/app_checkbox_tile.dart';
-import 'package:provider/provider.dart';
 
 class CustomizeScreen extends StatefulWidget {
   const CustomizeScreen({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(FIConstants.unit),
+        padding: const EdgeInsets.all(FiConstants.unit),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -41,7 +40,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: FIConstants.unit),
+            const SizedBox(height: FiConstants.unit),
             Text(
               "Choose the installation path: (required)",
               style: Theme.of(context).textTheme.headline6,
@@ -90,7 +89,7 @@ class _CustomizeScreenState extends State<CustomizeScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: FIConstants.unit),
+            const SizedBox(height: FiConstants.unit),
             Text(
               "Choose apps you need: (optional)",
               style: Theme.of(context).textTheme.headline6,

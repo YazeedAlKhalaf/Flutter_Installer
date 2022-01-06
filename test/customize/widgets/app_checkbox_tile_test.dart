@@ -17,23 +17,28 @@ void main() {
     );
   }
 
-  testWidgets(
-    "should render correctly.",
-    (WidgetTester tester) async {
-      await tester.pumpWidget(buildAppCheckboxTile());
+  group(
+    "AppCheckboxTile |",
+    () {
+      testWidgets(
+        "should render correctly.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildAppCheckboxTile());
 
-      expect(find.byType(AppCheckboxTile), findsOneWidget);
-    },
-  );
+          expect(find.byType(AppCheckboxTile), findsOneWidget);
+        },
+      );
 
-  testWidgets(
-    "should find one app check box tile and press it.",
-    (WidgetTester tester) async {
-      await tester.pumpWidget(buildAppCheckboxTile());
+      testWidgets(
+        "should find one app check box tile and press it.",
+        (WidgetTester tester) async {
+          await tester.pumpWidget(buildAppCheckboxTile());
 
-      expect(find.byType(AppCheckboxTile), findsOneWidget);
+          expect(find.byType(AppCheckboxTile), findsOneWidget);
 
-      await tester.tap(find.byType(AppCheckboxTile));
+          await tester.tap(find.byType(AppCheckboxTile));
+        },
+      );
     },
   );
 }

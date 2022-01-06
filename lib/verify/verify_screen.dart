@@ -26,7 +26,7 @@ class VerifyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(FIConstants.unit),
+        padding: const EdgeInsets.all(FiConstants.unit),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -39,7 +39,7 @@ class VerifyScreen extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: FIConstants.unit),
+            const SizedBox(height: FiConstants.unit),
             Text(
               "🔵 This is a summary of what will be downloaded & installed:",
               style: Theme.of(context).textTheme.headline6,

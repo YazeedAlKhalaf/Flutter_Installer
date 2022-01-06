@@ -7,6 +7,8 @@
 // **************************************************************************
 // AutoRouteGenerator
 // **************************************************************************
+//
+// ignore_for_file: type=lint
 
 part of 'fi_router.dart';
 
@@ -50,28 +52,32 @@ class _$FIRouter extends RootStackRouter {
       ];
 }
 
-/// generated route for [HomeScreen]
+/// generated route for
+/// [HomeScreen]
 class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(name, path: '/');
+  const HomeRoute() : super(HomeRoute.name, path: '/');
 
   static const String name = 'HomeRoute';
 }
 
-/// generated route for [FaqScreen]
+/// generated route for
+/// [FaqScreen]
 class FaqRoute extends PageRouteInfo<void> {
-  const FaqRoute() : super(name, path: '/faq');
+  const FaqRoute() : super(FaqRoute.name, path: '/faq');
 
   static const String name = 'FaqRoute';
 }
 
-/// generated route for [CustomizeScreen]
+/// generated route for
+/// [CustomizeScreen]
 class CustomizeRoute extends PageRouteInfo<void> {
-  const CustomizeRoute() : super(name, path: '/customize');
+  const CustomizeRoute() : super(CustomizeRoute.name, path: '/customize');
 
   static const String name = 'CustomizeRoute';
 }
 
-/// generated route for [VerifyScreen]
+/// generated route for
+/// [VerifyScreen]
 class VerifyRoute extends PageRouteInfo<VerifyRouteArgs> {
   VerifyRoute(
       {Key? key,
@@ -80,7 +86,7 @@ class VerifyRoute extends PageRouteInfo<VerifyRouteArgs> {
       required bool isGitSelected,
       required bool isIntellijIdeaSelected,
       required bool isAndroidStudioSelected})
-      : super(name,
+      : super(VerifyRoute.name,
             path: '/verify',
             args: VerifyRouteArgs(
                 key: key,
@@ -113,4 +119,9 @@ class VerifyRouteArgs {
   final bool isIntellijIdeaSelected;
 
   final bool isAndroidStudioSelected;
+
+  @override
+  String toString() {
+    return 'VerifyRouteArgs{key: $key, installationPath: $installationPath, isVsCodeSelected: $isVsCodeSelected, isGitSelected: $isGitSelected, isIntellijIdeaSelected: $isIntellijIdeaSelected, isAndroidStudioSelected: $isAndroidStudioSelected}';
+  }
 }

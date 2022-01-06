@@ -1,0 +1,52 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  style:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Dart Analyzer"
+        run: dart analyze . --fatal-infos
+      - name: "Formatting Check"
+        run: |
+          flutter format .
+          ./.github/workflows/scripts/validate-formatting.sh
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: "Install Flutter"
+        run: ./.github/workflows/scripts/install-flutter.sh stable
+      - name: "Install Tools"
+        run: ./.github/workflows/scripts/install-tools.sh
+      - name: "Create Coverage Workaround"
+        run: ./.github/workflows/scripts/create-coverage-workaround.sh flutter_installer
+      - name: "Install lcov"
+        run: sudo apt install lcov -y
+      - name: "Run Tests"
+        run: flutter test --coverage
+      - name: "Clean Coverage"
+        run: ./.github/workflows/scripts/clean-coverage.sh
+      - name: "Upload test coverage to Codecov"
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage/lcov.info

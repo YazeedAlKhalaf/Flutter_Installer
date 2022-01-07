@@ -20,13 +20,15 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
     CustomizeInitializeEvent event,
     Emitter<CustomizeState> emit,
   ) {
-    emit(const CustomizeState.unknown().copyWith(
-      status: CustomizeStatus.initialized,
-      isVsCodeSelected: false,
-      isGitSelected: true,
-      isIntellijIdeaSelected: false,
-      isAndroidStudioSelected: false,
-    ));
+    emit(
+      const CustomizeState.unknown().copyWith(
+        status: CustomizeStatus.initialized,
+        isVsCodeSelected: false,
+        isGitSelected: true,
+        isIntellijIdeaSelected: false,
+        isAndroidStudioSelected: false,
+      ),
+    );
   }
 
   void _onCustomizeBrowseEvent(
@@ -35,14 +37,16 @@ class CustomizeBloc extends Bloc<CustomizeEvent, CustomizeState> {
   ) async {
     final String? chosenPath = await fileSystemRepository.getDirectoryPath();
 
-    emit(state.copyWith(
-      status: CustomizeStatus.browseClicked,
-      installationPath: chosenPath ?? state.installationPath,
-      installationPathError:
-          chosenPath == null && state.installationPath == null
-              ? "You must choose an installation path!"
-              : null,
-    ));
+    emit(
+      state.copyWith(
+        status: CustomizeStatus.browseClicked,
+        installationPath: chosenPath ?? state.installationPath,
+        installationPathError:
+            chosenPath == null && state.installationPath == null
+                ? "You must choose an installation path!"
+                : null,
+      ),
+    );
   }
 
   void _onCustomizeAppClickedEvent(

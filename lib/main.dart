@@ -1,8 +1,11 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart' as bitsdojo_window;
 import 'package:flutter/material.dart';
 import 'package:flutter_installer/core/fi_app.dart';
+import 'package:flutter_installer/core/utils/fi_logger.dart';
 
 void main() {
+  FiLogger.initLogger();
+
   runApp(
     const FiApp(),
   );

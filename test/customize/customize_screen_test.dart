@@ -1,13 +1,12 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
 import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
 import 'package:flutter_installer/customize/customize_screen.dart';
 import 'package:flutter_installer/customize/widgets/app_checkbox_tile.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../mocks/mocks.dart';
 

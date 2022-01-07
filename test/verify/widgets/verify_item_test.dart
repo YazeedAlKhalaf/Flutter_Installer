@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:flutter_installer/verify/widgets/verify_item.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   Widget buildVerifyItem() {

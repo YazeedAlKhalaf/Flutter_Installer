@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_installer/verify/widgets/verify_item.dart';
-import 'package:provider/provider.dart';
-
 import 'package:flutter_installer/core/fi_constants.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/core/widgets/fi_back_next_buttons.dart';
+import 'package:flutter_installer/verify/widgets/verify_item.dart';
+import 'package:provider/provider.dart';
 
 class VerifyScreen extends StatelessWidget {
   const VerifyScreen({

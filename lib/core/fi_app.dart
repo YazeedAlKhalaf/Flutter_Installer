@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-
 import 'package:flutter_installer/core/fi_theme.dart';
 import 'package:flutter_installer/core/fi_window_border.dart';
 import 'package:flutter_installer/core/repository/repository.dart';
 import 'package:flutter_installer/core/router/fi_router.dart';
 import 'package:flutter_installer/customize/bloc/customize_bloc.dart';
+import 'package:provider/provider.dart';
 
 class FiApp extends StatefulWidget {
   const FiApp({Key? key}) : super(key: key);
